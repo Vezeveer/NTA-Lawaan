@@ -18,28 +18,28 @@ function loginUser($conn, $username, $password){
         exit();
     }
 
-    //$pwdHashed = $userExists["usersPwd"];
-    //$checkPwd = password_verify($password, $pwdHashed);
-/*
+    $pwdHashed = $userExistsData["usersPwd"];
+    $checkPwd = password_verify($password, $pwdHashed);
+
     if($checkPwd === false){
-        header("location: ../index.php?error=wronglogin");
+        header("location: ../index.php?error=userdoesnotexist");
         exit();
     }elseif($checkPwd === true){
-        session_start();
-        $_SESSION["usersname"] = $userExists["usersName"];
-        header("location: ../main.php");
-        exit();
-    }*/
-
-    if(!($userExistsData["usersPwd"] === $password)){
-        header("location: ../index.php?error=wrongpassword");
-        exit();
-    }else{
         session_start();
         $_SESSION["usersname"] = $userExistsData["usersName"];
         header("location: ../main.php");
         exit();
     }
+
+    // if(!($userExistsData["usersPwd"] === $password)){
+    //     header("location: ../index.php?error=wrongpassword");
+    //     exit();
+    // }else{
+    //     session_start();
+    //     $_SESSION["usersname"] = $userExistsData["usersName"];
+    //     header("location: ../main.php");
+    //     exit();
+    // }
 }
 
 function userExists($conn, $username){
