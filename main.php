@@ -13,8 +13,8 @@
 	<div class="d-flex" id="wrapper">
             <!-- Sidebar-->
             <div class="border-end bg-white" id="sidebar-wrapper">
-                <div class="sidebar-heading border-bottom bg-light">[Options/Search]</div>
-                <div id="sidebarToggleContainer"><span class="tooltiptext">Tooltip text</span><button class="btn" id="sidebarToggle"><img src="img/CaretLeft.svg"/></button></div>
+                <div class="sidebar-heading border-bottom bg-light">[Options/Search]<div id="sidebarToggleContainer"><span class="tooltiptext">hide/show</span><button class="btn" id="sidebarToggle"><img src="img/CaretLeft.svg"/></button></div></div>
+                
                 <div class="list-group list-group-flush">
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">2016</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">2017</a>
@@ -48,7 +48,7 @@
                     </div>
                 </nav>
                 <!-- Page content-->
-                <div class="container-fluid">
+                <div class="container-fluid" id="content-main">
                     <h1 class="mt-4">2016</h1>
                     <h6>Health and Sanitation Services</h6>
                     <table id="table1">
@@ -95,7 +95,7 @@
                         <code>#sidebarToggle</code>
                         ID which will toggle the menu when clicked.
                     </p> -->
-                    <div class="addNewProj"><button>+ Add New Project/Program</button></div>
+                    <div class="addNewProj"><button onclick="newProject()">+ Add New Project/Program</button></div>
                 </div>
                 
                 <div id="itemOptionsContainer">

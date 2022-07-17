@@ -53,3 +53,48 @@ function showItemOptions(){
         hideFadeOut(x, 500);
     }
 }
+
+function newProject(){
+    const cm = document.getElementById("content-main").lastElementChild;
+    console.log(cm);
+    let html = `<h6>Health and Sanitation Services</h6>
+    <table id="table1">
+        <tr>
+            <th><input type="checkbox" id="checkAll" onclick="showItemOptions()"><span class="resize-handle"></span></th>
+            <th data-type="text-short">AIP Reference Code<span class="resize-handle"></span></th>
+            <th data-type="text-short">Activity Description<span class="resize-handle"></span></th>
+            <th data-type="text-short">Implementing Office<span class="resize-handle"></span></th>
+            <th data-type="text-short">Start-End Date<span class="resize-handle"></span></th>
+            <th data-type="text-short">Expected Output<span class="resize-handle"></span></th>
+            <th data-type="text-short">Funding Services<span class="resize-handle"></span></th>
+            <th data-type="text-short">Personal Services<span class="resize-handle"></span></th>
+            <th data-type="text-short">Maintenance & Other Operating Expenses<span class="resize-handle"></span></th>
+            <th data-type="text-short">Capital Outlay<span class="resize-handle"></span></th>
+            <th data-type="text-short">Total<span class="resize-handle"></span></th>
+        </tr>
+        <tr>
+            <td><input type="checkbox" name="item1" value="item1"></td>
+            <td data-type="text-short">3000-200-1</td>
+            <td data-type="text-short">Grantisadong Pambasa</td>
+            <td data-type="text-short">Committee on Health</td>
+            <td data-type="text-short"></td>
+            <td data-type="text-short"></td>
+            <td data-type="text-short"></td>
+            <td data-type="text-short"></td>
+            <td data-type="text-short"></td>
+            <td data-type="text-short"></td>
+            <td data-type="text-short"></td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" disabled></td>
+            <td>
+                <form action="/" onsubmit="AddRow()">
+                    <input type="text" name="firstname" placeholder="+Add Item">
+                </form>
+            </td>
+        </tr>
+    </table>
+    <div class="addNewProj"><button onclick="newProject()">+ Add New Project/Program</button></div>`;
+    cm.insertAdjacentHTML("afterend", html);
+    cm.remove();
+}

@@ -101,7 +101,7 @@ tbody > tr:last-child > td:nth-child(2) > form > input {
 }
 
 #sidebarToggleContainer {
-
+    height: 0px;
 }
 
 #sidebarToggle {
@@ -109,7 +109,8 @@ tbody > tr:last-child > td:nth-child(2) > form > input {
     height: 25px;
     border-radius: 50%;
     float: right;
-    margin-right: -13px;
+    margin-right: -33px;
+    margin-top: -25px;
 }
 
 #sidebar-wrapper {
