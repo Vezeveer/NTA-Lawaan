@@ -1,0 +1,19 @@
+#sidebarToggleContainer .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    
+    /* Position the tooltip */
+    position: relative;
+    z-index: 10;
+    top: 17px;
+    left: 108%;
+  }
+  
+  #sidebarToggleContainer:hover .tooltiptext {
+    visibility: visible;
+  }

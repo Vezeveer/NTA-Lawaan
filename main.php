@@ -13,12 +13,12 @@
 	<div class="d-flex" id="wrapper">
             <!-- Sidebar-->
             <div class="border-end bg-white" id="sidebar-wrapper">
-                <div class="sidebar-heading border-bottom bg-light">Options Here / Search</div>
+                <div class="sidebar-heading border-bottom bg-light">[Options/Search]</div>
+                <div id="sidebarToggleContainer"><span class="tooltiptext">Tooltip text</span><button class="btn" id="sidebarToggle"><img src="img/CaretLeft.svg"/></button></div>
                 <div class="list-group list-group-flush">
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">2016</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">2017</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">2018</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">2019</a>
                 </div>
             </div>
             <!-- Page content wrapper-->
@@ -26,30 +26,67 @@
                 <!-- Top navigation-->
                 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                     <div class="container-fluid">
-                        <button class="btn btn-primary" id="sidebarToggle">Toggle Sidebar</button>
+                        <h2>National Tax Allocation Management and Information</h2>
+                        
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                        
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-                                <li class="nav-item active"><a class="nav-link" href="#!">Home</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#!">Link</a></li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                                <li class="nav-item active"><a class="nav-link" href="../includes/logout.inc.php">Logout</a></li>
+                                <!-- <li class="nav-item"><a class="nav-link" href="#!">Link</a></li> -->
+                                <!-- <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="#!">Action</a>
                                         <a class="dropdown-item" href="#!">Another action</a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="../includes/logout.inc.php">Logout</a>
                                     </div>
-                                </li>
+                                </li> -->
                             </ul>
                         </div>
                     </div>
                 </nav>
                 <!-- Page content-->
                 <div class="container-fluid">
-                    <h1 class="mt-4">...</h1>
-                    <p>Project Titles Here</p>
-                    <p>Tables Follow</p>
+                    <h1 class="mt-4">2016</h1>
+                    <h6>Health and Sanitation Services</h6>
+                    <table id="table1">
+                        <tr>
+                            <th><input type="checkbox" id="checkAll" onclick="showItemOptions()"><span class="resize-handle"></span></th>
+                            <th data-type="text-short">AIP Reference Code<span class="resize-handle"></span></th>
+                            <th data-type="text-short">Activity Description<span class="resize-handle"></span></th>
+                            <th data-type="text-short">Implementing Office<span class="resize-handle"></span></th>
+                            <th data-type="text-short">Start-End Date<span class="resize-handle"></span></th>
+                            <th data-type="text-short">Expected Output<span class="resize-handle"></span></th>
+                            <th data-type="text-short">Funding Services<span class="resize-handle"></span></th>
+                            <th data-type="text-short">Personal Services<span class="resize-handle"></span></th>
+                            <th data-type="text-short">Maintenance & Other Operating Expenses<span class="resize-handle"></span></th>
+                            <th data-type="text-short">Capital Outlay<span class="resize-handle"></span></th>
+                            <th data-type="text-short">Total<span class="resize-handle"></span></th>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" name="item1" value="item1"></td>
+                            <td data-type="text-short">3000-200-1</td>
+                            <td data-type="text-short">Grantisadong Pambasa</td>
+                            <td data-type="text-short">Committee on Health</td>
+                            <td data-type="text-short"></td>
+                            <td data-type="text-short"></td>
+                            <td data-type="text-short"></td>
+                            <td data-type="text-short"></td>
+                            <td data-type="text-short"></td>
+                            <td data-type="text-short"></td>
+                            <td data-type="text-short"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" disabled></td>
+                            <td>
+                                <form action="/" onsubmit="AddRow()">
+                                    <input type="text" name="firstname" placeholder="+Add Item">
+                                </form>
+                            </td>
+                        </tr>
+                    </table>
                     <!-- <p>The starting state of the menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will change.</p>
                     <p>
                         Make sure to keep all page content within the
@@ -58,6 +95,24 @@
                         <code>#sidebarToggle</code>
                         ID which will toggle the menu when clicked.
                     </p> -->
+                    <div class="addNewProj"><button>+ Add New Project/Program</button></div>
+                </div>
+                
+                <div id="itemOptionsContainer">
+                    <p class="itemsSelected">1</p>
+                    <p class="itemsSelectedTxt">Items Selected</p>
+                    <div>
+                        <a href="#"><img src="img/xls.svg" /></a>
+                        <p>Export</p>
+                    </div>
+                    <div>
+                        <a href="#"><img src="img/printer.svg" /></a>
+                        <p>Print</p>
+                    </div>
+                    <div>
+                        <a href="#"><img src="img/trash.svg" /></a>
+                        <p>Delete</p>
+                    </div>
                 </div>
             </div>
         </div>
