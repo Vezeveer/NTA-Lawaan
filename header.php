@@ -16,8 +16,12 @@
 	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	
-	
-
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body>
+<body
+	<?php // Click inside username input on page load
+		if(!isset($_SESSION["usersname"])){
+			// echo "onload=\"clickInput()\"";
+		}
+	?>
+>

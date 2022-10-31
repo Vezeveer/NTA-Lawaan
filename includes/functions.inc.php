@@ -1,5 +1,4 @@
 <?php
-
 function emptyInputLogin($username, $password){
     $result = true;
     if(empty($username) || empty($password)){
@@ -57,38 +56,53 @@ function userExists($conn, $username){
 
     // check if there is anything in $resultData, then return it
     if($row = mysqli_fetch_assoc($resultData)){
+        mysqli_stmt_close($stmt);
         return $row;
     }else{
         $result = false;
-       return $result;
+        mysqli_stmt_close($stmt);
+        return $result;
     }
-
-    mysqli_stmt_close($stmt);
 }
 
-function getItems($conn, $aipRefCode){
-    $sql = "SELECT * FROM projects;";
-    $stmt = mysqli_stmt_init($conn);
+function getItems($conn){
+    $sql = "SELECT * FROM projects";
+    $result = mysqli_query($conn, $sql);
 
-    if(!mysqli_stmt_prepare($stmt, $sql)){
-        header("location: ../index.php?error=stmtfailed");
-        exit();
+    $array1 = array();
+
+    if (mysqli_num_rows($result) > 0) {
+        // output data of each row
+        while($row = mysqli_fetch_assoc($result)) {
+            array_push($array1, $row);
+        }
+    } else {
+        
     }
 
-    mysqli_stmt_bind_param($stmt, "s", $aipRefCode); // ss for two string variables, sss=3
-    mysqli_stmt_execute($stmt);
+    mysqli_close($conn);
+    return $array1;
 
-    $resultData = mysqli_stmt_get_result($stmt);
+    // $sql = "SELECT * FROM projects WHERE aipRefCode = ?;";
+    // $stmt = mysqli_stmt_init($conn);
 
-    // check if there is anything in $resultData, then return it
-    if($row = mysqli_fetch_assoc($resultData)){
-        return $row;
-    }else{
-        $result = false;
-       return $result;
-    }
+    // if(!mysqli_stmt_prepare($stmt, $sql)){
+    //     header("location: ../index.php?error=stmtfailed");
+    //     exit();
+    // }
 
-    mysqli_stmt_close($stmt);
+    // mysqli_stmt_bind_param($stmt, "s", $aipRefCode); // ss for two string variables, sss=3
+    // mysqli_stmt_execute($stmt);
+
+    // $resultData = mysqli_stmt_get_result($stmt);
+
+    // // check if there is anything in $resultData, then return it
+    // $array1 = array();
+    // while($row = mysqli_fetch_assoc($resultData)){
+    //     array_push($array1, $row);
+    // }
+    // mysqli_stmt_close($stmt);
+    // return $array1;
 }
 
 /*
@@ -109,12 +123,14 @@ function createUser($conn, $username, $password){
     $resultData = mysqli_stmt_get_result($stmt);
 
     if($row = mysqli_fetch_assoc($resultData)){
+        mysqli_stmt_close($stmt);
         return $row;
     }else{
         $result = false;
-       return $result;
+        mysqli_stmt_close($stmt);
+        return $result;
     }
 
-    mysqli_stmt_close($stmt);
+    
 }
 */

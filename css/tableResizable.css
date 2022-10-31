@@ -16,7 +16,10 @@
       minmax(150px, 1.67fr)
       minmax(150px, 1.67fr)
       minmax(150px, 1.67fr)
+      minmax(150px, 1.67fr)
       minmax(150px, 1.67fr);
+
+      overflow-y: auto;
   }
   
   thead,

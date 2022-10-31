@@ -3,10 +3,15 @@
     include_once 'includes/databasehandler.inc.php';
     include_once 'includes/functions.inc.php';
 
+    $aipRefCode;
 	if($_SESSION["usersname"] == null){
 		header("location: index.php");
 		exit();
-	}
+	} else {
+        $aipRefCode = getItems($conn);
+    }
+
+    
 ?>
 	<!-- TO DO's -->
     <!-- Create database with year 2016 -->
@@ -62,7 +67,8 @@
                             <th data-type="text-short">AIP Reference Code<span class="resize-handle"></span></th>
                             <th data-type="text-short">Activity Description<span class="resize-handle"></span></th>
                             <th data-type="text-short">Implementing Office<span class="resize-handle"></span></th>
-                            <th data-type="text-short">Start-End Date<span class="resize-handle"></span></th>
+                            <th data-type="text-short">Start Date<span class="resize-handle"></span></th>
+                            <th data-type="text-short">End Date<span class="resize-handle"></span></th>
                             <th data-type="text-short">Expected Output<span class="resize-handle"></span></th>
                             <th data-type="text-short">Funding Services<span class="resize-handle"></span></th>
                             <th data-type="text-short">Personal Services<span class="resize-handle"></span></th>
@@ -70,32 +76,25 @@
                             <th data-type="text-short">Capital Outlay<span class="resize-handle"></span></th>
                             <th data-type="text-short">Total<span class="resize-handle"></span></th>
                         </tr>
-                        <tr>
-                            <td><input type="checkbox" name="item1" value="item1"></td>
-                            <td data-type="text-short">3000-200-1</td>
-                            <td data-type="text-short">Grantisadong Pambasa</td>
-                            <td data-type="text-short">Committee on Health</td>
-                            <td data-type="text-short"></td>
-                            <td data-type="text-short"></td>
-                            <td data-type="text-short"></td>
-                            <td data-type="text-short"></td>
-                            <td data-type="text-short"></td>
-                            <td data-type="text-short"></td>
-                            <td data-type="text-short"></td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" name="item1" value="item1"></td>
-                            <td data-type="text-short">3000-200-2</td>
-                            <td data-type="text-short">Avoid Star</td>
-                            <td data-type="text-short">Committee on Astrology</td>
-                            <td data-type="text-short"></td>
-                            <td data-type="text-short"></td>
-                            <td data-type="text-short"></td>
-                            <td data-type="text-short"></td>
-                            <td data-type="text-short"></td>
-                            <td data-type="text-short"></td>
-                            <td data-type="text-short"></td>
-                        </tr>
+
+                        <?php 
+                            for($i = 0; count($aipRefCode) > $i; $i++){
+                                echo "<tr>
+                                <td><input type=\"checkbox\" name=\"item1\" value=\"item1\"></td>
+                                <td data-type=\"text-short\">{$aipRefCode[$i]['aipRefCode']}</td>
+                                <td data-type=\"text-short\">{$aipRefCode[$i]['activityDescription']}</td>
+                                <td data-type=\"text-short\">{$aipRefCode[$i]['implementingOffice']}</td>
+                                <td data-type=\"text-short\">{$aipRefCode[$i]['startDate']}</td>
+                                <td data-type=\"text-short\">{$aipRefCode[$i]['endDate']}</td>
+                                <td data-type=\"text-short\">{$aipRefCode[$i]['expectedOutput']}</td>
+                                <td data-type=\"text-short\">{$aipRefCode[$i]['fundingServices']}</td>
+                                <td data-type=\"text-short\">{$aipRefCode[$i]['personalServices']}</td>
+                                <td data-type=\"text-short\">{$aipRefCode[$i]['maintAndOtherOperatingExpenses']}</td>
+                                <td data-type=\"text-short\">{$aipRefCode[$i]['capitalOutlay']}</td>
+                                <td data-type=\"text-short\">{$aipRefCode[$i]['total']}</td>
+                            </tr>";
+                            }
+                        ?>
                         <tr>
                             <td><input type="checkbox" disabled></td>
                             <td>
