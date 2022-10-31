@@ -1,14 +1,19 @@
 <?php
 	include_once 'header.php';
+    include_once 'includes/databasehandler.inc.php';
+    include_once 'includes/functions.inc.php';
 
 	if($_SESSION["usersname"] == null){
 		header("location: index.php");
 		exit();
 	}
 ?>
-	
-	
-    <!-- tables, sidebar, etc -->
+	<!-- TO DO's -->
+    <!-- Create database with year 2016 -->
+	<!-- Create fake items for show -->
+    <!-- When entering main.php, get items form db and show them -->
+    <!-- When there are no projects, click new project allow to type in name -->
+    <!-- Allow fields to be edited and saved to db -->
 
 	<div class="d-flex" id="wrapper">
             <!-- Sidebar-->
@@ -70,6 +75,19 @@
                             <td data-type="text-short">3000-200-1</td>
                             <td data-type="text-short">Grantisadong Pambasa</td>
                             <td data-type="text-short">Committee on Health</td>
+                            <td data-type="text-short"></td>
+                            <td data-type="text-short"></td>
+                            <td data-type="text-short"></td>
+                            <td data-type="text-short"></td>
+                            <td data-type="text-short"></td>
+                            <td data-type="text-short"></td>
+                            <td data-type="text-short"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" name="item1" value="item1"></td>
+                            <td data-type="text-short">3000-200-2</td>
+                            <td data-type="text-short">Avoid Star</td>
+                            <td data-type="text-short">Committee on Astrology</td>
                             <td data-type="text-short"></td>
                             <td data-type="text-short"></td>
                             <td data-type="text-short"></td>

@@ -66,6 +66,31 @@ function userExists($conn, $username){
     mysqli_stmt_close($stmt);
 }
 
+function getItems($conn, $aipRefCode){
+    $sql = "SELECT * FROM projects;";
+    $stmt = mysqli_stmt_init($conn);
+
+    if(!mysqli_stmt_prepare($stmt, $sql)){
+        header("location: ../index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "s", $aipRefCode); // ss for two string variables, sss=3
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+
+    // check if there is anything in $resultData, then return it
+    if($row = mysqli_fetch_assoc($resultData)){
+        return $row;
+    }else{
+        $result = false;
+       return $result;
+    }
+
+    mysqli_stmt_close($stmt);
+}
+
 /*
 //statement to insert data
 function createUser($conn, $username, $password){
