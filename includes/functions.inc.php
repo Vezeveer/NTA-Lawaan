@@ -66,7 +66,7 @@ function userExists($conn, $username){
 }
 
 function getItems($conn){
-    $sql = "SELECT * FROM projects";
+    $sql = "SELECT * FROM `2017`";
     $result = mysqli_query($conn, $sql);
 
     $array1 = array();

@@ -11295,6 +11295,10 @@ textarea.form-control-lg {
   width: 15rem;
 }
 
+.sidebar-logo{
+  width: 5rem;
+}
+
 #page-content-wrapper {
   min-width: 100vw;
 }
