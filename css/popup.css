@@ -67,10 +67,6 @@
     opacity: 1;
   }
 
-  #MymodalBack{
-    /* background-color: black; */
-  }
-
   .modal-body > form{
     width: 100%;
   }

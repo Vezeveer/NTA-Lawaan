@@ -4,6 +4,7 @@
     include_once 'includes/functions.inc.php';
 
     $aipRefCode;
+    
 	if($_SESSION["usersname"] == null){
 		header("location: index.php");
 		exit();
@@ -11,7 +12,12 @@
         $aipRefCode = getItems($conn);
     }
 
-    
+    // get project names
+    $projects = array();
+    for($i = 0; count($aipRefCode) > $i; $i++){
+        array_push($projects, $aipRefCode[$i]['project']);
+    }
+    $projects = array_unique($projects);
 ?>
 	<!-- TO DO's -->
     <!-- Create database with year 2016 -->
@@ -150,29 +156,33 @@
     </div><!-- sidebar-container END -->
     <!-- MAIN -->
     <div class="col p-4 overflow-auto">
-        <h1 class="display-4">Active Budget</h1>
+        <h1 class="display-5">Active Budget</h1>
         <div class="card" id="content-main">
-            <h5 class="card-header font-weight-light">Health and Sanitation Services</h5>
-            <div class="card-body">
-                <div class="container-fluid">
-                    <table id="table1">
+        <?php
+            for($j = 0; count($projects) > $j; $j++){
+            echo "
+            <h5 class=\"card-header font-weight-light\">"; echo $projects[$j]; echo "</h5>
+            <div class=\"card-body\">
+                <div class=\"container-fluid\">
+                    <table id=\"table1\">
                         <tr>
-                            <th><input type="checkbox" id="checkAll" onclick="showItemOptions()"><span class="resize-handle"></span></th>
-                            <th data-type="text-short">AIP Reference Code<span class="resize-handle"></span></th>
-                            <th data-type="text-short">Activity Description<span class="resize-handle"></span></th>
-                            <th data-type="text-short">Implementing Office<span class="resize-handle"></span></th>
-                            <th data-type="text-short">Start Date<span class="resize-handle"></span></th>
-                            <th data-type="text-short">End Date<span class="resize-handle"></span></th>
-                            <th data-type="text-short">Expected Output<span class="resize-handle"></span></th>
-                            <th data-type="text-short">Funding Services<span class="resize-handle"></span></th>
-                            <th data-type="text-short">Personal Services<span class="resize-handle"></span></th>
-                            <th data-type="text-short">Maintenance & Other Operating Expenses<span class="resize-handle"></span></th>
-                            <th data-type="text-short">Capital Outlay<span class="resize-handle"></span></th>
-                            <th data-type="text-short">Total<span class="resize-handle"></span></th>
-                        </tr>
+                            <th><input type=\"checkbox\" id=\"checkAll\" onclick=\"showItemOptions()\"><span class=\"resize-handle\"></span></th>
+                            <th data-type=\"text-short\">AIP Reference Code<span class=\"resize-handle\"></span></th>
+                            <th data-type=\"text-short\">Activity Description<span class=\"resize-handle\"></span></th>
+                            <th data-type=\"text-short\">Implementing Office<span class=\"resize-handle\"></span></th>
+                            <th data-type=\"text-short\">Start Date<span class=\"resize-handle\"></span></th>
+                            <th data-type=\"text-short\">End Date<span class=\"resize-handle\"></span></th>
+                            <th data-type=\"text-short\">Expected Output<span class=\"resize-handle\"></span></th>
+                            <th data-type=\"text-short\">Funding Services<span class=\"resize-handle\"></span></th>
+                            <th data-type=\"text-short\">Personal Services<span class=\"resize-handle\"></span></th>
+                            <th data-type=\"text-short\">Maintenance & Other Operating Expenses<span class=\"resize-handle\"></span></th>
+                            <th data-type=\"text-short\">Capital Outlay<span class=\"resize-handle\"></span></th>
+                            <th data-type=\"text-short\">Total<span class=\"resize-handle\"></span></th>
+                        </tr>";
 
-                        <?php 
+                         
                             for($i = 0; count($aipRefCode) > $i; $i++){
+                                if($projects[$j] == $aipRefCode[$i]['project']){
                                 echo "<tr>
                                 <td><input type=\"checkbox\" name=\"item1\" value=\"item1\"></td>
                                 <td data-type=\"text-short\">{$aipRefCode[$i]['aipRefCode']}</td>
@@ -186,20 +196,21 @@
                                 <td data-type=\"text-short\">{$aipRefCode[$i]['maint']}</td>
                                 <td data-type=\"text-short\">{$aipRefCode[$i]['capitalOutlay']}</td>
                                 <td data-type=\"text-short\">{$aipRefCode[$i]['total']}</td>
-                            </tr>";
+                            </tr>";}
                             }
-                        ?>
-                        <tr>
-                            <td><input type="checkbox" disabled></td>
+                        
+                        echo "<tr>
+                            <td><input type=\"checkbox\" disabled></td>
                             <td>
-                                <form action="/" onsubmit="AddRow()">
-                                    <input type="text" name="firstname" placeholder="+Add Item">
+                                <form action=\"/\" onsubmit=\"AddRow()\">
+                                    <input type=\"text\" name=\"firstname\" placeholder=\"+Add Item\">
                                 </form>
                             </td>
                         </tr>
                     </table>
                 </div>
             </div>
+            ";}?>
         </div>
         <button id="btnAddProject" type="button" class="btn btn-primary" data-target="#MymodalBack" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Project</button>
         <!-- .modal -->
@@ -211,7 +222,7 @@
                 <button type="button" class="close" data-dismiss="modal">×</button> 
             </div> 
             <div class="modal-body">
-                <form action="/addProject.php" onsubmit="newProject()">
+                <form action="/includes/addProject.php" onsubmit="newProject()">
                 <div class="form-group">
                     <input type="text" class="form-control" id="inputProjectName" placeholder="">
                 </div>
