@@ -65,3 +65,7 @@
 .nav-bg-color{
     background-color: #396e37 !important; 
 }
+
+#btnAddProject{
+    width: 50%;
+}

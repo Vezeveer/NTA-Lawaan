@@ -1,4 +1,4 @@
-/* Button used to open the contact form - fixed at the bottom of the page */
+/* Button used to open the add project form */
 .open-button {
     background-color: #555;
     color: white;
@@ -66,3 +66,12 @@
   .form-container .btn:hover, .open-button:hover {
     opacity: 1;
   }
+
+  #MymodalBack{
+    /* background-color: black; */
+  }
+
+  .modal-body > form{
+    width: 100%;
+  }
+
