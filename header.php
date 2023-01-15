@@ -33,6 +33,8 @@
 
 	<!-- <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet"> -->
 	
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+  
 	
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1">

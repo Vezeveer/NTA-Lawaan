@@ -1,25 +1,20 @@
 .btn {
     border-radius: 25px;
 }
-
-table {
-    /* width: 800px; */
-    /* border-spacing: 2px; */
-}
-
+/* 
 th, caption {
     text-align: left;
     caption-side: top;
-}
+} */
 
-table, th, td {
+/* table, th, td {
     border: 1px solid #000;
     border-collapse: collapse;
-}
+} */
 
-th, td {
+/* th, td {
     padding: 3px;
-}
+} */
 
 tbody > tr:last-child > td:nth-child(2) {
     border-right: none;
