@@ -17,7 +17,9 @@
     for($i = 0; count($aipRefCode) > $i; $i++){
         array_push($projects, $aipRefCode[$i]['project']);
     }
-    $projects = array_unique($projects);
+    $projects = array_values(array_unique($projects));
+
+    $year = 2017 //placeholder data, to be redefined
 ?>
 	<!-- TO DO's -->
     <!-- Create database with year 2016 -->
@@ -61,7 +63,7 @@
     </div>
 </nav><!-- NavBar END -->
 <!-- Bootstrap row -->
-<div class="row" id="body-row">
+<div class="row overflow-auto" id="body-row">
     <!-- Sidebar -->
     <div id="sidebar-container" class="sidebar-expanded d-none d-md-block">
         <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
@@ -155,62 +157,65 @@
         </ul><!-- List Group END-->
     </div><!-- sidebar-container END -->
     <!-- MAIN -->
-    <div class="col p-4 overflow-auto">
+    <div class="col p-4 overflow-auto" id="main-content">
         <h1 class="display-5">Active Budget</h1>
         <div class="card" id="content-main">
         <?php
             for($j = 0; count($projects) > $j; $j++){
-            echo "
-            <h5 class=\"card-header font-weight-light\">"; echo $projects[$j]; echo "</h5>
-            <div class=\"card-body\">
-                <div class=\"container-fluid\">
-                    <table id=\"table1\">
-                        <tr>
-                            <th><input type=\"checkbox\" id=\"checkAll\" onclick=\"showItemOptions()\"><span class=\"resize-handle\"></span></th>
-                            <th data-type=\"text-short\">AIP Reference Code<span class=\"resize-handle\"></span></th>
-                            <th data-type=\"text-short\">Activity Description<span class=\"resize-handle\"></span></th>
-                            <th data-type=\"text-short\">Implementing Office<span class=\"resize-handle\"></span></th>
-                            <th data-type=\"text-short\">Start Date<span class=\"resize-handle\"></span></th>
-                            <th data-type=\"text-short\">End Date<span class=\"resize-handle\"></span></th>
-                            <th data-type=\"text-short\">Expected Output<span class=\"resize-handle\"></span></th>
-                            <th data-type=\"text-short\">Funding Services<span class=\"resize-handle\"></span></th>
-                            <th data-type=\"text-short\">Personal Services<span class=\"resize-handle\"></span></th>
-                            <th data-type=\"text-short\">Maintenance & Other Operating Expenses<span class=\"resize-handle\"></span></th>
-                            <th data-type=\"text-short\">Capital Outlay<span class=\"resize-handle\"></span></th>
-                            <th data-type=\"text-short\">Total<span class=\"resize-handle\"></span></th>
-                        </tr>";
+                if(isset($projects[$j])){
+                echo "
+                <h5 class=\"card-header font-weight-light\">"; echo $projects[$j]; echo "</h5>
+                <div class=\"card-body\">
+                    <div class=\"container-fluid\">
+                        <table id=\"table1\">
+                            <tr>
+                                <th><input type=\"checkbox\" id=\"checkAll\" onclick=\"showItemOptions()\"><span class=\"resize-handle\"></span></th>
+                                <th data-type=\"text-short\">AIP Reference Code<span class=\"resize-handle\"></span></th>
+                                <th data-type=\"text-short\">Activity Description<span class=\"resize-handle\"></span></th>
+                                <th data-type=\"text-short\">Implementing Office<span class=\"resize-handle\"></span></th>
+                                <th data-type=\"text-short\">Start Date<span class=\"resize-handle\"></span></th>
+                                <th data-type=\"text-short\">End Date<span class=\"resize-handle\"></span></th>
+                                <th data-type=\"text-short\">Expected Output<span class=\"resize-handle\"></span></th>
+                                <th data-type=\"text-short\">Funding Services<span class=\"resize-handle\"></span></th>
+                                <th data-type=\"text-short\">Personal Services<span class=\"resize-handle\"></span></th>
+                                <th data-type=\"text-short\">Maintenance & Other Operating Expenses<span class=\"resize-handle\"></span></th>
+                                <th data-type=\"text-short\">Capital Outlay<span class=\"resize-handle\"></span></th>
+                                <th data-type=\"text-short\">Total<span class=\"resize-handle\"></span></th>
+                            </tr>";
 
-                         
-                            for($i = 0; count($aipRefCode) > $i; $i++){
-                                if($projects[$j] == $aipRefCode[$i]['project']){
-                                echo "<tr>
-                                <td><input type=\"checkbox\" name=\"item1\" value=\"item1\"></td>
-                                <td data-type=\"text-short\">{$aipRefCode[$i]['aipRefCode']}</td>
-                                <td data-type=\"text-short\">{$aipRefCode[$i]['activityDesc']}</td>
-                                <td data-type=\"text-short\">{$aipRefCode[$i]['impOffice']}</td>
-                                <td data-type=\"text-short\">{$aipRefCode[$i]['startDate']}</td>
-                                <td data-type=\"text-short\">{$aipRefCode[$i]['endDate']}</td>
-                                <td data-type=\"text-short\">{$aipRefCode[$i]['expectedOutput']}</td>
-                                <td data-type=\"text-short\">{$aipRefCode[$i]['fundingServices']}</td>
-                                <td data-type=\"text-short\">{$aipRefCode[$i]['personalServices']}</td>
-                                <td data-type=\"text-short\">{$aipRefCode[$i]['maint']}</td>
-                                <td data-type=\"text-short\">{$aipRefCode[$i]['capitalOutlay']}</td>
-                                <td data-type=\"text-short\">{$aipRefCode[$i]['total']}</td>
-                            </tr>";}
-                            }
-                        
-                        echo "<tr>
-                            <td><input type=\"checkbox\" disabled></td>
-                            <td>
-                                <form action=\"/\" onsubmit=\"AddRow()\">
-                                    <input type=\"text\" name=\"firstname\" placeholder=\"+Add Item\">
-                                </form>
-                            </td>
-                        </tr>
-                    </table>
+                            
+                                for($i = 0; count($aipRefCode) > $i; $i++){
+                                    if($projects[$j] == $aipRefCode[$i]['project']){
+                                    echo "<tr>
+                                    <td><input type=\"checkbox\" name=\"item1\" value=\"item1\"></td>
+                                    <td data-type=\"text-short\">{$aipRefCode[$i]['aipRefCode']}</td>
+                                    <td data-type=\"text-short\">{$aipRefCode[$i]['activityDesc']}</td>
+                                    <td data-type=\"text-short\">{$aipRefCode[$i]['impOffice']}</td>
+                                    <td data-type=\"text-short\">{$aipRefCode[$i]['startDate']}</td>
+                                    <td data-type=\"text-short\">{$aipRefCode[$i]['endDate']}</td>
+                                    <td data-type=\"text-short\">{$aipRefCode[$i]['expectedOutput']}</td>
+                                    <td data-type=\"text-short\">{$aipRefCode[$i]['fundingServices']}</td>
+                                    <td data-type=\"text-short\">{$aipRefCode[$i]['personalServices']}</td>
+                                    <td data-type=\"text-short\">{$aipRefCode[$i]['maint']}</td>
+                                    <td data-type=\"text-short\">{$aipRefCode[$i]['capitalOutlay']}</td>
+                                    <td data-type=\"text-short\">{$aipRefCode[$i]['total']}</td>
+                                </tr>";}
+                                }
+                            
+                            echo "<tr>
+                                <td><input type=\"checkbox\" disabled></td>
+                                <td>
+                                    <form action=\"/\" onsubmit=\"AddRow()\">
+                                        <input type=\"text\" name=\"firstname\" placeholder=\"+Add Item\">
+                                    </form>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
-            </div>
-            ";}?>
+                ";}
+            }
+            ?>
         </div>
         <button id="btnAddProject" type="button" class="btn btn-primary" data-target="#MymodalBack" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Project</button>
         <!-- .modal -->
@@ -222,9 +227,10 @@
                 <button type="button" class="close" data-dismiss="modal">×</button> 
             </div> 
             <div class="modal-body">
-                <form action="/includes/addProject.php" onsubmit="newProject()">
+                <form method="post" <?php echo "action=\"/includes/createProject.php?year=$year\"" ?>>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="inputProjectName" placeholder="">
+                    <input type="text" name="projectName" class="form-control" id="inputProjectName" placeholder="Project Name" required>
+                    <input type="text" name="aipRefCode" class="form-control" placeholder="AIP Reference Code" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
                 </form>

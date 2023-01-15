@@ -130,7 +130,6 @@ function createUser($conn, $username, $password){
         mysqli_stmt_close($stmt);
         return $result;
     }
-
-    
 }
 */
+
