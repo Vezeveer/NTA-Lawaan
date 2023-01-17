@@ -160,33 +160,84 @@
     <!-- MAIN -->
     <div class="col p-4 overflow-auto" id="main-content">
         <h1 class="display-5">Active Budget</h1>
-        <div class="panel panel-default">
-            <div class="panel-heading">Sample Data</div>
-            <div class="panel-body">
-                <div class="table-responsive">
-                    <table id="sample_data" class="table table-bordered table-striped display nowrap" width="100%">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Project</th>
-                                <th>Approved</th>
-                                <th>AIP Reference Code</th>
-                                <th>Activity Description</th>
-                                <th>Implementing Office</th>
-                                <th>Start Date</th>
-                                <th>End Date</th>
-                                <th>Expected Output</th>
-                                <th>Funding Services</th>
-                                <th>Personal Services</th>
-                                <th>Maintenance</th>
-                                <th>Capital Outlay</th>
-                                <th>Total</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
+        <div class="card" id="content-main">
+        <?php
+            for($j = 0; count($projects) > $j; $j++){
+                if(isset($projects[$j])){
+                echo "
+                <h5 class=\"card-header font-weight-light\">"; echo $projects[$j]; echo "</h5>
+                <div class=\"card-body\">
+                    <div class=\"container-fluid\">
+                        <table id=\"\" class=\"project-table table table-striped table-bordered table-sm\" cellspacing=\"0\"width=\"100%\">
+                            <thead>
+                                <tr>
+                                    <th><input type=\"checkbox\" id=\"checkAll\" onclick=\"showItemOptions()\"></th>
+                                    <th class=\"text-center text-nowrap align-middle\">AIP Reference Code</th>
+                                    <th class=\"align-middle text-nowrap\">Activity Description</th>
+                                    <th class=\"align-middle text-nowrap\">Implementing Office</th>
+                                    <th class=\"align-middle text-nowrap\">Start Date</th>
+                                    <th class=\"align-middle text-nowrap\">End Date</th>
+                                    <th >Expected Output</th>
+                                    <th >Funding Services</th>
+                                    <th >Personal Services</th>
+                                    <th class=\"align-middle text-nowrap\">Maintenance & Other Operating Expenses</th>
+                                    <th >Capital Outlay</th>
+                                    <th >Total</th>
+                                    <th >ID</th>
+                                </tr>
+                            </thead>
+
+                            
+                            
+                            <tbody >";
+                            for($i = 0; count($aipRefCode) > $i; $i++){
+                                if($projects[$j] == $aipRefCode[$i]['project']){
+                                echo "
+                                <tr class=\"project-d-row\">
+                                    <td><input type=\"checkbox\" name=\"item1\" value=\"item1\"></td>
+                                    <td >{$aipRefCode[$i]['aipRefCode']}</td>
+                                    <td >{$aipRefCode[$i]['activityDesc']}</td>
+                                    <td >{$aipRefCode[$i]['impOffice']}</td>
+                                    <td class=\"align-middle text-nowrap\">{$aipRefCode[$i]['startDate']}</td>
+                                    <td class=\"align-middle text-nowrap\">{$aipRefCode[$i]['endDate']}</td>
+                                    <td >{$aipRefCode[$i]['expectedOutput']}</td>
+                                    <td >{$aipRefCode[$i]['fundingServices']}</td>
+                                    <td >{$aipRefCode[$i]['personalServices']}</td>
+                                    <td >{$aipRefCode[$i]['maint']}</td>
+                                    <td >{$aipRefCode[$i]['capitalOutlay']}</td>
+                                    <td >{$aipRefCode[$i]['total']}</td>
+                                    <td >{$aipRefCode[$i]['id']}</td>
+                                </tr>
+                            ";}
+                            }
+                        
+                            echo "
+                                <tr>
+                                    <td><input type=\"checkbox\" disabled></td>
+                                    <td>
+                                        <form id=\"add-item-input-f\" action=\"/\">
+                                            <input type=\"text\" name=\"aipRefCode\" placeholder=\"+Add Item\">
+                                        </form>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
+                ";}
+            }
+            ?>
         </div>
         <button id="btnAddProject" type="button" class="btn btn-primary" data-target="#MymodalBack" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Project</button>
         <!-- .modal -->
@@ -213,7 +264,6 @@
             </div>                                                                       
         </div>                                          
         </div>
-        
     </div><!-- Main Col END -->
 </div><!-- body-row END -->
 
