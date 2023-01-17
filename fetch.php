@@ -1,13 +1,14 @@
 <?php
 include('database_connection.php');
 
+$projectName = $_GET['projectName'];
+
 $column = array("id", "project", "approved", "aipRefCode", "activityDesc", "impOffice", "startDate", "endDate", "expectedOutput", "fundingServices", "personalServices", "maint", "capitalOutlay", "total");
-$query = "SELECT * FROM year_2017 ";
+$query = "SELECT * FROM year_2017 WHERE project = '{$projectName}' ";
 
 if (isset($_POST["search"]["value"])) {
     $query .= '
- WHERE project LIKE "%' . $_POST["search"]["value"] . '%" 
- OR approved LIKE "%' . $_POST["search"]["value"] . '%" 
+ AND (approved LIKE "%' . $_POST["search"]["value"] . '%" 
  OR aipRefCode LIKE "%' . $_POST["search"]["value"] . '%" 
  OR activityDesc LIKE "%' . $_POST["search"]["value"] . '%" 
  OR impOffice LIKE "%' . $_POST["search"]["value"] . '%" 
@@ -19,7 +20,7 @@ if (isset($_POST["search"]["value"])) {
  OR maint LIKE "%' . $_POST["search"]["value"] . '%" 
  OR capitalOutlay LIKE "%' . $_POST["search"]["value"] . '%" 
  OR total LIKE "%' . $_POST["search"]["value"] . '%" 
- ';
+ )';
 }
 
 if (isset($_POST["order"])) {
@@ -36,9 +37,12 @@ if ($_POST["length"] != -1) {
 
 $statement = $connect->prepare($query);
 $statement->execute();
+
 $number_filter_row = $statement->rowCount();
+
 $statement = $connect->prepare($query . $query1);
 $statement->execute();
+
 $result = $statement->fetchAll();
 $data = array();
 
@@ -63,17 +67,18 @@ foreach ($result as $row) {
 
 function count_all_data($connect)
 {
-    $query = "SELECT * FROM year_2017";
-    $statement = $connect->prepare($query);
-    $statement->execute();
-    return $statement->rowCount();
+    $query = "SELECT * FROM year_2017 WHERE project = \"{$_GET['projectName']}\" ";
+    $statement2 = $connect->prepare($query);
+    $statement2->execute();
+    return $statement2->rowCount();
 }
 
 $output = array(
     'draw'   => intval($_POST['draw']),
     'recordsTotal' => count_all_data($connect),
     'recordsFiltered' => $number_filter_row,
-    'data'   => $data
+    'data'   => $data,
+    'query1' => $query
 );
 
 echo json_encode($output);

@@ -3,6 +3,7 @@
     include_once 'includes/databasehandler.inc.php';
     include_once 'includes/functions.inc.php';
 
+    $projectsTrimedNames = array();
     $aipRefCode;
     $year = "year_2017"; //placeholder data, to be redefined
     
@@ -18,9 +19,13 @@
     for($i = 0; count($aipRefCode) > $i; $i++){
         array_push($projects, $aipRefCode[$i]['project']);
     }
+
     $projects = array_values(array_unique($projects));
 
-    
+    // get trimmed project names for ID html placement
+    for($i = 0; count($projects) > $i; $i++){
+        array_push($projectsTrimedNames, str_replace(' ', '', $projects[$i]));
+    }
 ?>
 	<!-- TO DO's -->
     <!-- Create database with year 2016 -->
@@ -105,7 +110,7 @@
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fa fa-history fa-fw mr-3"></span>
                     <span class="menu-collapsed">History</span>
-                    <span class="submenu-icon ml-auto"></span>
+                    <span class="fa fa-caret-down ml-auto"></span>
                 </div>
             </a>
             <!-- Submenu content -->
@@ -161,33 +166,43 @@
     <div class="col p-4 overflow-auto" id="main-content">
         <h1 class="display-5">Active Budget</h1>
         <div class="panel panel-default">
-            <div class="panel-heading">Sample Data</div>
-            <div class="panel-body">
-                <div class="table-responsive">
-                    <table id="sample_data" class="table table-bordered table-striped display nowrap" width="100%">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Project</th>
-                                <th>Approved</th>
-                                <th>AIP Reference Code</th>
-                                <th>Activity Description</th>
-                                <th>Implementing Office</th>
-                                <th>Start Date</th>
-                                <th>End Date</th>
-                                <th>Expected Output</th>
-                                <th>Funding Services</th>
-                                <th>Personal Services</th>
-                                <th>Maintenance</th>
-                                <th>Capital Outlay</th>
-                                <th>Total</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
+        <?php
+            for($j = 0; count($projects) > $j; $j++){
+                if(isset($projects[$j])){
+                echo "
+                <h5 class=\"panel-heading\">"; echo $projects[$j]; echo "</h5>
+                <div class=\"panel-body\">
+                    <div class=\"table-responsive\">
+                        <table id=\""; echo $projectsTrimedNames[$j]; echo "\""; echo " class=\"table table-bordered table-striped display nowrap\" width=\"100%\">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Project</th>
+                                    <th>Approved</th>
+                                    <th>AIP Reference Code</th>
+                                    <th>Activity Description</th>
+                                    <th>Implementing Office</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Expected Output</th>
+                                    <th>Funding Services</th>
+                                    <th>Personal Services</th>
+                                    <th>Maintenance</th>
+                                    <th>Capital Outlay</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody >";
+                            echo "
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
+                <br>";}
+            }
+            ?>
         </div>
+        
         <button id="btnAddProject" type="button" class="btn btn-primary" data-target="#MymodalBack" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Project</button>
         <!-- .modal -->
         <div class="modal fade" id="MymodalBack">

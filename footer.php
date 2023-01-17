@@ -19,17 +19,20 @@
 
 </body>
 </html>
-
-<script type="text/javascript" language="javascript">
+<?php
+$projTest = "Local Project 2";
+for($i = 0; count($projectsTrimedNames) > $i; $i++){
+echo "
+<script type=\"text/javascript\" language=\"javascript\">
     $(document).ready(function() {
 
-        var dataTable = $('#sample_data').DataTable({
-            "processing": true,
-            "serverSide": true,
-            "order": [],
-            "ajax": {
-                url: "fetch.php",
-                type: "POST"
+        var dataTable = $('#{$projectsTrimedNames[$i]}').DataTable({
+            \"processing\": true,
+            \"serverSide\": true,
+            \"order\": [],
+            \"ajax\": {
+                url: \"fetch.php?projectName={$projects[$i]}\",
+                type: \"POST\"
             },
             dom: 'Bfrtip',
             buttons: [
@@ -53,11 +56,11 @@
                 }
             ],
             scrollXinner: true,
-            "autoWidth"  : false
+            \"autoWidth\"  : false
         });
 
-        $('#sample_data').on('draw.dt', function() {
-            $('#sample_data').Tabledit({
+        $('#{$projectsTrimedNames[$i]}').on('draw.dt', function() {
+            $('#{$projectsTrimedNames[$i]}').Tabledit({
                 url: 'action.php',
                 dataType: 'json',
                 columns: {
@@ -82,7 +85,7 @@
                 onSuccess: function(data, textStatus, jqXHR) {
                     if (data.action == 'delete') {
                         $('#' + data.id).remove();
-                        $('#sample_data').DataTable().ajax.reload();
+                        $('#{$projectsTrimedNames[$i]}').DataTable().ajax.reload();
                     }
                 }
             });
@@ -98,8 +101,8 @@
       var email = $('#addEmailField').val();
       if (city != '' && username != '' && mobile != '' && email != '') {
         $.ajax({
-          url: "add_user.php",
-          type: "post",
+          url: \"add_user.php\",
+          type: \"post\",
           data: {
             city: city,
             username: username,
@@ -110,7 +113,7 @@
             var json = JSON.parse(data);
             var status = json.status;
             if (status == 'true') {
-                $('#sample_data').DataTable().ajax.reload();
+                $('#{$projectsTrimedNames[$i]}').DataTable().ajax.reload();
                 $('#myModal').modal('hide');
             } else {
               alert('failed');
@@ -122,7 +125,9 @@
       }
     });
 </script>
-
+";
+}
+?>
 
 <!-- Add user Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
