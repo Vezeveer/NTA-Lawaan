@@ -10,6 +10,7 @@ $dBUserName = "root";
 $dBPassword = "";
 $dBName = "ntadb01";
 
+// MySQLi Procedural
 $conn = mysqli_connect($serverName, 
                         $dBUserName, 
                         $dBPassword, 

@@ -20,7 +20,6 @@
 </body>
 </html>
 <?php
-$projTest = "Local Project 2";
 for($i = 0; count($projectsTrimedNames) > $i; $i++){
 echo "
 <script type=\"text/javascript\" language=\"javascript\">
@@ -39,7 +38,7 @@ echo "
                 {
                     text: 'New Entry',
                     action: function (e, node, config){
-                        $('#myModal').modal('show')
+                        $('#{$projectsTrimedNames[$i]}myModal').modal('show')
                     }
                 },
                 {
@@ -56,7 +55,34 @@ echo "
                 }
             ],
             scrollXinner: true,
-            \"autoWidth\"  : false
+            \"autoWidth\"  : false,
+            footerCallback: function (row, data, start, end, display) {
+                var api = this.api();
+     
+                // Remove the formatting to get integer data for summation
+                var intVal = function (i) {
+                    return typeof i === 'string' ? i.replace(/[\$,]/g, '') * 1 : typeof i === 'number' ? i : 0;
+                };
+     
+                // Total over all pages
+                total = api
+                    .column(13)
+                    .data()
+                    .reduce(function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0);
+     
+                // Total over this page
+                pageTotal = api
+                    .column(13, { page: 'current' })
+                    .data()
+                    .reduce(function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0);
+     
+                // Update footer
+                $(api.column(13).footer()).html('$' + pageTotal + ' ( $' + total + ' total)');
+            },
         });
 
         $('#{$projectsTrimedNames[$i]}').on('draw.dt', function() {
@@ -87,7 +113,22 @@ echo "
                         $('#' + data.id).remove();
                         $('#{$projectsTrimedNames[$i]}').DataTable().ajax.reload();
                     }
-                }
+                },
+                onDraw: function() {
+                    // Select all inputs of second column and apply datepicker each of them
+                    $('table tr td:nth-child(7) input').each(function() {
+                      $(this).datepicker({
+                        format: 'yyyy-mm-dd',
+                        todayHighlight: false
+                      });
+                    });
+                    $('table tr td:nth-child(8) input').each(function() {
+                        $(this).datepicker({
+                          format: 'yyyy-mm-dd',
+                          todayHighlight: false
+                        });
+                      });
+                  }
             });
         });
         dataTable.columns.adjust();
@@ -114,7 +155,7 @@ echo "
             var status = json.status;
             if (status == 'true') {
                 $('#{$projectsTrimedNames[$i]}').DataTable().ajax.reload();
-                $('#myModal').modal('hide');
+                $('#{$projectsTrimedNames[$i]}myModal').modal('hide');
             } else {
               alert('failed');
             }
@@ -126,11 +167,54 @@ echo "
     });
 </script>
 ";
+
+echo "
+<!-- Add user Modal -->
+<div class=\"modal fade\" id=\"{$projectsTrimedNames[$i]}myModal\" tabindex=\"-1\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">
+            <div class=\"modal-dialog\">
+                <div class=\"modal-content\">
+                    <div class=\"modal-header\">
+                    <h5 class=\"modal-title\" id=\"exampleModalLabel\">Add Entry</h5>
+                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"></button>
+                    </div>
+                    <div class=\"modal-body\">
+                        <form method=\"post\" action=\"insert.php?year={$year}\">
+                                <input type=\"text\" class=\"form-control\" name=\"project\" value=\"{$projects[$i]}\" readonly>
+                                <input type=\"text\" class=\"form-control\" name=\"aipRefCode\" placeholder=\"AIP Reference Code\" required>
+                                <input type=\"text\" class=\"form-control\" name=\"activityDesc\" placeholder=\"Activity Description\" required>
+                                <input type=\"text\" class=\"form-control\" name=\"impOffice\" placeholder=\"Implementing Office\" required>
+                                <input type=\"date\" class=\"form-control\" name=\"startDate\" placeholder=\"Start Date\" required>
+                                <input type=\"date\" class=\"form-control\" name=\"endDate\" placeholder=\"End Date\" required>
+                                <input type=\"text\" class=\"form-control\" name=\"expectedOutput\" placeholder=\"Expected Output\" required>
+                                <input type=\"number\" class=\"form-control\" name=\"fundingServices\" placeholder=\"Funding Services\" required>
+                                <input type=\"number\" class=\"form-control\" name=\"personalServices\" placeholder=\"Personal Services\" required>
+                                <input type=\"number\" class=\"form-control\" name=\"maint\" placeholder=\"Maintenance\" required>
+                                <input type=\"number\" class=\"form-control\" name=\"capitalOutlay\" placeholder=\"Capital Outlay\" required>
+                                <input type=\"number\" class=\"form-control\" name=\"total\" placeholder=\"Total\" required>
+                            <button type=\"submit\" class=\"btn btn-primary\">Submit</button>
+                        </form>
+                    </div>
+                    <div class=\"modal-footer\">
+                        <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+";
 }
 ?>
-
+<script>
+$('table tr td:nth-child(4) input').each(function() {
+    $(this).datepicker({
+        format: 'dd/mm/yyyy',
+        endDate: '+0d',
+        todayHighlight: true,
+        autoclose: true
+    });
+});
+</script>
 <!-- Add user Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -140,9 +224,9 @@ echo "
                 <div class="modal-body">
                     <form id="addEntry" action="">
                         <div class="mb-3 row">
-                        <label for="addUserField" class="col-md-3 form-label">sdfsdf</label>
+                        <label for="addUserField" class="col-md-3 form-label">Project Name</label>
                         <div class="col-md-9">
-                            <input type="text" class="form-control" id="addUserField" name="name">
+                            <input type="text" class="form-control" id="addUserField" name="name" value=>
                         </div>
                         </div>
                         <div class="mb-3 row">
@@ -173,4 +257,4 @@ echo "
                 </div>
             </div>
             </div>
-        </div>
+        </div> -->

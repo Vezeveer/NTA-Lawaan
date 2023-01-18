@@ -2,6 +2,7 @@
 
 require_once 'databasehandler.inc.php';
 
+// MySQLi Procedural
 $sql = "INSERT INTO `{$_GET['year']}` (project, approved, aipRefCode)
 VALUES ('{$_POST['projectName']}', '0', '{$_POST['aipRefCode']}')";
 

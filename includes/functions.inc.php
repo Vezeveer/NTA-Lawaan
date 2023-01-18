@@ -17,7 +17,7 @@ function loginUser($conn, $username, $password){
         exit();
     }
 
-    $pwdHashed = $userExistsData["usersPwd"];
+    $pwdHashed = $userExistsData["userPwd"];
     $checkPwd = password_verify($password, $pwdHashed);
 
     if($checkPwd === false){
@@ -25,7 +25,7 @@ function loginUser($conn, $username, $password){
         exit();
     }elseif($checkPwd === true){
         session_start();
-        $_SESSION["usersname"] = $userExistsData["usersName"];
+        $_SESSION["usersname"] = $userExistsData["userName"];
         header("location: ../main.php");
         exit();
     }
@@ -42,7 +42,7 @@ function loginUser($conn, $username, $password){
 }
 
 function userExists($conn, $username){
-    $sql = "SELECT * FROM users WHERE usersName = ?;";
+    $sql = "SELECT * FROM user_table WHERE userName = ?;";
     $stmt = mysqli_stmt_init($conn);
     if(!mysqli_stmt_prepare($stmt, $sql)){
         header("location: ../index.php?error=stmtfailed");

@@ -1,40 +1,40 @@
 <?php
-	include_once 'header.php';
-    include_once 'includes/databasehandler.inc.php';
-    include_once 'includes/functions.inc.php';
+include_once 'header.php';
+include_once 'includes/databasehandler.inc.php';
+include_once 'includes/functions.inc.php';
 
-    $projectsTrimedNames = array();
-    $aipRefCode;
-    $year = "year_2017"; //placeholder data, to be redefined
-    
-	if($_SESSION["usersname"] == null){
-		header("location: index.php");
-		exit();
-	} else {
-        $aipRefCode = getItems($conn, $year);
-    }
+$projectsTrimedNames = array();
+$aipRefCode;
+$year = "year_2017"; //placeholder data, to be redefined
 
-    // get project names
-    $projects = array();
-    for($i = 0; count($aipRefCode) > $i; $i++){
-        array_push($projects, $aipRefCode[$i]['project']);
-    }
+if ($_SESSION["usersname"] == null) {
+    header("location: index.php");
+    exit();
+} else {
+    $aipRefCode = getItems($conn, $year);
+}
 
-    $projects = array_values(array_unique($projects));
+// get project names
+$projects = array();
+for ($i = 0; count($aipRefCode) > $i; $i++) {
+    array_push($projects, $aipRefCode[$i]['project']);
+}
 
-    // get trimmed project names for ID html placement
-    for($i = 0; count($projects) > $i; $i++){
-        array_push($projectsTrimedNames, str_replace(' ', '', $projects[$i]));
-    }
+$projects = array_values(array_unique($projects));
+
+// get trimmed project names for ID html placement
+for ($i = 0; count($projects) > $i; $i++) {
+    array_push($projectsTrimedNames, str_replace(' ', '', $projects[$i]));
+}
 ?>
-	<!-- TO DO's -->
-    <!-- Create database with year 2016 -->
-	<!-- Create fake items for show -->
-    <!-- When entering main.php, get items form db and show them -->
-    <!-- When there are no projects, click new project allow to type in name -->
-    <!-- Allow fields to be edited and saved to db -->
+<!-- TO DO's -->
+<!-- Create database with year 2016 -->
+<!-- Create fake items for show -->
+<!-- When entering main.php, get items form db and show them -->
+<!-- When there are no projects, click new project allow to type in name -->
+<!-- Allow fields to be edited and saved to db -->
 
-	<!-- Bootstrap NavBar -->
+<!-- Bootstrap NavBar -->
 <nav class="navbar navbar-expand-md navbar-dark bg-success nav-bg-color">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -166,14 +166,19 @@
     <div class="col p-4 overflow-auto" id="main-content">
         <h1 class="display-5">Active Budget</h1>
         <div class="panel panel-default">
-        <?php
-            for($j = 0; count($projects) > $j; $j++){
-                if(isset($projects[$j])){
-                echo "
-                <h5 class=\"panel-heading\">"; echo $projects[$j]; echo "</h5>
+            <?php
+            for ($j = 0; count($projects) > $j; $j++) {
+                if (isset($projects[$j])) {
+                    echo "
+                <h5 class=\"panel-heading\">";
+                    echo $projects[$j];
+                    echo "</h5>
                 <div class=\"panel-body\">
                     <div class=\"table-responsive\">
-                        <table id=\""; echo $projectsTrimedNames[$j]; echo "\""; echo " class=\"table table-bordered table-striped display nowrap\" width=\"100%\">
+                        <table id=\"";
+                    echo $projectsTrimedNames[$j];
+                    echo "\"";
+                    echo " class=\"table table-bordered table-striped display nowrap\" width=\"100%\">
                             <thead>
                                 <tr>
                                     <th>ID</th>
@@ -193,53 +198,75 @@
                                 </tr>
                             </thead>
                             <tbody >";
-                            echo "
+                    echo "
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th colspan=\"4\" style=\"text-align:right\">Total:></th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
-                <br>";}
+                <br>";
+                }
             }
             ?>
-        </div>
-        
-        <button id="btnAddProject" type="button" class="btn btn-primary" data-target="#MymodalBack" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Project</button>
-        <!-- .modal -->
-        <div class="modal fade" id="MymodalBack">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Project Name</h4>
-                <button type="button" class="close" data-dismiss="modal">×</button> 
-            </div> 
-            <div class="modal-body">
-                <form method="post" <?php echo "action=\"/includes/createProject.php?year=$year\"" ?>>
-                <div class="form-group">
-                    <input type="text" name="projectName" class="form-control" id="inputProjectName" placeholder="Project Name" required>
-                    <input type="text" name="aipRefCode" class="form-control" placeholder="AIP Reference Code" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            </div>   
-            <!-- <div class="modal-footer">
+
+            <button id="btnAddProject" type="button" class="btn btn-primary" data-target="#MymodalBack" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Project</button>
+            <br>
+            <br>
+            <br>
+            <br>
+            <!-- .modal -->
+            <div class="modal fade" id="MymodalBack">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Project Name</h4>
+                            <button type="button" class="close" data-dismiss="modal">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" <?php echo "action=\"/includes/createProject.php?year=$year\"" ?>>
+                                <div class="form-group">
+                                    <input type="text" name="projectName" class="form-control" id="inputProjectName" placeholder="Project Name" required>
+                                    <input type="text" name="aipRefCode" class="form-control" placeholder="AIP Reference Code" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                        <!-- <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" onclick="newProject()">Add</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button> 
             </div> -->
-            </div>                                                                       
-        </div>                                          
+                    </div>
+                </div>
+            </div>
+
+
         </div>
-        
+
     </div><!-- Main Col END -->
 </div><!-- body-row END -->
 
-	<!-- <?php
-		if(isset($_SESSION["usersname"])){
-			echo "<li><a href='includes/logout.inc.php'>Logout</a></li>";
-		}
-	?> -->
+<!-- <?php
+        if (isset($_SESSION["usersname"])) {
+            echo "<li><a href='includes/logout.inc.php'>Logout</a></li>";
+        }
+        ?> -->
 
-    
+
 
 <?php
-	include_once 'footer.php';
+include_once 'footer.php';
 ?>

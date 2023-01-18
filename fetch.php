@@ -1,5 +1,5 @@
 <?php
-include('database_connection.php');
+include('includes/database_connection.php');
 
 $projectName = $_GET['projectName'];
 
@@ -35,12 +35,12 @@ if ($_POST["length"] != -1) {
     $query1 = 'LIMIT ' . $_POST['start'] . ', ' . $_POST['length'];
 }
 
-$statement = $connect->prepare($query);
+$statement = $pdo->prepare($query);
 $statement->execute();
 
 $number_filter_row = $statement->rowCount();
 
-$statement = $connect->prepare($query . $query1);
+$statement = $pdo->prepare($query . $query1);
 $statement->execute();
 
 $result = $statement->fetchAll();
@@ -65,17 +65,17 @@ foreach ($result as $row) {
     $data[] = $sub_array;
 }
 
-function count_all_data($connect)
+function count_all_data($pdo)
 {
     $query = "SELECT * FROM year_2017 WHERE project = \"{$_GET['projectName']}\" ";
-    $statement2 = $connect->prepare($query);
+    $statement2 = $pdo->prepare($query);
     $statement2->execute();
     return $statement2->rowCount();
 }
 
 $output = array(
     'draw'   => intval($_POST['draw']),
-    'recordsTotal' => count_all_data($connect),
+    'recordsTotal' => count_all_data($pdo),
     'recordsFiltered' => $number_filter_row,
     'data'   => $data,
     'query1' => $query
