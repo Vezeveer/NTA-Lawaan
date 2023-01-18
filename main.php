@@ -181,7 +181,7 @@ for ($i = 0; count($projects) > $i; $i++) {
     </div><!-- sidebar-container END -->
     <!-- MAIN -->
     <div class="col p-4 overflow-auto" id="main-content">
-        <h1 class="display-5">Annual Investment Plan</h1>
+        <h1 class="display-5">Annual Investment Plan<?php echo $_SESSION["status"]; ?></h1>
         <div class="panel panel-default">
             <?php
             for ($j = 0; count($projects) > $j; $j++) {
@@ -237,7 +237,7 @@ for ($i = 0; count($projects) > $i; $i++) {
                 </div>
                 <br>";
                 }
-            }
+            } 
             ?>
 
             <button id="btnAddProject" type="button" class="btn btn-primary" data-target="#MymodalBack" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Project</button>

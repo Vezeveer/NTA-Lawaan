@@ -91,6 +91,9 @@ echo "
                 url: 'action.php',
                 dataType: 'json',
                 hideIdentifier: true,
+                editButton: true,
+                deleteButton: true,
+                saveButton: true,
                 columns: {
                     identifier: [0, 'id'],
                     editable: [

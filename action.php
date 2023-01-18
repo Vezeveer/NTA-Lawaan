@@ -22,21 +22,21 @@ if ($_POST['action'] == 'edit') {
     );
 
     $query = "
- UPDATE year_2017 
- approved = :approved, 
- aipRefCode = :aipRefCode,
- activityDesc = :activityDesc, 
- impOffice = :impOffice, 
- startDate = :startDate, 
- endDate = :endDate, 
- expectedOutput = :expectedOutput, 
- fundingServices = :fundingServices, 
- personalServices = :personalServices,
- maint = :maint,
- capitalOutlay = :capitalOutlay,
- total = :total 
- WHERE id = :id
- ";
+        UPDATE year_2017 SET 
+        approved = :approved, 
+        aipRefCode = :aipRefCode,
+        activityDesc = :activityDesc, 
+        impOffice = :impOffice, 
+        startDate = :startDate, 
+        endDate = :endDate, 
+        expectedOutput = :expectedOutput, 
+        fundingServices = :fundingServices, 
+        personalServices = :personalServices,
+        maint = :maint,
+        capitalOutlay = :capitalOutlay,
+        total = :total 
+        WHERE id = :id
+    ";
     $statement = $pdo->prepare($query);
     $statement->execute($data);
     echo json_encode($_POST);
@@ -44,9 +44,9 @@ if ($_POST['action'] == 'edit') {
 
 if ($_POST['action'] == 'delete') {
     $query = "
- DELETE FROM year_2017 
- WHERE id = '" . $_POST["id"] . "'
- ";
+        DELETE FROM year_2017 
+        WHERE id = '" . $_POST["id"] . "'
+    ";
     $statement = $pdo->prepare($query);
     $statement->execute();
     echo json_encode($_POST);
