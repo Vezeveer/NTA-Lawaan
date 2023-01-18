@@ -43,9 +43,9 @@ body{
 	width: 500px;
 }
 
-form{
+/* form{
 	width: 360px;
-}
+} */
 
 .login-content img{
     height: 100px;
@@ -186,8 +186,29 @@ tfoot > tr > td  {
 	display:none !important;
   }
 
+.logo_title{
+	width: 100%;
+	color: azure !important;
+	text-align: center;
+}
 
-@media screen and (max-width: 1050px){
+#logo {
+	padding: 15px;
+}
+
+.nav-bg-color{
+    background-color: #396e37 !important; 
+}
+
+/* #btnAddProject{
+    width: 25%;
+} */
+
+#main-content{
+    height: 100vh;
+}
+
+/* @media screen and (max-width: 1050px){
 	.container{
 		grid-gap: 5rem;
 	}
@@ -224,4 +245,4 @@ tfoot > tr > td  {
 	.login-content{
 		justify-content: center;
 	}
-}
+} */

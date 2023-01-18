@@ -6,7 +6,6 @@ include('includes\database_connection.php');
 
 if ($_POST['action'] == 'edit') {
     $data = array(
-        ':project'  => $_POST['project'],
         ':approved'  => $_POST['approved'],
         ':aipRefCode'   => $_POST['aipRefCode'],
         ':id'    => $_POST['id'],
@@ -24,7 +23,6 @@ if ($_POST['action'] == 'edit') {
 
     $query = "
  UPDATE year_2017 
- SET project = :project, 
  approved = :approved, 
  aipRefCode = :aipRefCode,
  activityDesc = :activityDesc, 

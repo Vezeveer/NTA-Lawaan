@@ -26,6 +26,7 @@ function loginUser($conn, $username, $password){
     }elseif($checkPwd === true){
         session_start();
         $_SESSION["usersname"] = $userExistsData["userName"];
+        $_SESSION["userType"] = $userExistsData["userType"];
         header("location: ../main.php");
         exit();
     }

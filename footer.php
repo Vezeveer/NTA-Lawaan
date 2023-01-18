@@ -10,6 +10,7 @@
 
 <script src="js/popup.js"></script>
 <script src="js/main.js"></script>
+<script src="js/pass_validation.js"></script>
 
 
 
@@ -66,7 +67,7 @@ echo "
      
                 // Total over all pages
                 total = api
-                    .column(13)
+                    .column(12)
                     .data()
                     .reduce(function (a, b) {
                         return intVal(a) + intVal(b);
@@ -74,14 +75,14 @@ echo "
      
                 // Total over this page
                 pageTotal = api
-                    .column(13, { page: 'current' })
+                    .column(12, { page: 'current' })
                     .data()
                     .reduce(function (a, b) {
                         return intVal(a) + intVal(b);
                     }, 0);
      
                 // Update footer
-                $(api.column(13).footer()).html('$' + pageTotal + ' ( $' + total + ' total)');
+                $(api.column(12).footer()).html('₱' + pageTotal + ' ( ₱' + total + ' total)');
             },
         });
 
@@ -89,10 +90,10 @@ echo "
             $('#{$projectsTrimedNames[$i]}').Tabledit({
                 url: 'action.php',
                 dataType: 'json',
+                hideIdentifier: true,
                 columns: {
                     identifier: [0, 'id'],
                     editable: [
-                        [1, 'project'],
                         [2, 'approved'],
                         [3, 'aipRefCode',],
                         [4, 'activityDesc'],
@@ -116,12 +117,7 @@ echo "
                 },
                 onDraw: function() {
                     // Select all inputs of second column and apply datepicker each of them
-                    $('table tr td:nth-child(7) input').each(function() {
-                      $(this).datepicker({
-                        format: 'yyyy-mm-dd',
-                        todayHighlight: false
-                      });
-                    });
+                    $('table tr td:nth-child(7) input').attr(\"type\", \"date\");
                     $('table tr td:nth-child(8) input').each(function() {
                         $(this).datepicker({
                           format: 'yyyy-mm-dd',

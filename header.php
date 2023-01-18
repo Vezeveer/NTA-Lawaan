@@ -52,6 +52,7 @@
 	<link rel="stylesheet" type="text/css" href="css/priority.css">
 	<link rel="stylesheet" href="css/popup.css">
 	<link rel="stylesheet" type="text/css" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/pass_validation.css">
 	
 
 	
