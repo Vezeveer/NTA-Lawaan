@@ -1,22 +1,9 @@
-
-
-
-
-<!-- <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script> -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script> -->
-
-<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> -->
-<!-- <script src="js/sidebarDropdown.js"></script> -->
-
 <script src="js/popup.js"></script>
 <script src="js/main.js"></script>
 <script src="js/pass_validation.js"></script>
 
-
-
 <script src="js/editTable.js"></script>
 <script src="js/tableResizeable.js"></script>
-<!-- <script src="js/data.js"></script> -->
 
 </body>
 </html>
@@ -67,7 +54,7 @@ echo "
      
                 // Total over all pages
                 total = api
-                    .column(12)
+                    .column(13)
                     .data()
                     .reduce(function (a, b) {
                         return intVal(a) + intVal(b);
@@ -75,14 +62,14 @@ echo "
      
                 // Total over this page
                 pageTotal = api
-                    .column(12, { page: 'current' })
+                    .column(13, { page: 'current' })
                     .data()
                     .reduce(function (a, b) {
                         return intVal(a) + intVal(b);
                     }, 0);
      
                 // Update footer
-                $(api.column(12).footer()).html('₱' + pageTotal + ' ( ₱' + total + ' total)');
+                $(api.column(13).footer()).html('₱' + pageTotal + ' ( ₱' + total + ' total)');
             },
         });
 
@@ -97,7 +84,7 @@ echo "
                 columns: {
                     identifier: [0, 'id'],
                     editable: [
-                        [2, 'approved'],
+                        [2, 'approved', '{\"Pending\": \"Pending\", \"True\": \"True\", \"False\": \"False\"}'],
                         [3, 'aipRefCode',],
                         [4, 'activityDesc'],
                         [5, 'impOffice'],
@@ -121,12 +108,7 @@ echo "
                 onDraw: function() {
                     // Select all inputs of second column and apply datepicker each of them
                     $('table tr td:nth-child(7) input').attr(\"type\", \"date\");
-                    $('table tr td:nth-child(8) input').each(function() {
-                        $(this).datepicker({
-                          format: 'yyyy-mm-dd',
-                          todayHighlight: false
-                        });
-                      });
+                    $('table tr td:nth-child(8) input').attr(\"type\", \"date\");
                   }
             });
         });
@@ -200,6 +182,29 @@ echo "
             </div>
         </div>
 ";
+
+echo "
+<!-- Update Project Name Modal -->
+<div class=\"modal fade\" id=\"{$projectsTrimedNames[$i]}UpdateProjectNameModal\" tabindex=\"-1\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">
+            <div class=\"modal-dialog\">
+                <div class=\"modal-content\">
+                    <div class=\"modal-header\">
+                    <h5 class=\"modal-title\" id=\"exampleModalLabel\">Update Project Name</h5>
+                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"></button>
+                    </div>
+                    <div class=\"modal-body\">
+                        <form method=\"post\" action=\"update_project_name.php?year={$year}&project={$projects[$i]}\">
+                                <input type=\"text\" class=\"form-control\" name=\"project\" value=\"{$projects[$i]}\">
+                            <button type=\"submit\" class=\"btn btn-primary\">Submit</button>
+                        </form>
+                    </div>
+                    <div class=\"modal-footer\">
+                        <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+";
 }
 ?>
 <script>
@@ -212,48 +217,3 @@ $('table tr td:nth-child(4) input').each(function() {
     });
 });
 </script>
-<!-- Add user Modal -->
-<!-- <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Entry</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="addEntry" action="">
-                        <div class="mb-3 row">
-                        <label for="addUserField" class="col-md-3 form-label">Project Name</label>
-                        <div class="col-md-9">
-                            <input type="text" class="form-control" id="addUserField" name="name" value=>
-                        </div>
-                        </div>
-                        <div class="mb-3 row">
-                        <label for="addEmailField" class="col-md-3 form-label">sdfdsfd</label>
-                        <div class="col-md-9">
-                            <input type="email" class="form-control" id="addEmailField" name="email">
-                        </div>
-                        </div>
-                        <div class="mb-3 row">
-                        <label for="addMobileField" class="col-md-3 form-label">sdfdf</label>
-                        <div class="col-md-9">
-                            <input type="text" class="form-control" id="addMobileField" name="mobile">
-                        </div>
-                        </div>
-                        <div class="mb-3 row">
-                        <label for="addCityField" class="col-md-3 form-label">dfdd</label>
-                        <div class="col-md-9">
-                            <input type="text" class="form-control" id="addCityField" name="City">
-                        </div>
-                        </div>
-                        <div class="text-center">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-            </div>
-        </div> -->

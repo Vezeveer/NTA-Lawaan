@@ -27,12 +27,6 @@ for ($i = 0; count($projects) > $i; $i++) {
     array_push($projectsTrimedNames, str_replace(' ', '', $projects[$i]));
 }
 ?>
-<!-- TO DO's -->
-<!-- Create database with year 2016 -->
-<!-- Create fake items for show -->
-<!-- When entering main.php, get items form db and show them -->
-<!-- When there are no projects, click new project allow to type in name -->
-<!-- Allow fields to be edited and saved to db -->
 
 <!-- Bootstrap NavBar -->
 <nav class="navbar navbar-expand-md navbar-dark bg-success nav-bg-color">
@@ -187,9 +181,9 @@ for ($i = 0; count($projects) > $i; $i++) {
             for ($j = 0; count($projects) > $j; $j++) {
                 if (isset($projects[$j])) {
                     echo "
-                <h5 class=\"panel-heading\">";
+                    <a href=\"#\" class=\"\" data-target=\"#{$projectsTrimedNames[$j]}UpdateProjectNameModal\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\"><h5 class=\"panel-heading\">";
                     echo $projects[$j];
-                    echo "</h5>
+                    echo "</h5></a>
                 <div class=\"panel-body\">
                     <div class=\"table-responsive\">
                         <table id=\"";
