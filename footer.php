@@ -193,7 +193,7 @@ echo "
                     <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"></button>
                     </div>
                     <div class=\"modal-body\">
-                        <form method=\"post\" action=\"update_project_name.php?year={$year}&project={$projects[$i]}\">
+                        <form method=\"post\" action=\"update_project_name.php?year={$activeYear}&project={$projects[$i]}\">
                                 <input type=\"text\" class=\"form-control\" name=\"project\" value=\"{$projects[$i]}\">
                             <button type=\"submit\" class=\"btn btn-primary\">Submit</button>
                         </form>

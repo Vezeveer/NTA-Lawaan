@@ -2,8 +2,9 @@
 
 include('includes\databasehandler.inc.php');
 
+$yr = "year_{$_GET['year']}";
 // MySQLi Procedural
-$sql = "UPDATE `{$_GET['year']}` SET 
+$sql = "UPDATE $yr SET 
 project = '{$_POST['project']}' WHERE project='{$_GET['project']}'";
 
 if (mysqli_query($conn, $sql)) {
