@@ -1,3 +1,6 @@
+    </div><!-- Main Col END -->
+</div><!-- body-row END -->
+
 <script src="js/popup.js"></script>
 <script src="js/main.js"></script>
 <script src="js/pass_validation.js"></script>
@@ -8,6 +11,71 @@
 </body>
 </html>
 <?php
+
+$editable = "[2, 'approved', '{\"Pending\": \"Pending\", \"True\": \"True\", \"False\": \"False\"}'],
+[3, 'aipRefCode',],
+[4, 'activityDesc'],
+[5, 'impOffice'],
+[6, 'startDate'],
+[7, 'endDate'],
+[8, 'expectedOutput'],
+[9, 'fundingServices'],
+[10, 'personalServices'],
+[11, 'maint'],
+[12, 'capitalOutlay'],
+[13, 'total']";
+$modifiable = "editButton: false,
+deleteButton: false,
+saveButton: false,";
+$toggleBtn;
+$printMainContent = true;
+
+$hideCont = "<script>$('#main-content > div').hide();</script>";
+
+switch ($_SESSION["userType"]) {
+case "bdc":
+    if($_SESSION["status"] == "bdc_initialize"){
+        $toggleBtn = "enabled: true";
+        $modifiable = "";
+    } else {
+        $toggleBtn = "enabled: false";
+        $editable = "";
+    }
+    break;
+case "bc":
+    if($_SESSION["status"] == "bc_adjust"){
+        $toggleBtn = "enabled: true";
+        $modifiable = "";
+    } else {
+        $toggleBtn = "enabled: false";
+        $editable = "";
+    }
+    if($_SESSION["status"] == "bdc_initialize"){
+        $printMainContent = false;
+        echo $hideCont;
+    }
+    break;
+case "bo":
+    if($_SESSION["status"] == "bo_approving"){
+        $toggleBtn = "enabled: true";
+        $modifiable = "";
+    } else {
+        $toggleBtn = "enabled: false";
+        $editable = "";
+    }
+    if($_SESSION["status"] == "bdc_initialize"){
+        $printMainContent = false;
+        echo $hideCont;
+    }
+    if($_SESSION["status"] == "bc_adjust"){
+        $printMainContent = false;
+        echo $hideCont;
+    }
+    break;
+default:
+}
+
+if($printMainContent){
 for($i = 0; count($projectsTrimedNames) > $i; $i++){
 echo "
 <script type=\"text/javascript\" language=\"javascript\">
@@ -18,7 +86,7 @@ echo "
             \"serverSide\": true,
             \"order\": [],
             \"ajax\": {
-                url: \"fetch.php?projectName={$projects[$i]}\",
+                url: \"includes/fetch.php?projectName={$projects[$i]}\",
                 type: \"POST\"
             },
             dom: 'Bfrtip',
@@ -27,7 +95,8 @@ echo "
                     text: 'New Entry',
                     action: function (e, node, config){
                         $('#{$projectsTrimedNames[$i]}myModal').modal('show')
-                    }
+                    },
+                    {$toggleBtn}
                 },
                 {
                     text: 'Export',
@@ -75,27 +144,14 @@ echo "
 
         $('#{$projectsTrimedNames[$i]}').on('draw.dt', function() {
             $('#{$projectsTrimedNames[$i]}').Tabledit({
-                url: 'action.php',
+                url: 'includes/action.php',
                 dataType: 'json',
                 hideIdentifier: true,
-                editButton: true,
-                deleteButton: true,
-                saveButton: true,
+                {$modifiable}
                 columns: {
                     identifier: [0, 'id'],
-                    editable: [
-                        [2, 'approved', '{\"Pending\": \"Pending\", \"True\": \"True\", \"False\": \"False\"}'],
-                        [3, 'aipRefCode',],
-                        [4, 'activityDesc'],
-                        [5, 'impOffice'],
-                        [6, 'startDate'],
-                        [7, 'endDate'],
-                        [8, 'expectedOutput'],
-                        [9, 'fundingServices'],
-                        [10, 'personalServices'],
-                        [11, 'maint'],
-                        [12, 'capitalOutlay'],
-                        [13, 'total']
+                    editable: [ 
+                        {$editable}
                     ]
                 },
                 restoreButton: false,
@@ -159,7 +215,7 @@ echo "
                     <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"></button>
                     </div>
                     <div class=\"modal-body\">
-                        <form method=\"post\" action=\"insert.php?year={$activeYear}\">
+                        <form method=\"post\" action=\"includes/insert.php?year={$activeYear}\">
                                 <input type=\"text\" class=\"form-control\" name=\"project\" value=\"{$projects[$i]}\" readonly>
                                 <input type=\"text\" class=\"form-control\" name=\"aipRefCode\" placeholder=\"AIP Reference Code\" required>
                                 <input type=\"text\" class=\"form-control\" name=\"activityDesc\" placeholder=\"Activity Description\" required>
@@ -205,7 +261,7 @@ echo "
             </div>
         </div>
 ";
-}
+}}
 ?>
 <script>
 $('table tr td:nth-child(4) input').each(function() {
@@ -216,4 +272,8 @@ $('table tr td:nth-child(4) input').each(function() {
         autoclose: true
     });
 });
+
+// $(document).ready(function () {
+//     $('#main-content button').prop('disabled', true);
+// })
 </script>

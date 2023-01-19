@@ -1,9 +1,8 @@
 <?php
 
-include('includes\databasehandler.inc.php');
+include('databasehandler.inc.php');
 
 if (true){
-    echo "YES";
 
     // $stmt = $pdo->prepare("
     // INSERT INTO year_2017 (project, aipRefCode, activityDesc, impOffice) 

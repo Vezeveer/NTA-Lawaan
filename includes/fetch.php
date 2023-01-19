@@ -1,5 +1,5 @@
 <?php
-include('includes/database_connection.php');
+include('database_connection.php');
 
 $projectName = $_GET['projectName'];
 
