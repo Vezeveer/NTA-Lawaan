@@ -78,7 +78,7 @@ for ($i = 0; count($projects) > $i; $i++) {
                 } else if($_SESSION["userType"] == "bo"){
                     echo "<small class=\"logo_title menu-collapsed\">Budget Office</small>";
                 }
-                echo "<small class=\"logo_title menu-collapsed\">{$_SESSION["usersname"]}</small>";
+                echo "<small class=\"logo_title menu-collapsed\"><i class=\"fas fa-user\"></i> {$_SESSION["usersname"]}</small>";
             ?>
             <!-- Separator with title -->
             <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">

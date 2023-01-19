@@ -30,7 +30,7 @@ function loginUser($conn, $username, $password){
         session_start();
         $_SESSION["usersname"] = $userExistsData["userName"];
         $_SESSION["userType"] = $userExistsData["userType"];
-        $_SESSION["status"] = $status["status"];
+        $_SESSION["status"] = $status;
         header("location: ../main.php");
         exit();
     }
@@ -71,27 +71,15 @@ function userExists($conn, $username){
 }
 
 function getStatus($conn){
-    $sql = "SELECT * FROM `status` WHERE year = ?;";
-    $stmt = mysqli_stmt_init($conn);
-    if(!mysqli_stmt_prepare($stmt, $sql)){
-        header("location: ../index.php?error=stmtfailed");
-        exit();
+    $result = mysqli_query($conn, 'SELECT * FROM `status` WHERE year=2017');
+    if (mysqli_num_rows($result) > 0) {
+        while($row = mysqli_fetch_assoc($result)) {
+            return $row["status"];
+        }
+    } else {
+        return "0 results";
     }
-
-    mysqli_stmt_bind_param($stmt, "s", `2017`); // ss for two string variables, sss=3
-    mysqli_stmt_execute($stmt);
-
-    $resultData = mysqli_stmt_get_result($stmt);
-
-    // check if there is anything in $resultData, then return it
-    if($row = mysqli_fetch_assoc($resultData)){
-        mysqli_stmt_close($stmt);
-        return $row;
-    }else{
-        $result = false;
-        mysqli_stmt_close($stmt);
-        return $result;
-    }
+    mysqli_close($conn);
 }
 
 function getItems($conn, $year){
