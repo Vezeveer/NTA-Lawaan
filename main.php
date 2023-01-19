@@ -4,20 +4,22 @@ include_once 'includes/databasehandler.inc.php';
 include_once 'includes/functions.inc.php';
 
 $projectsTrimedNames = array();
-$aipRefCode;
-$year = "year_2017"; //placeholder data, to be redefined
+$items;
+$activeYear = $_SESSION["activeYear"];
+
+$inactiveYears = getInactiveYears($conn, $activeYear);
 
 if ($_SESSION["usersname"] == null) {
     header("location: index.php");
     exit();
 } else {
-    $aipRefCode = getItems($conn, $year);
+    $items = getItems($conn, "year_".$activeYear);
 }
 
 // get project names
 $projects = array();
-for ($i = 0; count($aipRefCode) > $i; $i++) {
-    array_push($projects, $aipRefCode[$i]['project']);
+for ($i = 0; count($items) > $i; $i++) {
+    array_push($projects, $items[$i]['project']);
 }
 
 $projects = array_values(array_unique($projects));
@@ -79,6 +81,7 @@ for ($i = 0; count($projects) > $i; $i++) {
                     echo "<small class=\"logo_title menu-collapsed\">Budget Office</small>";
                 }
                 echo "<small class=\"logo_title menu-collapsed\"><i class=\"fas fa-user\"></i> {$_SESSION["usersname"]}</small>";
+                echo "<small class=\"logo_title menu-collapsed\"><i class=\"\"></i>Status: {$_SESSION["status"]}</small>";
             ?>
             <!-- Separator with title -->
             <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
@@ -120,12 +123,13 @@ for ($i = 0; count($projects) > $i; $i++) {
             </a>
             <!-- Submenu content -->
             <div id='submenu2' class="collapse sidebar-submenu">
-                <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-                    <span class="menu-collapsed">2016</span>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-                    <span class="menu-collapsed">2017</span>
-                </a>
+                <?php 
+                foreach($inactiveYears as $yrs){
+                    echo "<a href=\"#\" class=\"list-group-item list-group-item-action bg-dark text-white\">
+                    <span class=\"menu-collapsed\">{$yrs}</span>
+                </a>"; 
+                }?>
+                
             </div>
             <a href="#" class="bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
@@ -175,7 +179,7 @@ for ($i = 0; count($projects) > $i; $i++) {
     </div><!-- sidebar-container END -->
     <!-- MAIN -->
     <div class="col p-4 overflow-auto" id="main-content">
-        <h1 class="display-5">Annual Investment Plan<?php echo $_SESSION["status"]; ?></h1>
+        <h1 class="display-5">Annual Investment Plan</h1>
         <div class="panel panel-default">
             <?php
             for ($j = 0; count($projects) > $j; $j++) {
@@ -249,10 +253,10 @@ for ($i = 0; count($projects) > $i; $i++) {
                             <button type="button" class="close" data-dismiss="modal">×</button>
                         </div>
                         <div class="modal-body">
-                            <form method="post" <?php echo "action=\"/includes/createProject.php?year=$year\"" ?>>
+                            <form method="post" <?php echo "action=\"/includes/createProject.php?year=$activeYear\"" ?>>
                                 <div class="form-group">
                                     <input type="text" name="projectName" class="form-control" id="inputProjectName" placeholder="Project Name" required>
-                                    <input type="text" name="aipRefCode" class="form-control" placeholder="AIP Reference Code" required>
+                                    <input type="text" name="items" class="form-control" placeholder="AIP Reference Code" required>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>

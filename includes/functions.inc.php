@@ -13,7 +13,8 @@ function emptyInputLogin($username, $password){
 
 function loginUser($conn, $username, $password){
     $userExistsData = userExists($conn, $username);
-    $status = getStatus($conn);
+    $activeYear = getActiveYear($conn);
+    $status = getStatusOfCurrentYear($conn, $activeYear);
 
     if($userExistsData === false){
         header("location: ../index.php?error=userdoesnotexist");
@@ -31,7 +32,8 @@ function loginUser($conn, $username, $password){
         $_SESSION["usersname"] = $userExistsData["userName"];
         $_SESSION["userType"] = $userExistsData["userType"];
         $_SESSION["status"] = $status;
-        header("location: ../main.php");
+        $_SESSION["activeYear"] = $activeYear;
+        header("location: ../main.php?status=$status");
         exit();
     }
 
@@ -70,12 +72,41 @@ function userExists($conn, $username){
     }
 }
 
-function getStatus($conn){
-    $result = mysqli_query($conn, 'SELECT * FROM `status` WHERE year=2017');
+function getStatusOfCurrentYear($conn, $year){
+    $result = mysqli_query($conn, "SELECT * FROM `status` WHERE year=$year");
     if (mysqli_num_rows($result) > 0) {
         while($row = mysqli_fetch_assoc($result)) {
             return $row["status"];
         }
+    } else {
+        return "0 results";
+    }
+    mysqli_close($conn);
+}
+
+function getActiveYear($conn){
+    $result = mysqli_query($conn, "SELECT * FROM `status` WHERE active=1");
+    if (mysqli_num_rows($result) > 0) {
+        while($row = mysqli_fetch_assoc($result)) {
+            return $row["year"];
+        }
+    } else {
+        return "0 results";
+    }
+    mysqli_close($conn);
+}
+
+function getInactiveYears($conn, $year){
+    $result = mysqli_query($conn, "SELECT * FROM `status` WHERE year!=$year");
+    $years = array();
+    foreach($result as $row){
+        array_push($years, $row['year']);
+    }
+    if (mysqli_num_rows($result) > 0) {
+        // while($row = mysqli_fetch_assoc($result)) {
+        //     return $row["status"];
+        // }
+        return $years;
     } else {
         return "0 results";
     }

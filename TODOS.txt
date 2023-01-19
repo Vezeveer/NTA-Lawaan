@@ -1,1 +1,0 @@
-define more, add on after aipRefCode, etc capitalOutlay, total
