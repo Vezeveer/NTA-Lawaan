@@ -22,7 +22,7 @@ if (true){
     // $stmt->execute();
 
     // MySQLi Procedural
-    $sql = "INSERT INTO `{$_GET['year']}` 
+    $sql = "INSERT INTO `year_{$_GET['year']}` 
     (project, aipRefCode, activityDesc, 
     impOffice, startDate, endDate, expectedOutput, 
     fundingServices, personalServices, maint, 

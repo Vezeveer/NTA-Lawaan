@@ -159,7 +159,7 @@ echo "
                     <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"></button>
                     </div>
                     <div class=\"modal-body\">
-                        <form method=\"post\" action=\"insert.php?year={$year}\">
+                        <form method=\"post\" action=\"insert.php?year={$activeYear}\">
                                 <input type=\"text\" class=\"form-control\" name=\"project\" value=\"{$projects[$i]}\" readonly>
                                 <input type=\"text\" class=\"form-control\" name=\"aipRefCode\" placeholder=\"AIP Reference Code\" required>
                                 <input type=\"text\" class=\"form-control\" name=\"activityDesc\" placeholder=\"Activity Description\" required>
