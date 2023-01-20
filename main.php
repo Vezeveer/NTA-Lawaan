@@ -60,7 +60,9 @@
     ?>
 
     <button id="btnAddProject" type="button" class="btn btn-primary" data-target="#MymodalBack" data-toggle="modal" data-backdrop="static" data-keyboard="false">Add Project</button>
-    <button id="btnFinalizePlan" type="button" class="btn btn-success">Finalize Plan</button>
+    <button id="btnFinalizePlan" type="button" class="btn btn-success" data-target="#FinalizeModalBack" data-toggle="modal" data-backdrop="static" data-keyboard="false">Finalize Plan</button>
+    <!-- Add a modal button for sending to BO -->
+    <!-- Add a modal button for BO approval -->
     <br>
     <br>
     <br>
@@ -86,6 +88,29 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal" onclick="newProject()">Add</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button> 
             </div> -->
+            </div>
+        </div>
+    </div>
+
+    <!-- .modal -->
+    <div class="modal fade" id="FinalizeModalBack">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Are you sure you want to approve this plan to the Barangay Committee?</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" <?php echo "action=\"/includes/finalize.php?year={$activeYear}&userType={$_SESSION['userType']}\"" ?>>
+                        <div class="form-group">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Approve</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button> 
+                    </form>
+                </div>
+                <div class="modal-footer">
+                
+                </div>
             </div>
         </div>
     </div>
@@ -188,4 +213,4 @@
 
 </div>
 
-<?php include_once 'footer.php' ?>
+<?php include 'footer.php' ?>

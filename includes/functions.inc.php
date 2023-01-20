@@ -33,7 +33,8 @@ function loginUser($conn, $username, $password){
         $_SESSION["userType"] = $userExistsData["userType"];
         $_SESSION["status"] = $status;
         $_SESSION["activeYear"] = $activeYear;
-        header("location: ../main.php?status=$status");
+        $totalUsers = update_user_log($conn, true);
+        header("location: ../dashboard.php?totalUsers={$totalUsers}");
         exit();
     }
 
@@ -46,6 +47,42 @@ function loginUser($conn, $username, $password){
     //     header("location: ../main.php");
     //     exit();
     // }
+}
+
+function update_user_log($conn, $loggedIn){
+    $totalUsers = 0;
+    
+    $result = mysqli_query($conn, "SELECT * FROM user_log");
+    if (mysqli_num_rows($result) > 0) {
+        while($row = mysqli_fetch_assoc($result)) {
+            $totalUsers = $row["total_users"];
+        }
+    } else {
+        return "0 results";
+    }
+    
+    if($loggedIn == true){
+        $totalUsers = $totalUsers+1;
+        $resultUpd = "UPDATE user_log SET total_users={$totalUsers} WHERE id=0";
+        if (mysqli_query($conn, $resultUpd)) {
+           
+          } else {
+            echo "Error updating record: " . mysqli_error($conn);
+          }
+    }
+    
+    if($loggedIn == false){
+        $totalUsers = $totalUsers-1;
+        $resultUpd = "UPDATE user_log SET total_users={$totalUsers} WHERE id=0";
+        if (mysqli_query($conn, $resultUpd)) {
+            
+          } else {
+            echo "Error updating record: " . mysqli_error($conn);
+          }
+    }
+    
+    mysqli_close($conn);
+    return $totalUsers;
 }
 
 function userExists($conn, $username){
@@ -103,9 +140,6 @@ function getInactiveYears($conn, $year){
         array_push($years, $row['year']);
     }
     if (mysqli_num_rows($result) > 0) {
-        // while($row = mysqli_fetch_assoc($result)) {
-        //     return $row["status"];
-        // }
         return $years;
     } else {
         return "0 results";
@@ -130,56 +164,4 @@ function getItems($conn, $year){
 
     mysqli_close($conn);
     return $array1;
-
-    // $sql = "SELECT * FROM projects WHERE aipRefCode = ?;";
-    // $stmt = mysqli_stmt_init($conn);
-
-    // if(!mysqli_stmt_prepare($stmt, $sql)){
-    //     header("location: ../index.php?error=stmtfailed");
-    //     exit();
-    // }
-
-    // mysqli_stmt_bind_param($stmt, "s", $aipRefCode); // ss for two string variables, sss=3
-    // mysqli_stmt_execute($stmt);
-
-    // $resultData = mysqli_stmt_get_result($stmt);
-
-    // // check if there is anything in $resultData, then return it
-    // $array1 = array();
-    // while($row = mysqli_fetch_assoc($resultData)){
-    //     array_push($array1, $row);
-    // }
-    // mysqli_stmt_close($stmt);
-    // return $array1;
 }
-
-
-
-/*
-//statement to insert data
-function createUser($conn, $username, $password){
-    $sql = "INSERT INTO users (usersName, usersEmail, usersUid, usersPwd) VALUES (?,?,?,?);";
-    $stmt = mysqli_stmt_init($conn);
-    if(!mysqli_stmt_prepare($stmt, $sql)){
-        header("location: ../index.php?error=stmtfailed");
-        exit();
-    }
-
-    $hashedPwd = password_hash($password, PASSWORD_DEFAULT);
-
-    mysqli_stmt_bind_param($stmt, "ss", $name, $email, $username, $hashedPwd);
-    mysqli_stmt_execute($stmt);
-
-    $resultData = mysqli_stmt_get_result($stmt);
-
-    if($row = mysqli_fetch_assoc($resultData)){
-        mysqli_stmt_close($stmt);
-        return $row;
-    }else{
-        $result = false;
-        mysqli_stmt_close($stmt);
-        return $result;
-    }
-}
-*/
-

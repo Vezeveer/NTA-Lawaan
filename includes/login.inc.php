@@ -13,6 +13,7 @@ if(isset($_POST["submit"])){
     }
 
     loginUser($conn, $username, $password);
+    
 }else{
     header("location: ../index.php");
     exit();

@@ -10,6 +10,9 @@
 
 </body>
 </html>
+<script>
+    console.log("Status: <?php echo $_SESSION["status"]; ?>, UserType: <?php echo $_SESSION["userType"] ?>");
+</script>
 <?php
 
 $editable = "[2, 'approved', '{\"Pending\": \"Pending\", \"True\": \"True\", \"False\": \"False\"}'],
@@ -31,6 +34,13 @@ $toggleBtn;
 $printMainContent = true;
 
 $hideCont = "<script>$('#main-content > div').hide();</script>";
+$disableAddProjFinalizeBtns = "<script>
+$(document).ready(function () {
+    $('#btnFinalizePlan').prop('disabled', true);
+    $('#btnAddProject').prop('disabled', true);
+})
+</script>
+";  
 
 switch ($_SESSION["userType"]) {
 case "bdc":
@@ -40,10 +50,11 @@ case "bdc":
     } else {
         $toggleBtn = "enabled: false";
         $editable = "";
+        echo $disableAddProjFinalizeBtns;
     }
     break;
 case "bc":
-    if($_SESSION["status"] == "bc_adjust"){
+    if($_SESSION["status"] == "bc_finalizing"){
         $toggleBtn = "enabled: true";
         $modifiable = "";
     } else {
@@ -56,7 +67,7 @@ case "bc":
     }
     break;
 case "bo":
-    if($_SESSION["status"] == "bo_approving"){
+    if($_SESSION["status"] == "pending_bo_approval"){
         $toggleBtn = "enabled: true";
         $modifiable = "";
     } else {
@@ -67,7 +78,11 @@ case "bo":
         $printMainContent = false;
         echo $hideCont;
     }
-    if($_SESSION["status"] == "bc_adjust"){
+    if($_SESSION["status"] == "bc_finalizing"){
+        $printMainContent = false;
+        echo $hideCont;
+    }
+    if($_SESSION["status"] == "bo_approved"){
         $printMainContent = false;
         echo $hideCont;
     }
@@ -75,7 +90,7 @@ case "bo":
 default:
 }
 
-if($printMainContent){
+if($printMainContent){  
 for($i = 0; count($projectsTrimedNames) > $i; $i++){
 echo "
 <script type=\"text/javascript\" language=\"javascript\">
