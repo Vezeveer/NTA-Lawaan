@@ -1,5 +1,5 @@
 <img class="wave" src="img/wave.png">
-	<div class="container">
+	<div class="container_login">
 		<div class="img">
 			<img src="img/undraw_visionary_technology_re_jfp7.svg">
 		</div>

@@ -17,7 +17,7 @@ body{
 	z-index: -1;
 }
 
-.container{
+.container_login{
     width: 100vw;
     height: 100vh;
     display: grid;
@@ -214,8 +214,8 @@ tfoot > tr > td  {
     height: 100vh;
 }
 
-/* @media screen and (max-width: 1050px){
-	.container{
+@media screen and (max-width: 1050px){
+	.container_login{
 		grid-gap: 5rem;
 	}
 }
@@ -236,7 +236,7 @@ tfoot > tr > td  {
 }
 
 @media screen and (max-width: 900px){
-	.container{
+	.container_login{
 		grid-template-columns: 1fr;
 	}
 
@@ -251,4 +251,4 @@ tfoot > tr > td  {
 	.login-content{
 		justify-content: center;
 	}
-} */
+}
