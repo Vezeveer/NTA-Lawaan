@@ -19,7 +19,8 @@ function updateStatusOfCurrentYear($conn, $year, $userType){
     }
     
     if (mysqli_query($conn, $resultUpd)) {
-        header("location: ../dashboard.php");
+        // header("location: ../dashboard.php");
+        header("location: logout.inc.php"); // TODO: Temporary logout for now..., because status does not change for current session
     } else {
     echo "Error updating record: " . mysqli_error($conn);
     }

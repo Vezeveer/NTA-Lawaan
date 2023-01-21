@@ -1,6 +1,6 @@
 <?php include_once 'header.php' ?>
 
-<h1 class="display-5">Annual Investment Plan</h1>
+<h1 class="display-5"><?php if($_SESSION["status"] == "bo_approved"){echo "Annual Budget Plan";} else {echo "Annual Investment Plan";} ?></h1>
 <div class="panel panel-default">
     <?php
     for ($j = 0; count($projects) > $j; $j++) {

@@ -28,7 +28,13 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Are you sure you want to approve this plan to the Barangay Committee?</h4>
+                    <h4 class="modal-title">Are you sure you want to <?php if($_SESSION["userType"] == "bo")
+                        {echo "approve this plan as the Annual Budget Plan?";}
+                            else if($_SESSION["userType"] == "bdc")
+                                {echo "send this plan to the Barangay Committee?";}
+                            else if($_SESSION["userType"] == "bc")
+                                {echo "send this plan to the Budget Office?";}
+                         ?></h4>
                     <button type="button" class="close" data-dismiss="modal">×</button>
                 </div>
                 <div class="modal-body">
