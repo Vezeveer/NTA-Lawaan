@@ -1,12 +1,12 @@
 # Priority
-finish the user creation...
-Create user does not work
+Status change does not really work
 New user input validation (spaces)
+Add button for BC to send back to BDC
+Status does not show for BC user
 
 # Secondary
 
 Data input (project) validate each
-Status change does not really work
 BO user's finalize button doesnt work
 BC finalize button doesnt work
 
