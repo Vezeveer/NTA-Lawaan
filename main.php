@@ -78,7 +78,7 @@
                 <div class="modal-body">
                     <form method="post" <?php echo "action=\"/includes/createProject.php?year=$activeYear\"" ?>>
                         <div class="form-group">
-                            <input type="text" name="projectName" class="form-control input_proj" id="inputProjectName" placeholder="Project Name" required>
+                            <input type="text" name="projectName" class="form-control input_proj" id="inputProjectName" placeholder="Project Name" required  pattern="\S(.*\S)?" title="Make sure there are no spaces in front of text and at the end.">
                             <input type="text" name="items" class="form-control input_aipRefCode" placeholder="AIP Reference Code" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>

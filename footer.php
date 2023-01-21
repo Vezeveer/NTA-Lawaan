@@ -265,7 +265,7 @@ echo "
                     </div>
                     <div class=\"modal-body\">
                         <form method=\"post\" action=\"update_project_name.php?year={$activeYear}&project={$projects[$i]}\">
-                                <input type=\"text\" class=\"form-control input_proj\" name=\"project\" value=\"{$projects[$i]}\">
+                                <input type=\"text\" class=\"form-control input_proj\" name=\"project\" value=\"{$projects[$i]}\" required pattern=\"\S(.*\S)?\" title=\"Make sure there are no spaces in front of text and at the end.\">
                             <button type=\"submit\" class=\"btn btn-primary\">Submit</button>
                         </form>
                     </div>
