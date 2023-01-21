@@ -64,7 +64,7 @@
                     <span class="submenu-icon ml-auto"></span>
                 </div>
             </a> -->
-            <a href="dashboard.php" class="<?= ($activePage == 'dashboard') ? 'active_page ':'bg-dark '; ?> list-group-item list-group-item-action">
+            <a href="dashboard.php" class="<?= ($activePage == 'dashboard') ? 'active_page ':''; ?> bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fas fa-columns fa-fw mr-3"></span>
                     <span class="menu-collapsed">Dashboard</span>
@@ -99,7 +99,7 @@
                 }?>
                 
             </div>
-            <a href="main.php" class="<?= ($activePage == 'main') ? 'active_page ':'bg-dark '; ?> list-group-item list-group-item-action">
+            <a href="main.php" class="<?= ($activePage == 'main') ? 'active_page ':''; ?> bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fa fa-tasks fa-fw mr-3"></span>
                     <span class="menu-collapsed">Current Plan</span>

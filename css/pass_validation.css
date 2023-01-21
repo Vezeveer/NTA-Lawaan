@@ -23,37 +23,42 @@
   
   /* The message box is shown when the user clicks on the password field */
   #message {
-    display:none;
-    background: #f1f1f1;
-    color: #000;
+    /* display:none; */
+    /* background: #f1f1f1; */
+    /* color: #000; */
+    /* position: relative; */
+    /* padding: 20px;
+    margin-top: 10px; */
+  }
+
+  #message ul{
     position: relative;
     padding: 20px;
-    margin-top: 10px;
   }
   
-  #message p {
+  /* #message p {
     padding: 10px 35px;
     font-size: 18px;
-  }
+  } */
   
   /* Add a green text color and a checkmark when the requirements are right */
-  .valid {
+  .valid1 {
     color: green;
   }
   
-  .valid:before {
+  .valid1:before {
     position: relative;
-    left: -35px;
+    left: -15px;
     content: "✔";
   }
   
   /* Add a red text color and an "x" when the requirements are wrong */
-  .invalid {
+  .invalid1 {
     color: red;
   }
   
-  .invalid:before {
+  .invalid1:before {
     position: relative;
-    left: -35px;
+    left: -15px;
     content: "✖";
   }

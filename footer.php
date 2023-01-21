@@ -1,3 +1,127 @@
+    <!-- CREATE NEW PROJECT PROMPT.modal -->
+    <div class="modal fade" id="MymodalBack">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Project Name</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" <?php echo "action=\"/includes/createProject.php?year=$activeYear\"" ?>>
+                        <div class="form-group">
+                            <input type="text" name="projectName" class="form-control input_proj" id="inputProjectName" placeholder="Project Name" required  pattern="\S(.*\S)?" title="Make sure there are no spaces in front of text and at the end.">
+                            <input type="text" name="items" class="form-control input_aipRefCode" placeholder="AIP Reference Code" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+                <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="newProject()">Add</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button> 
+            </div> -->
+            </div>
+        </div>
+    </div>
+
+    <!-- BDC FINALIZE PROMPT.modal -->
+    <div class="modal fade" id="FinalizeModalBack">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Are you sure you want to approve this plan to the Barangay Committee?</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" <?php echo "action=\"/includes/finalize.php?year={$activeYear}&userType={$_SESSION['userType']}\"" ?>>
+                        <div class="form-group">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Approve</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button> 
+                    </form>
+                </div>
+                <div class="modal-footer">
+                
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--ADDING NEW USER PROMPT.modal -->
+    <div class="modal fade" id="UserModalBack">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">New User</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body">
+                    <form name="user_create" method="post" <?php echo "action=\"/includes/new_user.php\"" ?>>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-id-card"></i></span>
+                            </div>
+                            <input type="text" name="fullName" class="form-control" placeholder="Full Name" aria-label="Full Name" aria-describedby="basic-addon1" pattern="\S(.*\S)?" required>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-envelope"></i></span>
+                            </div>
+                            <input type="email" name="userEmail" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1" pattern="\S(.*\S)?" required>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
+                            </div>
+                            <input type="text" name="userName" class="form-control" id="usrName" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" pattern="\S(.*\S)?" required>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-lock"></i></span>
+                            </div>
+                            <input type="password" name="userPsw" class="form-control" placeholder="Password" id="psw" aria-label="Password" aria-describedby="basic-addon1" pattern="\S(.*\S)?" required>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-lock"></i></span>
+                            </div>
+                            <input type="password" name="userPsw2" class="form-control" placeholder="Re-enter Password" id="confirm_password" aria-label="Re-enter Password" pattern="\S(.*\S)?" aria-describedby="basic-addon1" required>
+                        </div>
+                        <fieldset class="form-group">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">Member</label>
+                                </div>
+                                <select name="userType" class="custom-select" id="inputGroupSelect01" required>
+                                    <option selected></option>
+                                    <option value="bdc" selected>Barangay Development Council</option>
+                                    <option value="bc">Barangay Committee</option>
+                                    <option value="bo">Budget Office</option>
+                                </select>
+                            </div>
+                        </fieldset>
+                        <div class="form-group row">
+                            <div class="col-sm-10">
+                                <button id="user_submit" type="submit" class="btn btn-primary" onsubmit="validateForm()" disabled>Submit</button>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div id="message" class="alert alert-light d-none" role="alert">
+                                <hr>
+                                <h5 class="alert-heading">Password must contain the following:</h5>
+                                <ul style="list-style: none;">
+                                    <li id="letter" class="invalid1">A <b>lowercase</b> letter</li>
+                                    <li id="capital" class="invalid1">A <b>capital (uppercase)</b> letter</li>
+                                    <li id="number" class="invalid1">A <b>number</b></li>
+                                    <li id="length" class="invalid1">Minimum <b>8 characters</b></li>
+                                </ul>
+                                <p>Please make sure username has no spaces in it, or special characters. Thank you.</p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     </div><!-- Main Col END -->
 </div><!-- body-row END -->
 
@@ -220,64 +344,80 @@ echo "
 </script>
 ";
 
+//<!-- Add Entry Prompt Modal -->
 echo "
-<!-- Add user Modal -->
 <div class=\"modal fade\" id=\"{$projectsTrimedNames[$i]}myModal\" tabindex=\"-1\" aria-labelledby=\"newAipEntry\" aria-hidden=\"true\">
-            <div class=\"modal-dialog\">
-                <div class=\"modal-content\">
-                    <div class=\"modal-header\">
-                    <h5 class=\"modal-title\" id=\"newAipEntry\">Add Entry</h5>
-                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"></button>
-                    </div>
-                    <div class=\"modal-body\">
-                        <form method=\"post\" action=\"includes/insert.php?year={$activeYear}\">
-                                <input type=\"text\" class=\"form-control\" name=\"project\" value=\"{$projects[$i]}\" readonly>
-                                <input type=\"text\" class=\"form-control input_aipRefCode\" name=\"aipRefCode\" placeholder=\"AIP Reference Code\" required>
-                                <input type=\"text\" class=\"form-control\" name=\"activityDesc\" placeholder=\"Activity Description\" required>
-                                <input type=\"text\" class=\"form-control\" name=\"impOffice\" placeholder=\"Implementing Office\" required>
-                                <input type=\"date\" class=\"form-control\" name=\"startDate\" placeholder=\"Start Date\" required>
-                                <input type=\"date\" class=\"form-control\" name=\"endDate\" placeholder=\"End Date\" required>
-                                <input type=\"text\" class=\"form-control\" name=\"expectedOutput\" placeholder=\"Expected Output\" required>
-                                <input type=\"number\" class=\"form-control\" name=\"fundingServices\" placeholder=\"Funding Services\" required>
-                                <input type=\"number\" class=\"form-control\" name=\"personalServices\" placeholder=\"Personal Services\" required>
-                                <input type=\"number\" class=\"form-control\" name=\"maint\" placeholder=\"Maintenance\" required>
-                                <input type=\"number\" class=\"form-control\" name=\"capitalOutlay\" placeholder=\"Capital Outlay\" required>
-                                <input type=\"number\" class=\"form-control\" name=\"total\" placeholder=\"Total\" required>
-                            <button type=\"submit\" class=\"btn btn-primary\">Submit</button>
-                        </form>
-                    </div>
-                    <div class=\"modal-footer\">
-                        <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>
-                    </div>
-                </div>
+    <div class=\"modal-dialog\">
+        <div class=\"modal-content\">
+            <div class=\"modal-header\">
+            <h5 class=\"modal-title\" id=\"newAipEntry\">Add Entry</h5>
+            <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"></button>
+            </div>
+            <div class=\"modal-body\">
+                <form method=\"post\" action=\"includes/insert.php?year={$activeYear}\">
+                        <input type=\"text\" class=\"form-control\" name=\"project\" value=\"{$projects[$i]}\" readonly>
+                        <input type=\"text\" class=\"form-control input_aipRefCode\" name=\"aipRefCode\" placeholder=\"AIP Reference Code\" required>
+                        <input type=\"text\" class=\"form-control\" name=\"activityDesc\" placeholder=\"Activity Description\" required>
+                        <input type=\"text\" class=\"form-control\" name=\"impOffice\" placeholder=\"Implementing Office\" required>
+                        <input type=\"date\" class=\"form-control\" name=\"startDate\" placeholder=\"Start Date\" required>
+                        <input type=\"date\" class=\"form-control\" name=\"endDate\" placeholder=\"End Date\" required>
+                        <input type=\"text\" class=\"form-control\" name=\"expectedOutput\" placeholder=\"Expected Output\" required>
+                        <input type=\"number\" class=\"form-control\" name=\"fundingServices\" placeholder=\"Funding Services\" required>
+                        <input type=\"number\" class=\"form-control\" name=\"personalServices\" placeholder=\"Personal Services\" required>
+                        <input type=\"number\" class=\"form-control\" name=\"maint\" placeholder=\"Maintenance\" required>
+                        <input type=\"number\" class=\"form-control\" name=\"capitalOutlay\" placeholder=\"Capital Outlay\" required>
+                        <input type=\"number\" class=\"form-control\" name=\"total\" placeholder=\"Total\" required>
+                    <button type=\"submit\" class=\"btn btn-primary\">Submit</button>
+                </form>
+            </div>
+            <div class=\"modal-footer\">
+                <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>
             </div>
         </div>
+    </div>
+</div>
 ";
 
-echo "
-<!-- Update Project Name Modal -->
-<div class=\"modal fade\" id=\"{$projectsTrimedNames[$i]}UpdateProjectNameModal\" tabindex=\"-1\" aria-labelledby=\"newAipEntry\" aria-hidden=\"true\">
-            <div class=\"modal-dialog\">
-                <div class=\"modal-content\">
-                    <div class=\"modal-header\">
-                    <h5 class=\"modal-title\" id=\"newAipEntry\">Update Project Name</h5>
-                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"></button>
-                    </div>
-                    <div class=\"modal-body\">
-                        <form method=\"post\" action=\"update_project_name.php?year={$activeYear}&project={$projects[$i]}\">
-                                <input type=\"text\" class=\"form-control input_proj\" name=\"project\" value=\"{$projects[$i]}\" required pattern=\"\S(.*\S)?\" title=\"Make sure there are no spaces in front of text and at the end.\">
-                            <button type=\"submit\" class=\"btn btn-primary\">Submit</button>
-                        </form>
-                    </div>
-                    <div class=\"modal-footer\">
-                        <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>
-                    </div>
+//<!-- Update Project Name Modal -->
+echo "<div class=\"modal fade\" id=\"{$projectsTrimedNames[$i]}UpdateProjectNameModal\" >
+        <div class=\"modal-dialog\">
+            <div class=\"modal-content\">
+                <div class=\"modal-header\">
+                    <h4 class=\"modal-title\" id=\"newAipEntry\">Update Project Name</h4>
+                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\">×</button>
+                </div>
+                <div class=\"modal-body\">
+                    <form method=\"post\" action=\"update_project_name.php?year={$activeYear}&project={$projects[$i]}\">
+                        <div class=\"input-group mb-3\">
+                            <div class=\"input-group-prepend\">
+                                <span class=\"input-group-text\" id=\"basic-addon1\"><i class=\"fas fa-pencil-alt\"></i></span>
+                            </div>
+                            <input type=\"text\" name=\"project\" class=\"form-control input_proj\" placeholder=\"Name\" aria-label=\"Project Name\" aria-describedby=\"basic-addon1\" pattern=\"\S(.*\S)?\" title=\"Make sure there are no spaces in front of text and at the end.\" required>
+                        </div>
+                        <div class=\"form-group row\">
+                            <div class=\"col-sm-10\">
+                                <button type=\"submit\" class=\"btn btn-primary\">Submit</button>
+                            </div>
+                        </div>
+                        <!-- <div id=\"message\" class=\"form-group row\">
+                            <h5>Password must contain the following:</h3>
+                                <p id=\"letter\" class=\"invalid1\">A <b>lowercase</b> letter</p>
+                                <p id=\"capital\" class=\"invalid1\">A <b>capital (uppercase)</b> letter</p>
+                                <p id=\"number\" class=\"invalid1\">A <b>number</b></p>
+                                <p id=\"length\" class=\"invalid1\">Minimum <b>8 characters</b></p>
+                        </div> -->
+                    </form>
                 </div>
             </div>
         </div>
-";
+    </div>";
+
 }}
 ?>
+
+
+
+
 <script>
 $('table tr td:nth-child(4) input').each(function() {
     $(this).datepicker({
