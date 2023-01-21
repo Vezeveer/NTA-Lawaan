@@ -58,6 +58,8 @@ session_start();
     include_once 'includes/databasehandler.inc.php';
     include_once 'includes/functions.inc.php';
 
+    $activePage = basename($_SERVER['PHP_SELF'], ".php");
+
     if (isset($_SESSION["usersname"])) {
         $projectsTrimedNames = array();
         $items;

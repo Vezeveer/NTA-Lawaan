@@ -214,6 +214,10 @@ tfoot > tr > td  {
     height: 100vh;
 }
 
+.active_page{
+	background-color: #1d2123;
+}
+
 @media screen and (max-width: 1050px){
 	.container_login{
 		grid-gap: 5rem;
