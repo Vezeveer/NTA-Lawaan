@@ -9,7 +9,7 @@
             $bdc_init = "<p class=\"card-text\">Barangay Development Council is currently initializing the Annual Investment Plan.</p>";
             $bc_finalize = "<p class=\"card-text\">Barangay Committee is currently adjusting the Annual Investment Plan.</p>";
             $bo_waiting = "<p class=\"card-text\">Waiting for Budget Office to approve the Annual Investment Plan.</p>";
-                    if($_SESSION["status"] == "bdc_initialize"){
+                    if($_SESSION["status"] == "bdc_initializing"){
                         echo $bdc_init;
                     } else if($_SESSION["status"] == "bc_finalizing") {
                         echo $bc_finalize;

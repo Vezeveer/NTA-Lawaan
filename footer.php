@@ -44,7 +44,7 @@ $(document).ready(function () {
 
 switch ($_SESSION["userType"]) {
 case "bdc":
-    if($_SESSION["status"] == "bdc_initialize"){
+    if($_SESSION["status"] == "bdc_initializing"){
         $toggleBtn = "enabled: true";
         $modifiable = "";
     } else {
@@ -61,7 +61,7 @@ case "bc":
         $toggleBtn = "enabled: false";
         $editable = "";
     }
-    if($_SESSION["status"] == "bdc_initialize"){
+    if($_SESSION["status"] == "bdc_initializing"){
         $printMainContent = false;
         echo $hideCont;
     }
@@ -74,7 +74,7 @@ case "bo":
         $toggleBtn = "enabled: false";
         $editable = "";
     }
-    if($_SESSION["status"] == "bdc_initialize"){
+    if($_SESSION["status"] == "bdc_initializing"){
         $printMainContent = false;
         echo $hideCont;
     }
@@ -222,17 +222,17 @@ echo "
 
 echo "
 <!-- Add user Modal -->
-<div class=\"modal fade\" id=\"{$projectsTrimedNames[$i]}myModal\" tabindex=\"-1\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">
+<div class=\"modal fade\" id=\"{$projectsTrimedNames[$i]}myModal\" tabindex=\"-1\" aria-labelledby=\"newAipEntry\" aria-hidden=\"true\">
             <div class=\"modal-dialog\">
                 <div class=\"modal-content\">
                     <div class=\"modal-header\">
-                    <h5 class=\"modal-title\" id=\"exampleModalLabel\">Add Entry</h5>
+                    <h5 class=\"modal-title\" id=\"newAipEntry\">Add Entry</h5>
                     <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"></button>
                     </div>
                     <div class=\"modal-body\">
                         <form method=\"post\" action=\"includes/insert.php?year={$activeYear}\">
                                 <input type=\"text\" class=\"form-control\" name=\"project\" value=\"{$projects[$i]}\" readonly>
-                                <input type=\"text\" class=\"form-control\" name=\"aipRefCode\" placeholder=\"AIP Reference Code\" required>
+                                <input type=\"text\" class=\"form-control input_aipRefCode\" name=\"aipRefCode\" placeholder=\"AIP Reference Code\" required>
                                 <input type=\"text\" class=\"form-control\" name=\"activityDesc\" placeholder=\"Activity Description\" required>
                                 <input type=\"text\" class=\"form-control\" name=\"impOffice\" placeholder=\"Implementing Office\" required>
                                 <input type=\"date\" class=\"form-control\" name=\"startDate\" placeholder=\"Start Date\" required>
@@ -256,16 +256,16 @@ echo "
 
 echo "
 <!-- Update Project Name Modal -->
-<div class=\"modal fade\" id=\"{$projectsTrimedNames[$i]}UpdateProjectNameModal\" tabindex=\"-1\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">
+<div class=\"modal fade\" id=\"{$projectsTrimedNames[$i]}UpdateProjectNameModal\" tabindex=\"-1\" aria-labelledby=\"newAipEntry\" aria-hidden=\"true\">
             <div class=\"modal-dialog\">
                 <div class=\"modal-content\">
                     <div class=\"modal-header\">
-                    <h5 class=\"modal-title\" id=\"exampleModalLabel\">Update Project Name</h5>
+                    <h5 class=\"modal-title\" id=\"newAipEntry\">Update Project Name</h5>
                     <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"></button>
                     </div>
                     <div class=\"modal-body\">
                         <form method=\"post\" action=\"update_project_name.php?year={$activeYear}&project={$projects[$i]}\">
-                                <input type=\"text\" class=\"form-control\" name=\"project\" value=\"{$projects[$i]}\">
+                                <input type=\"text\" class=\"form-control input_proj\" name=\"project\" value=\"{$projects[$i]}\">
                             <button type=\"submit\" class=\"btn btn-primary\">Submit</button>
                         </form>
                     </div>
@@ -287,6 +287,36 @@ $('table tr td:nth-child(4) input').each(function() {
         autoclose: true
     });
 });
+
+// validate input, project name
+$('.input_proj').bind('input', function() {
+  var c = this.selectionStart,
+      r = /[^a-z0-9 -]/gi,
+      v = $(this).val();
+  if(r.test(v)) {
+    $(this).val(v.replace(r, ''));
+    c--;
+  }
+  this.setSelectionRange(c, c);
+});
+
+// validate input, aip ref code
+$('.input_aipRefCode').bind('input', function() {
+  var c = this.selectionStart,
+      r = /[^0-9 -]|\s/gi,
+      v = $(this).val();
+  if(r.test(v)) {
+    $(this).val(v.replace(r, ''));
+    c--;
+  }
+  this.setSelectionRange(c, c);
+});
+
+// function jq( myid ) {
+ 
+//     return "#" + myid.replace( /(:|\.|\[|\]|,|=|@)/g, "\\$1" );
+ 
+// }
 
 // $(document).ready(function () {
 //     $('#main-content button').prop('disabled', true);
