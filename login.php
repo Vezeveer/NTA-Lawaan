@@ -5,8 +5,8 @@
 		</div>
 		<div class="login-content">
 			<form action="includes/login.inc.php" method="post">
-				<img src="img/nta_logo_small.png">
-				<h2 class="title">Welcome</h2>
+				<img class="threeD" src="img/nta_logo_small.png">
+				<h2 class="title" style="color: white; text-shadow: 2px 2px 4px #000000;">Welcome</h2>
            		<div class="input-div one">
            		   <div class="i">
            		   		<i class="fas fa-user"></i>

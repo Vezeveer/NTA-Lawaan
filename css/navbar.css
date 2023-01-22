@@ -1,0 +1,66 @@
+/* :root {
+	--tone1: #05386B;
+	--tone2: #379683;
+	--tone3: #5DCB95;
+	--tone4: #8EE4AF;
+	--tone5: #EDF5E1;
+  } */
+
+.bg-custom-1 {
+  background-color: #85144b;
+}
+
+.bg-custom-2 {
+    background-image: linear-gradient(15deg, #5cdb95 0%,  #5cdb95 100%);
+  padding: 5px;
+  margin: 0;
+  border-bottom: solid 2px var(--tone2);
+}
+
+.bg-custom-2 span{
+    color: #edf5e1 !important;
+    text-shadow: 1px 1px 2px #05386b !important;
+}
+
+
+
+.nav_logo_wrapper {
+    height: 100%;
+}
+
+.nav_logo_banner p {
+  font-size: 19px;
+  color: #aaa;
+  padding: 0;
+  margin: 0;
+  line-height: 18px;
+}
+.nav_logo_banner img {
+  float: left;
+  margin: 5px;
+}
+.nav_logo_banner span {
+position: absolute !important;
+  font-size: 17px;
+  vertical-align: top;
+  padding: 0;
+  margin-top: 2px !important;
+}
+.nav_logo_banner .nav_logo_banner_last span {
+  font-size: 17px;
+  vertical-align: top;
+  
+}
+
+.nav_logo_banner {
+    padding: 0 !important;
+  margin: 0 !important;
+}
+
+.nav-link {
+    color: var(--tone5) !important;
+}
+
+.nav-link:hover {
+    color: var(--tone2) !important;
+}

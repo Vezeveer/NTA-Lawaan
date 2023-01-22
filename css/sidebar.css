@@ -1,11 +1,15 @@
 #body-row {
     margin-left:0;
     margin-right:0;
+    height: 100vh;
 }
-#sidebar-container {
-    min-height: 100vh;   
+#sidebar-container { 
     background-color: #333;
     padding: 0;
+}
+
+.list-group {
+    
 }
 
 /* Sidebar sizes when expanded and expanded */
@@ -18,13 +22,13 @@
 
 /* Menu item*/
 #sidebar-container .list-group a {
-    height: 50px;
+    height: 40px;
     color: white;
 }
 
 /* Submenu item*/
 #sidebar-container .list-group .sidebar-submenu a {
-    height: 45px;
+    height: 40px;
     padding-left: 30px;
 }
 .sidebar-submenu {
@@ -33,11 +37,11 @@
 
 /* Separators */
 .sidebar-separator-title {
-    background-color: #333;
+    background-color: var(--tone2);
     height: 35px;
 }
 .sidebar-separator {
-    background-color: #333;
+    background-color: var(--tone2);
     height: 25px;
 }
 .logo-separator {
@@ -62,3 +66,22 @@
   padding-left: 10px;
 }
 
+#sidebar-container, #sidebar-container a{
+    background-image: linear-gradient(15deg, var(--tone2)  0%,  var(--tone2) 100%);
+}
+
+.logo_title {
+    color: #edf5e1;
+    text-shadow: 1px 1px 2px #05386b;
+}
+
+.list-group-item span {
+    /* color: #edf5e1; */
+    text-shadow: 1px 1px 2px #05386b;
+    
+}
+
+/* fixes the sidebar alignment issues */
+.list-group-item div {
+    height: 100%;
+}

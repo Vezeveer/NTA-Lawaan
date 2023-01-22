@@ -1,0 +1,101 @@
+/* :root {
+	--tone1: #05386B;
+	--tone2: #379683;
+	--tone3: #5DCB95;
+	--tone4: #8EE4AF;
+	--tone5: #EDF5E1;
+  } */
+body {
+    background-image: linear-gradient(15deg, var(--tone5) 0%,  var(--tone5) 100%);
+}
+
+#main-content{
+    background-image: linear-gradient(15deg, var(--tone5) 0%,  var(--tone5) 100%);
+    color: var(--tone5) !important;
+    height: 100vh;
+}
+
+#main-content a, #main-content li, #main-content div{
+    color: var(--tone1) !important;
+    /* text-shadow: 1px 1px 1px #05386b !important; */
+}
+
+#main-content h5, h1{
+    color: var(--tone1);
+    text-shadow: 1px 1px 2px var(--tone1);
+}
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 14px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: var(--tone5); 
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: var(--tone3); 
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--tone2); 
+  }
+
+/* table, th {
+    border: solid 1px #05386b !important;
+}
+
+td {
+    border: solid 1px #379683 !important;
+} */
+/* #main-content{
+    background-image: linear-gradient(15deg, #141e30   0%,  #243b55 100%);
+} */
+
+th, td {
+    color: var(--tone1);
+}
+
+#main-content button {
+    border-radius: 10px;
+    margin-right: 2px;
+}
+
+.dt-button-collection {
+ background-color: var(--tone5) !important;   
+}
+
+.dt-buttons button {
+    background-color: var(--tone2);
+    border: none;
+}
+
+.dt-buttons button:hover {
+    background-color: var(--tone1);
+}
+
+.paginate_button a{
+    background-color: var(--tone5) !important;
+    color: var(--tone5) !important;
+}
+
+.paginate_button a{
+    border: none;
+}
+
+.paginate_button.active:hover{
+    border: none;
+    background-color: var(--tone2) !important;
+}
+
+.modal-content, .modal-content input, .modal-content input:focus {
+    background-color: var(--tone5);
+}

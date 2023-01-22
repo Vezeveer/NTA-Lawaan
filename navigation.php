@@ -1,22 +1,27 @@
 <!-- Bootstrap NavBar -->
-<nav class="navbar navbar-expand-md navbar-dark bg-success nav-bg-color">
+<nav class="navbar navbar-expand-md navbar-dark text-dark bg-custom-2">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" href="#">
-        <img src="img\nta_logo_small.png" width="30" height="30" class="d-inline-block align-top" alt="">
-        <span class="menu-collapsed">NTA Lawaan</span>
+    <a class="navbar-brand nav_logo_banner" href="#">
+        <div class="nav_logo_wrapper">
+            <p>
+                <img src="img\nta_logo_small.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                <span class="menu-collapsed d-none d-md-inline text-dark font-weight-bold nav_logo_banner_first" style="font-family:verdana; font-size: 10px;">NATIONAL TAX ALLOTMENT MANAGEMENT AND INFORMATION SYSTEM</span><br>
+                <span class="menu-collapsed d-none d-md-inline text-dark font-weight-bold nav_logo_banner_last" style="font-family:verdana; font-size: 10px;">OF THE BARANGAYS OF LAWAAN, EASTERN SAMAR</span>
+            </p>
+        </div>
     </a>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <div class="collapse navbar-collapse text-dark" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item d-sm-block d-md-none active">
-                <a class="nav-link" href="#top"><i class="fas fa-home"></i> Dashboard<span class="sr-only">(current)</span></a>
+            <li class="nav-item d-sm-block d-md-none">
+                <a class="nav-link <?= ($activePage == 'dashboard') ? 'active_page ':''; ?>" href="dashboard.php"><i class="fas fa-home"></i> Dashboard<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item d-sm-block d-md-none">
                 <a class="nav-link" href="#top"><i class="fas fa-sign-out-alt"></i> History</a>
             </li>
             <li class="nav-item d-sm-block d-md-none">
-                <a class="nav-link" href="#top"><i class="fas fa-tasks"></i> Current Plan</a>
+                <a class="nav-link <?= ($activePage == 'main') ? 'active_page ':''; ?>" href="main.php"><i class="fas fa-tasks"></i> Current Plan</a>
             </li>
             <li class="nav-item d-sm-block d-md-none">
                 <a class="nav-link" href="#top"><i class="fas fa-calendar"></i> Logs</a>
@@ -25,7 +30,10 @@
                 <a class="nav-link" href="#top"><i class="fas fa-search"></i> Search</a>
             </li>
             <li class="nav-item d-sm-block d-md-none">
-                <a class="nav-link" href="#top"><i class="fas fa-user-plus"></i> Create User</a>
+                <a class="nav-link" href="#top" data-target="#UserModalBack" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fas fa-user-plus"></i> Create User</a>
+            </li>
+            <li class="nav-item d-sm-block d-md-none">
+                <a class="nav-link" href="#top"><i class="fas fa-cog"></i> Settings</a>
             </li>
             <li class="nav-item d-sm-block d-md-none">
                 <a class="nav-link" href="includes/logout.inc.php"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
@@ -139,12 +147,18 @@
                 </div>
             </a>
             <!-- Separator without title -->
-            <li class="list-group-item sidebar-separator menu-collapsed"></li>
+            <!-- <li class="list-group-item sidebar-separator menu-collapsed"></li> -->
             <!-- /END Separator -->
             <a href="#" class="bg-dark list-group-item list-group-item-action" data-target="#UserModalBack" data-toggle="modal" data-backdrop="static" data-keyboard="false">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fas fa-user-plus fa-fw mr-3"></span>
                     <span class="menu-collapsed">Create User</span>
+                </div>
+            </a>
+            <a href="#" class="bg-dark list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <i class="fas fa-cog fa-fw mr-3"></i>
+                    <span class="menu-collapsed">Settings</span>
                 </div>
             </a>
             <a href="includes/logout.inc.php" class="bg-dark list-group-item list-group-item-action">

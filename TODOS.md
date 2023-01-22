@@ -19,3 +19,7 @@ implement charts, graphs, histogram
 # IMPLEMENT
 Barangay Committee members must all collectively agree on plan.
 Footer in main.
+
+
+# Minor
+On new user input, the focused input has a blue halo. Change it to the theme.

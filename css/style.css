@@ -1,3 +1,11 @@
+:root {
+	--tone1: #05386B;
+	--tone2: #379683;
+	--tone3: #5DCB95;
+	--tone4: #8EE4AF;
+	--tone5: #EDF5E1;
+  }
+
 *{
 	padding: 0;
 	margin: 0;
@@ -126,7 +134,7 @@ body{
 }
 
 .input-div.focus > .i > i{
-	color: #38d39f;
+	color: var(--tone4);
 }
 
 .input-div > div > input{
@@ -203,19 +211,16 @@ tfoot > tr > td  {
 }
 
 .nav-bg-color{
-    background-color: #396e37 !important; 
+    background-color: var(--tone2) !important; 
 }
 
 /* #btnAddProject{
     width: 25%;
 } */
 
-#main-content{
-    height: 100vh;
-}
 
 .active_page{
-	color: rgb(255, 137, 27) !important;
+	color: var(--tone1) !important;
 }
 
 @media screen and (max-width: 1050px){
