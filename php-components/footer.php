@@ -7,7 +7,7 @@
                     <button type="button" class="close" data-dismiss="modal">×</button>
                 </div>
                 <div class="modal-body">
-                    <form method="post" <?php echo "action=\"/includes/createProject.php?year=$activeYear\"" ?>>
+                    <form method="post" <?php echo "action=\"/includes1/createProject.php?year=$activeYear\"" ?>>
                         <div class="form-group">
                             <input type="text" name="projectName" class="form-control input_proj" id="inputProjectName" placeholder="Project Name" required  pattern="\S(.*\S)?" title="Make sure there are no spaces in front of text and at the end.">
                             <input type="text" name="items" class="form-control input_aipRefCode" placeholder="AIP Reference Code" required>
@@ -38,7 +38,7 @@
                     <button type="button" class="close" data-dismiss="modal">×</button>
                 </div>
                 <div class="modal-body">
-                    <form method="post" <?php echo "action=\"/includes/finalize.php?year={$activeYear}&userType={$_SESSION['userType']}\"" ?>>
+                    <form method="post" <?php echo "action=\"/includes1/finalize.php?year={$activeYear}&userType={$_SESSION['userType']}\"" ?>>
                         <div class="form-group">
                         </div>
                         <button type="submit" class="btn btn-primary">Approve</button>
@@ -61,7 +61,7 @@
                     <button type="button" class="close" data-dismiss="modal">×</button>
                 </div>
                 <div class="modal-body">
-                    <form name="user_create" method="post" <?php echo "action=\"/includes/new_user.php\"" ?>>
+                    <form name="user_create" method="post" <?php echo "action=\"/includes1/new_user.php\"" ?>>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fas fa-id-card"></i></span>
@@ -231,7 +231,7 @@ echo "
             \"serverSide\": true,
             \"order\": [],
             \"ajax\": {
-                url: \"includes/fetch.php?projectName={$projects[$i]}\",
+                url: \"includes1/fetch.php?projectName={$projects[$i]}\",
                 type: \"POST\"
             },
             dom: 'Bfrtip',
@@ -289,7 +289,7 @@ echo "
 
         $('#{$projectsTrimedNames[$i]}').on('draw.dt', function() {
             $('#{$projectsTrimedNames[$i]}').Tabledit({
-                url: 'includes/action.php',
+                url: 'includes1/action.php',
                 dataType: 'json',
                 hideIdentifier: true,
                 {$modifiable}
@@ -360,7 +360,7 @@ echo "
             <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"></button>
             </div>
             <div class=\"modal-body\">
-                <form method=\"post\" action=\"includes/insert.php?year={$activeYear}\">
+                <form method=\"post\" action=\"includes1/insert.php?year={$activeYear}\">
                         <input type=\"text\" class=\"form-control\" name=\"project\" value=\"{$projects[$i]}\" readonly>
                         <input type=\"text\" class=\"form-control input_aipRefCode\" name=\"aipRefCode\" placeholder=\"AIP Reference Code\" required>
                         <input type=\"text\" class=\"form-control\" name=\"activityDesc\" placeholder=\"Activity Description\" required>
@@ -393,7 +393,7 @@ echo "<div class=\"modal fade\" id=\"{$projectsTrimedNames[$i]}UpdateProjectName
                     <button type=\"button\" class=\"close\" data-dismiss=\"modal\">×</button>
                 </div>
                 <div class=\"modal-body\">
-                    <form method=\"post\" action=\"update_project_name.php?year={$activeYear}&project={$projects[$i]}\">
+                    <form method=\"post\" action=\"includes1/update_project_name.php?year={$activeYear}&project={$projects[$i]}\">
                         <div class=\"input-group mb-3\">
                             <div class=\"input-group-prepend\">
                                 <span class=\"input-group-text\" id=\"basic-addon1\"><i class=\"fas fa-pencil-alt\"></i></span>

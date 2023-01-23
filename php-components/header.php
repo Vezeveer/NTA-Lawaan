@@ -1,30 +1,39 @@
 <?php
+header("Access-Control-Allow-Origin: *");
 session_start();
-?>
+// Check if last activity was set
+if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > 900)) {
+    // last request was more than 15 minutes ago
+    session_unset();     // unset $_SESSION variable for the run-time 
+    session_destroy();   // destroy session data in storage
+    header("Location: login.php"); // redirect to login page
+}
+$_SESSION['last_activity'] = time(); // update last activity time stamp
 
+?>
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>NTA Lawaan</title>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.3/css/buttons.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.3/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" href="css-libs/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="css-libs/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="css-libs/buttons.bootstrap4.min.css">
 
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="js-libs/jquery-2.2.4.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.3/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="js-libs/jquery.dataTables.min.js"></script>
+    <script src="js-libs/dataTables.buttons.min.js"></script>
+    <script src="js-libs/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.print.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.3/js/buttons.bootstrap4.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap4.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap4.min.css">
+    <script src="js-libs/vfs_fonts.js"></script>
+    <script src="js-libs/buttons.html5.min.js"></script>
+    <script src="js-libs/buttons.print.min.js"></script>
+    <script src="js-libs/buttons.bootstrap4.min.js"></script>
+    <script src="js-libs/dataTables.bootstrap4.min.js"></script>
+    <link rel="stylesheet" href="css-libs/dataTables.bootstrap4.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
-    <script src="js\jquery.tabledit.js"></script>
+    <script src="js/jquery.tabledit.js"></script>
 
     <style>
         table.dataTable tbody th,
@@ -37,12 +46,12 @@ session_start();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <script src="js-libs/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="css-libs/bootstrap-datepicker.min.css">
 
     <link rel="stylesheet" type="text/css" href="css/tableResizable.css">
-    <link rel="stylesheet" type="text/css" href="css/priority.css">
-    <link rel="stylesheet" href="css/popup.css">
+    <!-- <link rel="stylesheet" type="text/css" href="css/priority.css">
+    <link rel="stylesheet" href="css/popup.css"> -->
     <link rel="stylesheet" type="text/css" href="css/sidebar.css">
     <link rel="stylesheet" href="css/pass_validation.css">
     <link rel="stylesheet" href="css/navbar.css">
@@ -58,8 +67,8 @@ session_start();
 <body>
 
     <?php
-    include_once 'includes/databasehandler.inc.php';
-    include_once 'includes/functions.inc.php';
+    include_once 'includes1/databasehandler.inc.php';
+    include_once 'includes1/functions.inc.php';
 
     $activePage = basename($_SERVER['PHP_SELF'], ".php");
 

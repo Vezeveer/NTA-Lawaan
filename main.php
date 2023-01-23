@@ -1,4 +1,4 @@
-<?php include_once 'header.php' ?>
+<?php include_once 'php-components/header.php' ?>
 
 <h1 class="display-5"><?php if($_SESSION["status"] == "bo_approved"){echo "Annual Budget Plan";} else {echo "Annual Investment Plan";} ?></h1>
 <div class="panel panel-default">
@@ -71,4 +71,4 @@
 
 </div>
 
-<?php include 'footer.php' ?>
+<?php include 'php-components/footer.php' ?>

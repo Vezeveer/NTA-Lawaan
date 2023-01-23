@@ -1,6 +1,6 @@
 <?php
 
-include('includes\databasehandler.inc.php');
+include('includes1\databasehandler.inc.php');
 
 $yr = "year_{$_GET['year']}";
 // MySQLi Procedural
@@ -10,7 +10,7 @@ project = '{$_POST['project']}' WHERE project='{$_GET['project']}'";
 if (mysqli_query($conn, $sql)) {
     header("location: ../main.php");
 } else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    echo "Failed to update project name. Error: " . $sql . "<br>" . mysqli_error($conn);
 }
 
 mysqli_close($conn);

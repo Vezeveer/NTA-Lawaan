@@ -10,6 +10,11 @@ $dBUserName = "root";
 $dBPassword = "";
 $dBName = "ntadb01";
 
+// $serverName = "sql107.epizy.com";
+// $dBUserName = "epiz_33425936";
+// $dBPassword = "AwvMz9ohkcwIzSW";
+// $dBName = "epiz_33425936_ntadb01";
+
 // MySQLi Procedural
 $conn = mysqli_connect($serverName, 
                         $dBUserName, 

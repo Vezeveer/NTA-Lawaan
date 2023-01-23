@@ -1,12 +1,12 @@
 <?php
-	include_once 'header.php';
+	include_once 'php-components/header.php';
 
 	if(isset($_SESSION["usersname"])){
 		header("location: main.php");
 		exit();
+	} else {
+		header("location: login.php");
+		exit();
 	}
 
-	include 'login.php';
-
-	include_once 'footer.php';
-?>
+	include_once 'php-components/footer.php';

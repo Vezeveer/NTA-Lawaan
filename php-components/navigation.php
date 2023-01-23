@@ -6,7 +6,7 @@
     <a class="navbar-brand nav_logo_banner" href="#">
         <div class="nav_logo_wrapper">
             <p>
-                <img src="img\nta_logo_small.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                <img id="nav_logo_img" src="img\nta_logo_small.png" width="30" height="30" class="d-inline-block align-top" alt="">
                 <span class="menu-collapsed d-none d-md-inline text-dark font-weight-bold nav_logo_banner_first" style="font-family:verdana; font-size: 10px;">NATIONAL TAX ALLOTMENT MANAGEMENT AND INFORMATION SYSTEM</span><br>
                 <span class="menu-collapsed d-none d-md-inline text-dark font-weight-bold nav_logo_banner_last" style="font-family:verdana; font-size: 10px;">OF THE BARANGAYS OF LAWAAN, EASTERN SAMAR</span>
             </p>
@@ -36,7 +36,7 @@
                 <a class="nav-link" href="#top"><i class="fas fa-cog"></i> Settings</a>
             </li>
             <li class="nav-item d-sm-block d-md-none">
-                <a class="nav-link" href="includes/logout.inc.php"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+                <a class="nav-link" href="includes1/logout.inc.php"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
             </li>
             <!-- <li class="nav-item">
                 <a class="nav-link" href="#top">Pricing</a>
@@ -161,7 +161,7 @@
                     <span class="menu-collapsed">Settings</span>
                 </div>
             </a>
-            <a href="includes/logout.inc.php" class="bg-dark list-group-item list-group-item-action">
+            <a href="includes1/logout.inc.php" class="bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fas fa-sign-out-alt fa-fw mr-3"></span>
                     <span class="menu-collapsed">Sign Out</span>
