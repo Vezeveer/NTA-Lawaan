@@ -1,5 +1,4 @@
 # Priority
-Status change does not really work (does not update immediately, needs refresh)
 New user input validation (spaces)
 Add button for BC to send back to BDC
 Status does not show for BC user
@@ -20,11 +19,12 @@ implement charts, graphs, histogram
 # IMPLEMENT
 Barangay Committee members must all collectively agree on plan.
 Footer in main.
-
+in the finalize prompt, add a tick mark for agreement.
 
 # Minor
 On new user input, the focused input has a blue halo. Change it to the theme.
 Loading of tables, loading animation needs to change.
+
 
 # online host problem
 Google this:

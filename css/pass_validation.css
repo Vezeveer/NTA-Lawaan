@@ -43,7 +43,7 @@
   
   /* Add a green text color and a checkmark when the requirements are right */
   .valid1 {
-    color: green;
+    color: green !important;
   }
   
   .valid1:before {
@@ -54,7 +54,7 @@
   
   /* Add a red text color and an "x" when the requirements are wrong */
   .invalid1 {
-    color: red;
+    color: red !important;
   }
   
   .invalid1:before {
