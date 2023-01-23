@@ -10,7 +10,6 @@ function updateStatusOfCurrentYear($conn, $year, $userType){
             break;
         case "bdc":
             $resultUpd = "UPDATE `status` SET `status`='bc_finalizing' WHERE year=$year";
-            $_SESSION['status'] = 'bc_finalizing'; // TODO: Cannot set status SESSION to said
             break;
         case "bc":
             $resultUpd = "UPDATE `status` SET `status`='pending_bo_approval' WHERE year=$year";
@@ -19,8 +18,7 @@ function updateStatusOfCurrentYear($conn, $year, $userType){
     }
     
     if (mysqli_query($conn, $resultUpd)) {
-        // header("location: ../dashboard.php");
-        header("location: logout.inc.php"); // TODO: Temporary logout for now..., because status does not change for current session
+        header("location: ../dashboard.php");
     } else {
     echo "Error updating record: " . mysqli_error($conn);
     }

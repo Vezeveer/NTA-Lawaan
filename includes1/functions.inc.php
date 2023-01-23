@@ -148,6 +148,7 @@ function getInactiveYears($conn, $year){
 }
 
 function getItems($conn, $year){
+    $_SESSION['status'] = getStatusOfCurrentYear($conn, getActiveYear($conn));
     $sql = "SELECT * FROM $year";
     $result = mysqli_query($conn, $sql);
 
