@@ -8,10 +8,6 @@
     padding: 0;
 }
 
-.list-group {
-    
-}
-
 /* Sidebar sizes when expanded and expanded */
 .sidebar-expanded {
     width: 230px;
@@ -84,4 +80,8 @@
 /* fixes the sidebar alignment issues */
 .list-group-item div {
     height: 100%;
+}
+
+#sidebar-container a:hover{
+    background-image: linear-gradient(15deg, var(--tone1)  0%,  var(--tone2) 100%);
 }
