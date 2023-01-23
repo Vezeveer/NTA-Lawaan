@@ -21,18 +21,19 @@ $_SESSION['last_activity'] = time(); // update last activity time stamp
     <link rel="stylesheet" href="css-libs/buttons.bootstrap4.min.css">
 
     <script src="js-libs/jquery-2.2.4.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="third-party/bootstrap-4.6.2-dist/css/bootstrap.min.css">
     <script src="js-libs/jquery.dataTables.min.js"></script>
     <script src="js-libs/dataTables.buttons.min.js"></script>
     <script src="js-libs/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script> -->
+    <script src="js-libs/pdfmake.min.js"></script> <!-- pdfmake 0.2.7 -->
     <script src="js-libs/vfs_fonts.js"></script>
     <script src="js-libs/buttons.html5.min.js"></script>
     <script src="js-libs/buttons.print.min.js"></script>
     <script src="js-libs/buttons.bootstrap4.min.js"></script>
     <script src="js-libs/dataTables.bootstrap4.min.js"></script>
     <link rel="stylesheet" href="css-libs/dataTables.bootstrap4.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+    <script src="third-party/bootstrap-4.6.2-dist/js/bootstrap.min.js"></script>
     <script src="js/jquery.tabledit.js"></script>
 
     <style>
@@ -43,8 +44,8 @@ $_SESSION['last_activity'] = time(); // update last activity time stamp
     </style>
 
     <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous"> -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <link rel="stylesheet" href="third-party/fontawesome-free-5.15.4-web/css/all.min.css"> <!-- fontawesome 5.15.4 web -->
+    <script src="third-party/fontawesome-free-5.15.4-web/js/all.min.js"></script> <!-- fontawesome 5.15.4 web -->
 
     <script src="js-libs/bootstrap-datepicker.min.js"></script>
     <link rel="stylesheet" href="css-libs/bootstrap-datepicker.min.css">
@@ -53,13 +54,11 @@ $_SESSION['last_activity'] = time(); // update last activity time stamp
     <!-- <link rel="stylesheet" type="text/css" href="css/priority.css">
     <link rel="stylesheet" href="css/popup.css"> -->
     <link rel="stylesheet" type="text/css" href="css/sidebar.css">
-    <link rel="stylesheet" href="css/pass_validation.css">
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/main_content.css">
     <link rel="stylesheet" href="css/threed.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-
-
+    <link rel="stylesheet" href="css/pass_validation.css">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>

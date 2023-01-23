@@ -9,8 +9,8 @@
                 <div class="modal-body">
                     <form method="post" <?php echo "action=\"/includes1/createProject.php?year=$activeYear\"" ?>>
                         <div class="form-group">
-                            <input type="text" name="projectName" class="form-control input_proj" id="inputProjectName" placeholder="Project Name" required  pattern="\S(.*\S)?" title="Make sure there are no spaces in front of text and at the end.">
-                            <input type="text" name="items" class="form-control input_aipRefCode" placeholder="AIP Reference Code" required>
+                            <input type="text" name="projectName" class="form-control input_proj" id="inputProjectName" placeholder="Project Name" required  pattern="\S(.*\S)?" title="Make sure there are no spaces in front of text and at the end." maxlength="50">
+                            <input type="text" name="items" class="form-control input_aipRefCode" placeholder="AIP Reference Code" maxlength="50" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
@@ -28,12 +28,15 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Are you sure you want to <?php if($_SESSION["userType"] == "bo")
-                        {echo "approve this plan as the Annual Budget Plan?";}
-                            else if($_SESSION["userType"] == "bdc")
-                                {echo "send this plan to the Barangay Committee?";}
-                            else if($_SESSION["userType"] == "bc")
-                                {echo "send this plan to the Budget Office?";}
+                    <h4 class="modal-title">Are you sure you want to 
+                        <?php 
+                        if($_SESSION["userType"] == "bo"){
+                            echo "approve this plan as the Annual Budget Plan?";
+                        } else if($_SESSION["userType"] == "bdc"){
+                            echo "send this plan to the Barangay Committee?";
+                        } else if($_SESSION["userType"] == "bc"){
+                            echo "send this plan to the Budget Office for approval?";
+                        }
                          ?></h4>
                     <button type="button" class="close" data-dismiss="modal">×</button>
                 </div>
@@ -66,31 +69,31 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fas fa-id-card"></i></span>
                             </div>
-                            <input type="text" name="fullName" class="form-control" placeholder="Full Name" aria-label="Full Name" aria-describedby="basic-addon1" pattern="\S(.*\S)?" required>
+                            <input type="text" name="fullName" class="form-control" placeholder="Full Name" aria-label="Full Name" aria-describedby="basic-addon1" pattern="\S(.*\S)?" maxlength="50" required>
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fas fa-envelope"></i></span>
                             </div>
-                            <input type="email" name="userEmail" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1" pattern="\S(.*\S)?" required>
+                            <input type="email" name="userEmail" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1" pattern="\S(.*\S)?" maxlength="50" required>
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
                             </div>
-                            <input type="text" name="userName" class="form-control" id="usrName" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" pattern="\S(.*\S)?" required>
+                            <input type="text" name="userName" class="form-control input_username" id="usrName" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" pattern="\S(.*\S)?" maxlength="50" required>
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fas fa-lock"></i></span>
                             </div>
-                            <input type="password" name="userPsw" class="form-control" placeholder="Password" id="psw" aria-label="Password" aria-describedby="basic-addon1" pattern="\S(.*\S)?" required>
+                            <input type="password" name="userPsw" class="form-control" placeholder="Password" id="psw" aria-label="Password" aria-describedby="basic-addon1" pattern="\S(.*\S)?" maxlength="50" required>
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fas fa-lock"></i></span>
                             </div>
-                            <input type="password" name="userPsw2" class="form-control" placeholder="Re-enter Password" id="confirm_password" aria-label="Re-enter Password" pattern="\S(.*\S)?" aria-describedby="basic-addon1" required>
+                            <input type="password" name="userPsw2" class="form-control" placeholder="Re-enter Password" id="confirm_password" aria-label="Re-enter Password" pattern="\S(.*\S)?" aria-describedby="basic-addon1" maxlength="50" required>
                         </div>
                         <fieldset class="form-group">
                             <div class="input-group mb-3">
@@ -141,7 +144,7 @@
 </body>
 </html>
 <script>
-    console.log("Status: <?php echo $_SESSION["status"]; ?>, UserType: <?php echo $_SESSION["userType"] ?>");
+    console.log(`Status: <?php echo isset($_SESSION["status"]) ? $_SESSION["status"] : "not set"; ?>, UserType: <?php echo isset($_SESSION["userType"]) ? $_SESSION["userType"] : "not set" ?>`);
 </script>
 <?php
 
@@ -362,17 +365,88 @@ echo "
             <div class=\"modal-body\">
                 <form method=\"post\" action=\"includes1/insert.php?year={$activeYear}\">
                         <input type=\"text\" class=\"form-control\" name=\"project\" value=\"{$projects[$i]}\" readonly>
-                        <input type=\"text\" class=\"form-control input_aipRefCode\" name=\"aipRefCode\" placeholder=\"AIP Reference Code\" required>
-                        <input type=\"text\" class=\"form-control\" name=\"activityDesc\" placeholder=\"Activity Description\" required>
-                        <input type=\"text\" class=\"form-control\" name=\"impOffice\" placeholder=\"Implementing Office\" required>
-                        <input type=\"date\" class=\"form-control\" name=\"startDate\" placeholder=\"Start Date\" required>
-                        <input type=\"date\" class=\"form-control\" name=\"endDate\" placeholder=\"End Date\" required>
-                        <input type=\"text\" class=\"form-control\" name=\"expectedOutput\" placeholder=\"Expected Output\" required>
-                        <input type=\"number\" class=\"form-control\" name=\"fundingServices\" placeholder=\"Funding Services\" required>
-                        <input type=\"number\" class=\"form-control\" name=\"personalServices\" placeholder=\"Personal Services\" required>
-                        <input type=\"number\" class=\"form-control\" name=\"maint\" placeholder=\"Maintenance\" required>
-                        <input type=\"number\" class=\"form-control\" name=\"capitalOutlay\" placeholder=\"Capital Outlay\" required>
-                        <input type=\"number\" class=\"form-control\" name=\"total\" placeholder=\"Total\" required>
+                        <hr>
+                        <div class=\"input-group mb-2\">
+                            <div class=\"input-group-prepend\">
+                                <span class=\"input-group-text\" id=\"basic-addon1\">AIP</span>
+                            </div>
+                            <input type=\"text\" class=\"form-control input_aipRefCode\" name=\"aipRefCode\" placeholder=\"AIP Reference Code\" aria-label=\"aipRefCode\" aria-describedby=\"basic-addon1\" maxlength=\"50\" required>
+                        </div>
+                        <div class=\"input-group mb-2\">
+                            <div class=\"input-group-prepend\">
+                                <span class=\"input-group-text\" id=\"basic-addon1\"><i class=\"fas fa-info-circle\"></i></span>
+                            </div>
+                            <input type=\"text\" class=\"form-control\" name=\"activityDesc\" placeholder=\"Activity Description\" aria-label=\"actDesc\" aria-describedby=\"basic-addon1\" maxlength=\"50\" required>
+                        </div>
+                        <div class=\"input-group mb-2\">
+                            <div class=\"input-group-prepend\">
+                                <span class=\"input-group-text\" id=\"basic-addon1\"><i class=\"fas fa-university\"></i></span>
+                            </div>
+                            <input type=\"text\" class=\"form-control\" name=\"impOffice\" placeholder=\"Implementing Office\" aria-label=\"actDesc\" aria-describedby=\"basic-addon1\" maxlength=\"50\" required>
+                        </div>
+                        <div class=\"input-group mb-2\">
+                            <div class=\"input-group-prepend\">
+                                <span class=\"input-group-text\" id=\"basic-addon1\">start</span>
+                            </div>
+                            <input type=\"date\" class=\"form-control\" name=\"startDate\" aria-label=\"startDate\" aria-describedby=\"basic-addon1\" required>
+                        </div>
+                        <div class=\"input-group mb-2\">
+                            <div class=\"input-group-prepend\">
+                                <span class=\"input-group-text\" id=\"basic-addon1\">end</span>
+                            </div>
+                            <input type=\"date\" class=\"form-control\" name=\"endDate\" aria-label=\"endDate\" aria-describedby=\"basic-addon1\" required>
+                        </div>
+                        <div class=\"input-group mb-2\">
+                            <div class=\"input-group-prepend\">
+                                <span class=\"input-group-text\" id=\"basic-addon1\"><i class=\"fas fa-gem\"></i></span>
+                            </div>
+                            <input type=\"text\" class=\"form-control\" name=\"expectedOutput\" placeholder=\"Expected Output\" aria-label=\"expectedOutput\" aria-describedby=\"basic-addon1\" maxlength=\"50\" required>
+                        </div>
+                        <div class=\"input-group mb-2\">
+                            <div class=\"input-group-prepend\">
+                                <span class=\"input-group-text\">₱</span>
+                            </div>
+                            <input type=\"number\" name=\"fundingServices\" class=\"form-control\" placeholder=\"Funding Services\" aria-label=\"Amount (to the nearest peso)\" maxlength=\"11\" oninput=\"this.value=this.value.slice(0,this.maxLength)\" required>
+                            <div class=\"input-group-append\">
+                                <span class=\"input-group-text\">.00</span>
+                            </div>
+                        </div>
+                        <div class=\"input-group mb-2\">
+                            <div class=\"input-group-prepend\">
+                                <span class=\"input-group-text\">₱</span>
+                            </div>
+                            <input type=\"number\" name=\"personalServices\" class=\"form-control\" placeholder=\"Personal Services\" aria-label=\"Amount (to the nearest peso)\" maxlength=\"11\" oninput=\"this.value=this.value.slice(0,this.maxLength)\" required>
+                            <div class=\"input-group-append\">
+                                <span class=\"input-group-text\">.00</span>
+                            </div>
+                        </div>
+                        <div class=\"input-group mb-2\">
+                            <div class=\"input-group-prepend\">
+                                <span class=\"input-group-text\">₱</span>
+                            </div>
+                            <input type=\"number\" name=\"maint\" class=\"form-control\" placeholder=\"Maintenance\" aria-label=\"Amount (to the nearest peso)\" maxlength=\"11\" oninput=\"this.value=this.value.slice(0,this.maxLength)\" required>
+                            <div class=\"input-group-append\">
+                                <span class=\"input-group-text\">.00</span>
+                            </div>
+                        </div>
+                        <div class=\"input-group mb-2\">
+                            <div class=\"input-group-prepend\">
+                                <span class=\"input-group-text\">₱</span>
+                            </div>
+                            <input type=\"number\" name=\"capitalOutlay\" class=\"form-control\" placeholder=\"Capital Outlay\" aria-label=\"Amount (to the nearest peso)\" maxlength=\"11\" oninput=\"this.value=this.value.slice(0,this.maxLength)\" required>
+                            <div class=\"input-group-append\">
+                                <span class=\"input-group-text\">.00</span>
+                            </div>
+                        </div>
+                        <div class=\"input-group mb-2\">
+                            <div class=\"input-group-prepend\">
+                                <span class=\"input-group-text\">₱</span>
+                            </div>
+                            <input type=\"number\" name=\"total\" class=\"form-control\" placeholder=\"Total\" aria-label=\"Amount (to the nearest peso)\" maxlength=\"11\" oninput=\"this.value=this.value.slice(0,this.maxLength)\" required>
+                            <div class=\"input-group-append\">
+                                <span class=\"input-group-text\">.00</span>
+                            </div>
+                        </div>
                     <button type=\"submit\" class=\"btn btn-primary\">Submit</button>
                 </form>
             </div>
@@ -398,7 +472,7 @@ echo "<div class=\"modal fade\" id=\"{$projectsTrimedNames[$i]}UpdateProjectName
                             <div class=\"input-group-prepend\">
                                 <span class=\"input-group-text\" id=\"basic-addon1\"><i class=\"fas fa-pencil-alt\"></i></span>
                             </div>
-                            <input type=\"text\" name=\"project\" class=\"form-control input_proj\" placeholder=\"Name\" aria-label=\"Project Name\" aria-describedby=\"basic-addon1\" pattern=\"\S(.*\S)?\" title=\"Make sure there are no spaces in front of text and at the end.\" required>
+                            <input type=\"text\" name=\"project\" class=\"form-control input_proj\" placeholder=\"Name\" aria-label=\"Project Name\" aria-describedby=\"basic-addon1\" pattern=\"\S(.*\S)?\" title=\"Make sure there are no spaces in front of text and at the end.\" maxlength=\"50\" required>
                         </div>
                         <div class=\"form-group row\">
                             <div class=\"col-sm-10\">
@@ -450,6 +524,18 @@ $('.input_proj').bind('input', function() {
 $('.input_aipRefCode').bind('input', function() {
   var c = this.selectionStart,
       r = /[^0-9 -]|\s/gi,
+      v = $(this).val();
+  if(r.test(v)) {
+    $(this).val(v.replace(r, ''));
+    c--;
+  }
+  this.setSelectionRange(c, c);
+});
+
+// validate input, username
+$('.input_username').bind('input', function() {
+  var c = this.selectionStart,
+      r = /[^a-z0-9 -]|\s/gi,
       v = $(this).val();
   if(r.test(v)) {
     $(this).val(v.replace(r, ''));

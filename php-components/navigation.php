@@ -110,7 +110,7 @@
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fa fa-history fa-fw mr-3"></span>
                     <span class="menu-collapsed">History</span>
-                    <span class="fa fa-caret-down ml-auto"></span>
+                    <span class="fa fa-caret-down ml-auto menu-collapsed"></span>
                 </div>
             </a>
             <!-- Submenu content -->
