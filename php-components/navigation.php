@@ -123,7 +123,7 @@
                 }?>
                 
             </div>
-            <a href="main.php" class="<?= ($activePage == 'main') ? 'active_page ':''; ?> bg-dark list-group-item list-group-item-action">
+            <a href="main.php" class="<?= ($activePage == 'main') ? 'active_page ':''; ?> bg-dark list-group-item list-group-item-action <?php echo $_SESSION["enableContent"] == "yes" ? "" : 'btn disabled' ?>">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fa fa-tasks fa-fw mr-3"></span>
                     <span class="menu-collapsed">Current Plan</span>

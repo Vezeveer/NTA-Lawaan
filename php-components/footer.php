@@ -166,7 +166,7 @@ saveButton: false,";
 $toggleBtn;
 $printMainContent = true;
 
-$hideCont = "<script>$('#main-content > div').hide();</script>";
+$hideCont = "<script>$('#main-content table').hide();</script>"; // hide all content
 $disableAddProjFinalizeBtns = "<script>
 $(document).ready(function () {
     $('#btnFinalizePlan').prop('disabled', true);

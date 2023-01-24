@@ -1,5 +1,4 @@
 # Priority
-New user input validation (spaces)
 Add button for BC to send back to BDC
 Status does not show for BC user
 

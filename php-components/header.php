@@ -9,7 +9,8 @@ if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > 
     header("Location: login.php"); // redirect to login page
 }
 $_SESSION['last_activity'] = time(); // update last activity time stamp
-
+$_SESSION["enableContent"] = false;
+$_SESSION['adminAccess'] = false;
 ?>
 <!DOCTYPE html>
 <html>
@@ -70,6 +71,7 @@ $_SESSION['last_activity'] = time(); // update last activity time stamp
     include_once 'includes1/functions.inc.php';
 
     $activePage = basename($_SERVER['PHP_SELF'], ".php");
+    
 
     if (isset($_SESSION["usersname"])) {
         $projectsTrimedNames = array();
@@ -98,10 +100,21 @@ $_SESSION['last_activity'] = time(); // update last activity time stamp
             array_push($projectsTrimedNames, str_replace(' ', '', $projects[$i]));
         }
 
-        include 'navigation.php';
+        // allow viewing of content
+        if ($_SESSION['userType'] == 'bdc' && $_SESSION['status'] == 'bdc_initializing') {
+            $_SESSION['enableContent'] = true;
+        } else if ($_SESSION['userType'] == 'bc' && $_SESSION['status'] == 'bc_finalizing') {
+            $_SESSION['enableContent'] = true;
+        } else if ($_SESSION['userType'] == 'bo' && $_SESSION['status'] == 'pending_bo_approval') {
+            $_SESSION['enableContent'] = true;
+        } else if ($_SESSION['status'] == 'bo_approved') {
+            $_SESSION['enableContent'] = true;
+        }
+
+        include_once 'navigation.php';
     }
-    ?>
+    
 
-
+echo "
     <!-- MAIN -->
-    <div class="col p-4 overflow-auto" id="main-content">
+    <div class=\"col p-4 overflow-auto\" id=\"main-content\">";
