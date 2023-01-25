@@ -111,7 +111,13 @@ $_SESSION['adminAccess'] = false;
             $_SESSION['enableContent'] = true;
         }
 
+        if ($_SESSION['userType'] == 'bdc'){
+            $_SESSION['adminAccess'] = true;
+        }
+
         include_once 'navigation.php';
+    } else {
+        
     }
     
 

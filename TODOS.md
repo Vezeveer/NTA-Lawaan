@@ -1,6 +1,6 @@
 # Priority
+Prevent anyone not signed in from visiting php pages
 Add button for BC to send back to BDC
-Status does not show for BC user
 
 # Secondary
 
@@ -23,8 +23,3 @@ in the finalize prompt, add a tick mark for agreement.
 # Minor
 On new user input, the focused input has a blue halo. Change it to the theme.
 Loading of tables, loading animation needs to change.
-
-
-# online host problem
-Google this:
-has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource.

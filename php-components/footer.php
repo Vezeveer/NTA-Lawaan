@@ -201,8 +201,8 @@ case "bc":
     break;
 case "bo":
     if($_SESSION["status"] == "pending_bo_approval"){
-        $toggleBtn = "enabled: true";
-        $modifiable = "";
+        $toggleBtn = "enabled: false";
+        $editable = "";
     } else {
         $toggleBtn = "enabled: false";
         $editable = "";
@@ -216,8 +216,11 @@ case "bo":
         echo $hideCont;
     }
     if($_SESSION["status"] == "bo_approved"){
-        $printMainContent = false;
-        echo $hideCont;
+        //$printMainContent = false;
+        //echo $hideCont;
+        $toggleBtn = "enabled: false";
+        $editable = "";
+        echo $disableAddProjFinalizeBtns;
     }
     break;
 default:

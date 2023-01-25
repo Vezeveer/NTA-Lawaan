@@ -17,24 +17,32 @@
             <li class="nav-item d-sm-block d-md-none">
                 <a class="nav-link <?= ($activePage == 'dashboard') ? 'active_page ':''; ?>" href="dashboard.php"><i class="fas fa-home"></i> Dashboard<span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item d-sm-block d-md-none">
-                <a class="nav-link" href="#top"><i class="fas fa-sign-out-alt"></i> History</a>
-            </li>
+            <?php
+            if($_SESSION['adminAccess']){
+                echo "<li class=\"nav-item d-sm-block d-md-none\">
+                <a class=\"nav-link\" href=\"#top\"><i class=\"fas fa-sign-out-alt\"></i> History</a>
+            </li>";
+            }
+            ?>
             <li class="nav-item d-sm-block d-md-none">
                 <a class="nav-link <?= ($activePage == 'main') ? 'active_page ':''; ?>" href="main.php"><i class="fas fa-tasks"></i> Current Plan</a>
             </li>
-            <li class="nav-item d-sm-block d-md-none">
-                <a class="nav-link" href="#top"><i class="fas fa-calendar"></i> Logs</a>
-            </li>
-            <li class="nav-item d-sm-block d-md-none">
-                <a class="nav-link" href="#top"><i class="fas fa-search"></i> Search</a>
-            </li>
-            <li class="nav-item d-sm-block d-md-none">
-                <a class="nav-link" href="#top" data-target="#UserModalBack" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fas fa-user-plus"></i> Create User</a>
-            </li>
-            <li class="nav-item d-sm-block d-md-none">
-                <a class="nav-link" href="#top"><i class="fas fa-cog"></i> Settings</a>
-            </li>
+            <?php
+            if($_SESSION['adminAccess']){
+                echo "<li class=\"nav-item d-sm-block d-md-none\">
+                        <a class=\"nav-link\" href=\"#top\"><i class=\"fas fa-calendar\"></i> Logs</a>
+                    </li>
+                    <li class=\"nav-item d-sm-block d-md-none\">
+                        <a class=\"nav-link\" href=\"#top\"><i class=\"fas fa-search\"></i> Search</a>
+                    </li>
+                    <li class=\"nav-item d-sm-block d-md-none\">
+                        <a class=\"nav-link\" href=\"#top\" data-target=\"#UserModalBack\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\"><i class=\"fas fa-user-plus\"></i> Create User</a>
+                    </li>
+                    <li class=\"nav-item d-sm-block d-md-none\">
+                        <a class=\"nav-link\" href=\"#top\"><i class=\"fas fa-cog\"></i> Settings</a>
+                    </li>";
+            }
+            ?>
             <li class="nav-item d-sm-block d-md-none">
                 <a class="nav-link" href="includes1/logout.inc.php"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
             </li>
@@ -106,24 +114,31 @@
                     <span class="menu-collapsed">Tables</span>
                 </a>
             </div> -->
-            <a href="#submenu2" data-toggle="collapse" aria-expanded="false" class="<?php if ($page_name=="history_") {echo "active"; } else  {echo "noactive";}?> bg-dark list-group-item list-group-item-action flex-column align-items-start">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-history fa-fw mr-3"></span>
-                    <span class="menu-collapsed">History</span>
-                    <span class="fa fa-caret-down ml-auto menu-collapsed"></span>
-                </div>
-            </a>
-            <!-- Submenu content -->
-            <div id='submenu2' class="collapse sidebar-submenu">
-                <?php 
+            <?php
+            if($_SESSION['adminAccess']){
+                echo "<a href=\"#submenu2\" data-toggle=\"collapse\" aria-expanded=\"false\" class=\" bg-dark list-group-item list-group-item-action flex-column align-items-start\">
+                        <div class=\"d-flex w-100 justify-content-start align-items-center\">
+                            <span class=\"fa fa-history fa-fw mr-3\"></span>
+                            <span class=\"menu-collapsed\">History</span>
+                            <span class=\"fa fa-caret-down ml-auto menu-collapsed\"></span>
+                        </div>
+                    </a>
+                    <!-- Submenu content -->
+                    <div id='submenu2' class=\"collapse sidebar-submenu\">";
                 foreach($inactiveYears as $yrs){
                     echo "<a href=\"#\" class=\"list-group-item list-group-item-action bg-dark text-white\">
-                    <span class=\"menu-collapsed\">{$yrs}</span>
-                </a>"; 
-                }?>
+                        <span class=\"menu-collapsed\">{$yrs}</span>
+                        </a>";
+                }
+                echo "</div>";
+            } else {
+
+            }
+
+            ?>
                 
-            </div>
-            <a href="main.php" class="<?= ($activePage == 'main') ? 'active_page ':''; ?> bg-dark list-group-item list-group-item-action <?php echo $_SESSION["enableContent"] == "yes" ? "" : 'btn disabled' ?>">
+            
+            <a href="main.php" class="<?= ($activePage == 'main') ? 'active_page ':''; ?> bg-dark list-group-item list-group-item-action <?php echo $_SESSION["enableContent"] ? "" : 'btn disabled' ?>">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fa fa-tasks fa-fw mr-3"></span>
                     <span class="menu-collapsed">Current Plan</span>
@@ -134,33 +149,40 @@
                 <small>OPTIONS</small>
             </li>
             <!-- /END Separator -->
-            <a href="#" class="bg-dark list-group-item list-group-item-action">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-calendar fa-fw mr-3"></span>
-                    <span class="menu-collapsed">Logs</span>
+            <?php
+            if($_SESSION['adminAccess']){
+                echo "<a href=\"#\" class=\"bg-dark list-group-item list-group-item-action\">
+                <div class=\"d-flex w-100 justify-content-start align-items-center\">
+                    <span class=\"fa fa-calendar fa-fw mr-3\"></span>
+                    <span class=\"menu-collapsed\">Logs</span>
                 </div>
             </a>
-            <a href="#" class="bg-dark list-group-item list-group-item-action">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fas fa-search fa-fw mr-3"></span>
-                    <span class="menu-collapsed">Search <span class="badge badge-pill badge-primary ml-2">..</span></span>
+            <a href=\"#\" class=\"bg-dark list-group-item list-group-item-action\">
+                <div class=\"d-flex w-100 justify-content-start align-items-center\">
+                    <span class=\"fas fa-search fa-fw mr-3\"></span>
+                    <span class=\"menu-collapsed\">Search <span class=\"badge badge-pill badge-primary ml-2\">..</span></span>
                 </div>
             </a>
             <!-- Separator without title -->
-            <!-- <li class="list-group-item sidebar-separator menu-collapsed"></li> -->
+            <!-- <li class=\"list-group-item sidebar-separator menu-collapsed\"></li> -->
             <!-- /END Separator -->
-            <a href="#" class="bg-dark list-group-item list-group-item-action" data-target="#UserModalBack" data-toggle="modal" data-backdrop="static" data-keyboard="false">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fas fa-user-plus fa-fw mr-3"></span>
-                    <span class="menu-collapsed">Create User</span>
+            <a href=\"#\" class=\"bg-dark list-group-item list-group-item-action\" data-target=\"#UserModalBack\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\">
+                <div class=\"d-flex w-100 justify-content-start align-items-center\">
+                    <span class=\"fas fa-user-plus fa-fw mr-3\"></span>
+                    <span class=\"menu-collapsed\">Create User</span>
                 </div>
             </a>
-            <a href="#" class="bg-dark list-group-item list-group-item-action">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <i class="fas fa-cog fa-fw mr-3"></i>
-                    <span class="menu-collapsed">Settings</span>
+            <a href=\"#\" class=\"bg-dark list-group-item list-group-item-action\">
+                <div class=\"d-flex w-100 justify-content-start align-items-center\">
+                    <i class=\"fas fa-cog fa-fw mr-3\"></i>
+                    <span class=\"menu-collapsed\">Settings</span>
                 </div>
-            </a>
+            </a>";
+            } else {
+
+            }
+            ?>
+            
             <a href="includes1/logout.inc.php" class="bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fas fa-sign-out-alt fa-fw mr-3"></span>
