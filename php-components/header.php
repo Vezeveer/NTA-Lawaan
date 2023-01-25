@@ -52,6 +52,7 @@ $_SESSION['adminAccess'] = false;
     <link rel="stylesheet" href="css-libs/bootstrap-datepicker.min.css">
 
     <link rel="stylesheet" type="text/css" href="css/tableResizable.css">
+    <link rel="stylesheet" href="css/login.css">
     <!-- <link rel="stylesheet" type="text/css" href="css/priority.css">
     <link rel="stylesheet" href="css/popup.css"> -->
     <link rel="stylesheet" type="text/css" href="css/sidebar.css">
