@@ -17,6 +17,16 @@ body{
     overflow: hidden;
 }
 
+.dashboard_btn {
+	background-color: var(--tone3);
+	text-shadow: 1px 1px 2px var(--tone1);
+	border: none;
+}
+
+.dashboard_btn:hover{
+	background-color: var(--tone2);
+}
+
 .wave{
 	position: fixed;
 	bottom: 0;

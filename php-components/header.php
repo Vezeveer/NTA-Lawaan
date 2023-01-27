@@ -59,8 +59,8 @@ $_SESSION['adminAccess'] = false;
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/main_content.css">
     <link rel="stylesheet" href="css/threed.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" href="css/pass_validation.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -77,28 +77,32 @@ $_SESSION['adminAccess'] = false;
     if (isset($_SESSION["usersname"])) {
         $projectsTrimedNames = array();
         $items;
+        $_SESSION["activeYear"] = getActiveYear($conn);
         $activeYear = $_SESSION["activeYear"];
 
-        $inactiveYears = getInactiveYears($conn, $activeYear);
+        $inactiveYears = getInactiveYears($conn, getActiveYear($conn));
 
         if ($_SESSION["usersname"] == null) {
             header("location: index.php");
             exit();
         } else {
-            $items = getItems($conn, "year_" . $activeYear);
-        }
+            $items = getItems($conn, "year_" . getActiveYear($conn));
+            if($items == ''){
+                
+            } else {
+                // get project names
+                $projects = array();
+                for ($i = 0; count($items) > $i; $i++) {
+                    array_push($projects, $items[$i]['project']);
+                }
 
-        // get project names
-        $projects = array();
-        for ($i = 0; count($items) > $i; $i++) {
-            array_push($projects, $items[$i]['project']);
-        }
+                $projects = array_values(array_unique($projects));
 
-        $projects = array_values(array_unique($projects));
-
-        // get trimmed project names for ID html placement
-        for ($i = 0; count($projects) > $i; $i++) {
-            array_push($projectsTrimedNames, str_replace(' ', '', $projects[$i]));
+                // get trimmed project names for ID html placement
+                for ($i = 0; count($projects) > $i; $i++) {
+                    array_push($projectsTrimedNames, str_replace(' ', '', $projects[$i]));
+                }
+            }
         }
 
         // allow viewing of content

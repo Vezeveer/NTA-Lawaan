@@ -1,6 +1,5 @@
 <?php
 
-
 function emptyInputLogin($username, $password){
     $result = true;
     if(empty($username) || empty($password)){
@@ -13,8 +12,13 @@ function emptyInputLogin($username, $password){
 
 function loginUser($conn, $username, $password){
     $userExistsData = userExists($conn, $username);
+    $status = "no_active";
     $activeYear = getActiveYear($conn);
-    $status = getStatusOfCurrentYear($conn, $activeYear);
+    if($activeYear == 'noActive'){
+
+    } else {
+        $status = getStatusOfCurrentYear($conn, $activeYear);
+    }
 
     if($userExistsData === false){
         header("location: ../index.php?error=userdoesnotexist");
@@ -128,13 +132,19 @@ function getActiveYear($conn){
             return $row["year"];
         }
     } else {
-        return "0 results";
+        return "noActive";
     }
     mysqli_close($conn);
 }
 
 function getInactiveYears($conn, $year){
-    $result = mysqli_query($conn, "SELECT * FROM `status` WHERE year!=$year");
+    $result = '';
+    if(getActiveYear($conn) == 'noActive'){
+        $result = mysqli_query($conn, "SELECT * FROM `status`");
+    } else {
+        $result = mysqli_query($conn, "SELECT * FROM `status` WHERE year!=$year");
+    }
+    
     $years = array();
     foreach($result as $row){
         array_push($years, $row['year']);
@@ -148,7 +158,12 @@ function getInactiveYears($conn, $year){
 }
 
 function getItems($conn, $year){
-    $_SESSION['status'] = getStatusOfCurrentYear($conn, getActiveYear($conn));
+    if(getActiveYear($conn) == 'noActive'){
+        $_SESSION['status'] = 'no_active';
+        return;
+    } else {
+        $_SESSION['status'] = getStatusOfCurrentYear($conn, getActiveYear($conn));
+    }
     $sql = "SELECT * FROM $year";
     $result = mysqli_query($conn, $sql);
 

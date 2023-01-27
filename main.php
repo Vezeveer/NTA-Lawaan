@@ -65,10 +65,15 @@ if ($_SESSION["status"] == "bo_approved") {
         if($_SESSION['userType'] == 'bo'){
 
         }else{
-            echo "<button id=\"btnAddProject\" type=\"button\" class=\"btn btn-primary\" data-target=\"#MymodalBack\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\" "; echo $_SESSION['status']=='bo_approved' ? "disabled" : "" ; echo " >Add Project</button>";
+            echo "<button id=\"btnAddProject\" type=\"button\" class=\"btn btn-primary\" data-target=\"#AddNewProject\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\" "; echo $_SESSION['status']=='bo_approved' ? "disabled" : "" ; echo " >Add Project</button>";
         }
-        echo "<button id=\"btnFinalizePlan\" type=\"button\" class=\"btn btn-success\" data-target=\"#FinalizeModalBack\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\" "; echo $_SESSION['status']=='bo_approved' ? "disabled" : "" ; echo ">Finalize Plan</button>
-        <!-- Add a modal button for sending to BO -->
+        echo "<button id=\"btnFinalizePlan\" type=\"button\" class=\"btn btn-success\" data-target=\"#FinalizeModalBack\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\" "; echo $_SESSION['status']=='bo_approved' ? "disabled" : "" ; echo ">Finalize Plan</button>";
+        
+        if($_SESSION['userType'] == 'bdc'){
+            echo "<button id=\"btnArchiveProject\" type=\"button\" class=\"btn btn-secondary\" data-target=\"#ArchiveProject\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\" "; echo $_SESSION['status']=='bo_approved' ? "" : "disabled" ; echo " >Archive</button>";
+        }
+        
+        echo "<!-- Add a modal button for sending to BO -->
         <!-- Add a modal button for BO approval -->
         <br>
         <br>
