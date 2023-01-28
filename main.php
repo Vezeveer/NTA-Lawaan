@@ -2,9 +2,9 @@
 include_once 'php-components/header.php'; 
 
 if ($_SESSION["status"] == "bo_approved") {
-                            echo "<h1 class=\"display-5\">Annual Budget Plan</h1><div class=\"panel panel-default\">";
+                            echo "<h1 class=\"display-5\">Annual Budget Plan {$activeYear}</h1><div class=\"panel panel-default\">";
                         } else {
-                            echo "<h1 class=\"display-5\">Annual Investment Plan</h1><div class=\"panel panel-default\">";
+                            echo "<h1 class=\"display-5\">Annual Investment Plan {$activeYear}</h1><div class=\"panel panel-default\">";
                         } 
     
     if ($_SESSION['enableContent'] or $_SESSION['userType'] == 'bdc') {

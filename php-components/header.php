@@ -72,32 +72,32 @@ $_SESSION['adminAccess'] = false;
     include_once 'includes1/functions.inc.php';
 
     $activePage = basename($_SERVER['PHP_SELF'], ".php");
-    
+    $projects = array();
+    $projectsTrimedNames = array();
+    $activeYear;
 
     if (isset($_SESSION["usersname"])) {
-        $projectsTrimedNames = array();
         $items;
         $_SESSION["activeYear"] = getActiveYear($conn);
         $activeYear = $_SESSION["activeYear"];
-
-        $inactiveYears = getInactiveYears($conn, getActiveYear($conn));
+        echo "<script>console.log('Active year: {$activeYear}')</script>";
+        $inactiveYears = getInactiveYears($conn, $activeYear);
 
         if ($_SESSION["usersname"] == null) {
             header("location: index.php");
             exit();
         } else {
-            $items = getItems($conn, "year_" . getActiveYear($conn));
+            $items = getItems($conn, "year_" . $activeYear);
             if($items == ''){
                 
             } else {
                 // get project names
-                $projects = array();
                 for ($i = 0; count($items) > $i; $i++) {
                     array_push($projects, $items[$i]['project']);
                 }
 
                 $projects = array_values(array_unique($projects));
-
+                echo "<script>console.log('{$projects[0]}')</script>";
                 // get trimmed project names for ID html placement
                 for ($i = 0; count($projects) > $i; $i++) {
                     array_push($projectsTrimedNames, str_replace(' ', '', $projects[$i]));

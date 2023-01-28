@@ -3,6 +3,7 @@
 //action.php
 
 include('database_connection.php');
+$yr = "year_".$_GET['year'];
 
 if ($_POST['action'] == 'edit') {
     $data = array(
@@ -22,7 +23,7 @@ if ($_POST['action'] == 'edit') {
     );
 
     $query = "
-        UPDATE year_2017 SET 
+        UPDATE {$yr} SET 
         approved = :approved, 
         aipRefCode = :aipRefCode,
         activityDesc = :activityDesc, 
@@ -44,7 +45,7 @@ if ($_POST['action'] == 'edit') {
 
 if ($_POST['action'] == 'delete') {
     $query = "
-        DELETE FROM year_2017 
+        DELETE FROM {$yr} 
         WHERE id = '" . $_POST["id"] . "'
     ";
     $statement = $pdo->prepare($query);

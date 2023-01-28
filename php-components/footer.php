@@ -305,7 +305,7 @@ echo "
             \"serverSide\": true,
             \"order\": [],
             \"ajax\": {
-                url: \"includes1/fetch.php?projectName={$projects[$i]}\",
+                url: \"includes1/fetch.php?projectName={$projects[$i]}&year={$activeYear}\",
                 type: \"POST\"
             },
             dom: 'Bfrtip',
@@ -363,7 +363,7 @@ echo "
 
         $('#{$projectsTrimedNames[$i]}').on('draw.dt', function() {
             $('#{$projectsTrimedNames[$i]}').Tabledit({
-                url: 'includes1/action.php',
+                url: 'includes1/action.php?year={$activeYear}',
                 dataType: 'json',
                 hideIdentifier: true,
                 {$modifiable}

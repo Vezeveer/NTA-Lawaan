@@ -131,10 +131,11 @@ function getActiveYear($conn){
         while($row = mysqli_fetch_assoc($result)) {
             return $row["year"];
         }
+        mysqli_close($conn);
     } else {
+        mysqli_close($conn);
         return "noActive";
     }
-    mysqli_close($conn);
 }
 
 function getInactiveYears($conn, $year){

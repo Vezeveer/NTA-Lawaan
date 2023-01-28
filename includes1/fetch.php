@@ -2,9 +2,9 @@
 include('database_connection.php');
 
 $projectName = $_GET['projectName'];
-
+$yr = "year_".$_GET['year'];
 $column = array("id", "project", "approved", "aipRefCode", "activityDesc", "impOffice", "startDate", "endDate", "expectedOutput", "fundingServices", "personalServices", "maint", "capitalOutlay", "total");
-$query = "SELECT * FROM year_2017 WHERE project = '{$projectName}' ";
+$query = "SELECT * FROM {$yr} WHERE project = '{$projectName}' ";
 
 if (isset($_POST["search"]["value"])) {
     $query .= '
@@ -67,7 +67,8 @@ foreach ($result as $row) {
 
 function count_all_data($pdo)
 {
-    $query = "SELECT * FROM year_2017 WHERE project = \"{$_GET['projectName']}\" ";
+    $yr = "year_".$_GET['year'];
+    $query = "SELECT * FROM {$yr} WHERE project = \"{$_GET['projectName']}\" ";
     $statement2 = $pdo->prepare($query);
     $statement2->execute();
     return $statement2->rowCount();
