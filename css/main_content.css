@@ -25,7 +25,6 @@ body {
     text-shadow: 1px 1px 2px var(--tone1);
 }
 
-
 /* width */
 ::-webkit-scrollbar {
     width: 10px;
@@ -76,6 +75,7 @@ th, td {
 .dt-buttons button {
     background-color: var(--tone2);
     border: none;
+    line-height: 8px;
 }
 
 .dt-buttons button:hover {
@@ -83,7 +83,7 @@ th, td {
 }
 
 .paginate_button a{
-    background-color: var(--tone5) !important;
+    /* background-color: var(--tone5) !important; */
     color: var(--tone5) !important;
 }
 
@@ -94,6 +94,17 @@ th, td {
 .paginate_button.active:hover{
     border: none;
     background-color: var(--tone2) !important;
+}
+
+.pagination a {
+    background-color: white !important;
+}
+
+.pagination a:hover {
+    background-color: var(--tone2) !important;
+}
+.pagination li:hover {
+    background-color: none !important;
 }
 
 .modal-content, .modal-content input, .modal-content input:focus {

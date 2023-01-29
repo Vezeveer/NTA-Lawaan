@@ -26,14 +26,30 @@ if ($_SESSION["status"] == "bo_approved") {
 if ($_SESSION['enableContent'] or $_SESSION['userType'] == 'bdc') {
     for ($j = 0; count($projects) > $j; $j++) {
         if (isset($projects[$j])) {
-            echo "<hr>";
             echo "
-                    <a href=\"#\" class=\"";
-            echo $_SESSION['adminAccess'] ? ($_SESSION['status'] == "bo_approved" ? "btn disabled" : "") : ($_SESSION['status'] == 'bc_finalizing' ? "" : "btn disabled");
-            echo "\" data-target=\"#{$projectsTrimedNames[$j]}UpdateProjectNameModal\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\"><h5 class=\"panel-heading\">";
-            echo $projects[$j];
-            echo "</h5></a>
-                <div class=\"panel-body\">
+            <div class=\"card text-center\">
+                <div class=\"card-header\">
+                    <ul class=\"nav nav-tabs card-header-tabs\">
+                    <li class=\"nav-item\">
+                        <a class=\"nav-link active\" href=\"#\">Table</a>
+                    </li>
+                    <li class=\"nav-item\">
+                        <a class=\"nav-link\" href=\"#\">Graph</a>
+                    </li>
+                    <li class=\"nav-item\">
+                        <a class=\"nav-link disabled\" href=\"#\">Bar</a>
+                    </li>
+                    </ul>
+                </div>
+                <div class=\"card-body\">";
+                // Table Title Starts
+                echo "<a href=\"#\" class=\"card-title ";
+                echo $_SESSION['adminAccess'] ? ($_SESSION['status'] == "bo_approved" ? "btn disabled" : ($_SESSION['status'] == "pending_bo_approval" ? "btn disabled" : "")) : ($_SESSION['status'] == 'bc_finalizing' ? "" : "btn disabled");
+                echo "\" data-target=\"#{$projectsTrimedNames[$j]}UpdateProjectNameModal\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\"><h5 class=\"panel-heading\">";
+                echo "$projects[$j]</h5></a>";
+                // Table Title Ends
+                echo "
+                <div class=\"panel-body card-text\">
                     <div class=\"table-responsive\">
                         <table id=\"";
             echo $projectsTrimedNames[$j];
@@ -76,17 +92,19 @@ if ($_SESSION['enableContent'] or $_SESSION['userType'] == 'bdc') {
                         </table>
                     </div>
                 </div>
-                <br>";
+                ";
+                echo "</div>
+            </div>
+            <br>";
         }
     }
+    echo "<hr>";
     if ($_SESSION['userType'] == 'bo') {
     } else {
         echo "<button id=\"btnAddProject\" type=\"button\" class=\"btn btn-primary\" data-target=\"#AddNewProject\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\" ";
         echo $_SESSION['status'] == 'bo_approved' ? "disabled" : "";
         echo " >Add Project</button>";
     }
-    echo "<br>";
-    echo "<hr>";
     echo "<button id=\"btnFinalizePlan\" type=\"button\" class=\"btn btn-success\" data-target=\"#FinalizeModalBack\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\" ";
     echo $_SESSION['status'] == 'bo_approved' ? "disabled" : "";
     echo $_SESSION['userType'] == 'bo' ? ">Approve Plan" : ">Finalize Plan";

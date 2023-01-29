@@ -21,55 +21,77 @@ echo "<!-- MAIN -->
 <div class=\"col p-4 overflow-auto\" id=\"main-content\">";
 echo "<h1 class=\"display-5\">Annual Budget Plan {$yearH}</h1><div class=\"panel panel-default\">";
     
-    if (true) {
+    
         for ($j = 0; count($projects) > $j; $j++) {
             if (isset($projects[$j])) {
                 echo "
-                    <a href=\"#\" class=\"btn disabled\" data-target=\"#{$projectsTrimedNames[$j]}UpdateProjectNameModal\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\"><h5 class=\"panel-heading\">";
-                echo $projects[$j];
-                echo "</h5></a>
-                <div class=\"panel-body\">
-                    <div class=\"table-responsive\">
-                        <table id=\"";
+                <div class=\"card text-center\">
+                    <div class=\"card-header\">
+                        <ul class=\"nav nav-tabs card-header-tabs\">
+                        <li class=\"nav-item\">
+                            <a class=\"nav-link active\" href=\"#\">Table</a>
+                        </li>
+                        <li class=\"nav-item\">
+                            <a class=\"nav-link\" href=\"#\">Graph</a>
+                        </li>
+                        <li class=\"nav-item\">
+                            <a class=\"nav-link disabled\" href=\"#\">Bar</a>
+                        </li>
+                        </ul>
+                    </div>
+                    <div class=\"card-body\">";
+                    // Table Title Starts
+                    echo "<a href=\"#\" class=\"card-title ";
+                    echo $_SESSION['adminAccess'] ? ($_SESSION['status'] == "bo_approved" ? "btn disabled" : ($_SESSION['status'] == "pending_bo_approval" ? "btn disabled" : "")) : ($_SESSION['status'] == 'bc_finalizing' ? "" : "btn disabled");
+                    echo "\" data-target=\"#{$projectsTrimedNames[$j]}UpdateProjectNameModal\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\"><h5 class=\"panel-heading\">";
+                    echo "$projects[$j]</h5></a>";
+                    // Table Title Ends
+                    echo "
+                    <div class=\"panel-body card-text\">
+                        <div class=\"table-responsive\">
+                            <table id=\"";
                 echo $projectsTrimedNames[$j];
                 echo "\"";
                 echo " class=\"table table-bordered table-striped display nowrap\" width=\"100%\">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>AIP Reference Code</th>
-                                    <th>Activity Description</th>
-                                    <th>Implementing Office</th>
-                                    <th>Start Date</th>
-                                    <th>End Date</th>
-                                    <th>Expected Output</th>
-                                    <th>Funding Services</th>
-                                    <th>Personal Services</th>
-                                    <th>Maintenance</th>
-                                    <th>Capital Outlay</th>
-                                    <th>Total</th>
-                                    <th>Project</th>
-                                </tr>
-                            </thead>
-                            <tbody >";
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>AIP Reference Code</th>
+                                        <th>Activity Description</th>
+                                        <th>Implementing Office</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Expected Output</th>
+                                        <th>Funding Services</th>
+                                        <th>Personal Services</th>
+                                        <th>Maintenance</th>
+                                        <th>Capital Outlay</th>
+                                        <th>Total</th>
+                                        <th>Project</th>
+                                    </tr>
+                                </thead>
+                                <tbody >";
                 echo "
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th colspan=\"4\" style=\"text-align:right\">Total:></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                            </tfoot>
-                        </table>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th colspan=\"4\" style=\"text-align:right\">Total:></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
                     </div>
+                    ";
+                    echo "</div>
                 </div>
                 <br>";
             }
@@ -79,9 +101,6 @@ echo "<h1 class=\"display-5\">Annual Budget Plan {$yearH}</h1><div class=\"panel
         echo "<button id=\"btnDeletePlan\" type=\"button\" class=\"btn btn-danger\" data-target=\"#DeletePlan\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\" ";
         echo " >Delete Plan</button>";
         echo "<br><br><br>";
-    } else {
-        exit(header("location: dashboard.php"));
-    }
     
     include 'php-components/footer.php'; ?>
 
