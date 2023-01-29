@@ -116,7 +116,7 @@
             </div> -->
             <?php
             if($_SESSION['adminAccess']){
-                echo "<a href=\"#submenu2\" data-toggle=\"collapse\" aria-expanded=\"false\" class=\" bg-dark list-group-item list-group-item-action flex-column align-items-start\">
+                echo "<a href=\"#submenu2\" data-toggle=\"collapse\" aria-expanded=\"false\" class=\""; echo ($activePage == 'history') ? 'active_page ':''; echo " bg-dark list-group-item list-group-item-action flex-column align-items-start\">
                         <div class=\"d-flex w-100 justify-content-start align-items-center\">
                             <span class=\"fa fa-history fa-fw mr-3\"></span>
                             <span class=\"menu-collapsed\">History</span>
@@ -125,9 +125,9 @@
                     </a>
                     <!-- Submenu content -->
                     <div id='submenu2' class=\"collapse sidebar-submenu\">";
-                foreach($inactiveYears as $yrs){
-                    echo "<a href=\"#\" class=\"list-group-item list-group-item-action bg-dark text-white\">
-                        <span class=\"menu-collapsed\">{$yrs}</span>
+                foreach($inactiveYears as $yr){
+                    echo "<a href=\"history.php?year={$yr}\" class=\"list-group-item list-group-item-action bg-dark text-white\">
+                        <span class=\"menu-collapsed\">{$yr}</span>
                         </a>";
                 }
                 echo "</div>";

@@ -87,22 +87,7 @@ $_SESSION['adminAccess'] = false;
             header("location: index.php");
             exit();
         } else {
-            $items = getItems($conn, "year_" . $activeYear);
-            if($items == ''){
-                
-            } else {
-                // get project names
-                for ($i = 0; count($items) > $i; $i++) {
-                    array_push($projects, $items[$i]['project']);
-                }
-
-                $projects = array_values(array_unique($projects));
-                echo "<script>console.log('{$projects[0]}')</script>";
-                // get trimmed project names for ID html placement
-                for ($i = 0; count($projects) > $i; $i++) {
-                    array_push($projectsTrimedNames, str_replace(' ', '', $projects[$i]));
-                }
-            }
+            
         }
 
         // allow viewing of content
@@ -127,5 +112,4 @@ $_SESSION['adminAccess'] = false;
     
 
 echo "
-    <!-- MAIN -->
-    <div class=\"col p-4 overflow-auto\" id=\"main-content\">";
+    ";

@@ -9,7 +9,7 @@
                 <div class="modal-body">
                     <form method="post" <?php echo "action=\"/includes1/createProject.php?year=$activeYear\"" ?>>
                         <div class="form-group">
-                            <input type="text" name="projectName" class="form-control input_proj" id="inputProjectName" placeholder="Project Name" required  pattern="\S(.*\S)?" title="Make sure there are no spaces in front of text and at the end." maxlength="50">
+                            <input type="text" name="projectName" class="form-control input_proj" id="inputProjectName" placeholder="Project Name" required pattern="\S(.*\S)?" title="Make sure there are no spaces in front of text and at the end." maxlength="50">
                             <input type="text" name="items" class="form-control input_aipRefCode" placeholder="AIP Reference Code" maxlength="50" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -25,12 +25,12 @@
 
     <!-- CREATE NEW BUDGET PLAN PROMPT.modal -->
     <div class="modal fade" id="NewPlan">
-        <?php 
-            $currentYr = date("Y");
-            $years = array();
-            for($i=0; $i < 5; $i++){
-                array_push($years, ++$currentYr);
-            }
+        <?php
+        $currentYr = date("Y");
+        $years = array();
+        for ($i = 0; $i < 5; $i++) {
+            array_push($years, ++$currentYr);
+        }
         ?>
         <div class="modal-dialog">
             <div class="modal-content">
@@ -42,18 +42,18 @@
                     <form method="post" <?php echo "action=\"/includes1/create_table.php\"" ?>>
                         <div class="form-row align-items-center">
                             <div class="col-auto my-1">
-                            <label class="mr-sm-2" for="inlineFormCustomSelect">For Year:</label>
-                            <select name="year" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                                <?php 
+                                <label class="mr-sm-2" for="inlineFormCustomSelect">For Year:</label>
+                                <select name="year" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                                    <?php
                                     $currentYr = date("Y");
                                     echo "<option selected value=\"{$currentYr}\">{$currentYr}</option>";
-                                    for($i=0; $i < 5; $i++){
+                                    for ($i = 0; $i < 5; $i++) {
                                         $currentYr++;
                                         echo "
                                         <option value=\"{$currentYr}\">{$currentYr}</option>";
                                     }
-                                ?>
-                            </select>
+                                    ?>
+                                </select>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -78,7 +78,7 @@
                 <div class="modal-body">
                     <form method="post" <?php echo "action=\"/includes1/update_status_archived.php?year=$activeYear\"" ?>>
                         <div class="form-group">
-                            
+
                         </div>
                         <button type="submit" class="btn btn-primary">Yes</button>
                     </form>
@@ -96,28 +96,28 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Are you sure you want to 
-                        <?php 
-                        if($_SESSION["userType"] == "bo"){
+                    <h4 class="modal-title">Are you sure you want to
+                        <?php
+                        if ($_SESSION["userType"] == "bo") {
                             echo "approve this plan as the Annual Budget Plan?";
-                        } else if($_SESSION["userType"] == "bdc"){
+                        } else if ($_SESSION["userType"] == "bdc") {
                             echo "send this plan to the Barangay Committee?";
-                        } else if($_SESSION["userType"] == "bc"){
+                        } else if ($_SESSION["userType"] == "bc") {
                             echo "send this plan to the Budget Office for approval?";
                         }
-                         ?></h4>
+                        ?></h4>
                     <button type="button" class="close" data-dismiss="modal">×</button>
                 </div>
                 <div class="modal-body">
                     <form method="post" <?php echo "action=\"/includes1/finalize.php?year={$activeYear}&userType={$_SESSION['userType']}\"" ?>>
                         <div class="form-group">
                         </div>
-                        <button type="submit" class="btn btn-primary">Approve</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button> 
+                        <button type="submit" class="btn btn-primary">Yes</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                     </form>
                 </div>
                 <div class="modal-footer">
-                
+
                 </div>
             </div>
         </div>
@@ -169,8 +169,7 @@
                                     <label class="input-group-text" for="inputGroupSelect01">Member</label>
                                 </div>
                                 <select name="userType" class="custom-select" id="inputGroupSelect01" required>
-                                    <option selected></option>
-                                    <option value="bdc" selected>Barangay Development Council</option>
+                                    <option selected value="bdc" selected>Barangay Development Council</option>
                                     <option value="bc">Barangay Committee</option>
                                     <option value="bo">Budget Office</option>
                                 </select>
@@ -200,23 +199,24 @@
         </div>
     </div>
     </div><!-- Main Col END -->
-</div><!-- body-row END -->
+    </div><!-- body-row END -->
 
-<script src="js/popup.js"></script>
-<script src="js/main.js"></script>
-<script src="js/pass_validation.js"></script>
+    <script src="js/popup.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/pass_validation.js"></script>
 
-<script src="js/editTable.js"></script>
-<script src="js/tableResizeable.js"></script>
+    <script src="js/editTable.js"></script>
+    <script src="js/tableResizeable.js"></script>
 
-</body>
-</html>
-<script>
-    console.log(`Status: <?php echo isset($_SESSION["status"]) ? $_SESSION["status"] : "not set"; ?>, UserType: <?php echo isset($_SESSION["userType"]) ? $_SESSION["userType"] : "not set" ?>`);
-</script>
-<?php
+    </body>
 
-$editable = "[2, 'approved', '{\"Pending\": \"Pending\", \"True\": \"True\", \"False\": \"False\"}'],
+    </html>
+    <script>
+        console.log(`Status: <?php echo isset($_SESSION["status"]) ? $_SESSION["status"] : "not set"; ?>, UserType: <?php echo isset($_SESSION["userType"]) ? $_SESSION["userType"] : "not set" ?>`);
+    </script>
+    <?php
+
+    $editable = "[2, 'approved', '{\"Pending\": \"Pending\", \"True\": \"True\", \"False\": \"False\"}'],
 [3, 'aipRefCode',],
 [4, 'activityDesc'],
 [5, 'impOffice'],
@@ -228,75 +228,78 @@ $editable = "[2, 'approved', '{\"Pending\": \"Pending\", \"True\": \"True\", \"F
 [11, 'maint'],
 [12, 'capitalOutlay'],
 [13, 'total']";
-$modifiable = "editButton: false,
+    $modifiable = "editButton: false,
 deleteButton: false,
 saveButton: false,";
-$toggleBtn;
-$printMainContent = true;
+    $toggleBtn;
+    $printMainContent = true;
 
-$hideCont = "<script>$('#main-content table').hide();</script>"; // hide all content
-$disableAddProjFinalizeBtns = "<script>
+    $hideCont = "<script>$('#main-content table').hide();</script>"; // hide all content
+    $disableAddProjFinalizeBtns = "<script>
 $(document).ready(function () {
     $('#btnFinalizePlan').prop('disabled', true);
     $('#btnAddProject').prop('disabled', true);
 })
 </script>
-";  
+";
 
-switch ($_SESSION["userType"]) {
-case "bdc":
-    if($_SESSION["status"] == "bdc_initializing"){
-        $toggleBtn = "enabled: true";
-        $modifiable = "";
-    } else {
-        $toggleBtn = "enabled: false";
-        $editable = "";
-        echo $disableAddProjFinalizeBtns;
+if(isset($_SESSION["usersname"])){
+    switch ($_SESSION["userType"]) {
+        case "bdc":
+            if ($_SESSION["status"] == "bdc_initializing") {
+                $toggleBtn = "enabled: true";
+                $modifiable = "";
+            } else {
+                $toggleBtn = "enabled: false";
+                $editable = "";
+                echo $disableAddProjFinalizeBtns;
+            }
+            break;
+        case "bc":
+            if ($_SESSION["status"] == "bc_finalizing") {
+                $toggleBtn = "enabled: true";
+                $modifiable = "";
+            } else {
+                $toggleBtn = "enabled: false";
+                $editable = "";
+            }
+            if ($_SESSION["status"] == "bdc_initializing") {
+                $printMainContent = false;
+                echo $hideCont;
+            }
+            break;
+        case "bo":
+            if ($_SESSION["status"] == "pending_bo_approval") {
+                $toggleBtn = "enabled: false";
+                $editable = "";
+            } else {
+                $toggleBtn = "enabled: false";
+                $editable = "";
+            }
+            if ($_SESSION["status"] == "bdc_initializing") {
+                $printMainContent = false;
+                echo $hideCont;
+            }
+            if ($_SESSION["status"] == "bc_finalizing") {
+                $printMainContent = false;
+                echo $hideCont;
+            }
+            if ($_SESSION["status"] == "bo_approved") {
+                //$printMainContent = false;
+                //echo $hideCont;
+                $toggleBtn = "enabled: false";
+                $editable = "";
+                echo $disableAddProjFinalizeBtns;
+            }
+            break;
+        default:
     }
-    break;
-case "bc":
-    if($_SESSION["status"] == "bc_finalizing"){
-        $toggleBtn = "enabled: true";
-        $modifiable = "";
-    } else {
-        $toggleBtn = "enabled: false";
-        $editable = "";
-    }
-    if($_SESSION["status"] == "bdc_initializing"){
-        $printMainContent = false;
-        echo $hideCont;
-    }
-    break;
-case "bo":
-    if($_SESSION["status"] == "pending_bo_approval"){
-        $toggleBtn = "enabled: false";
-        $editable = "";
-    } else {
-        $toggleBtn = "enabled: false";
-        $editable = "";
-    }
-    if($_SESSION["status"] == "bdc_initializing"){
-        $printMainContent = false;
-        echo $hideCont;
-    }
-    if($_SESSION["status"] == "bc_finalizing"){
-        $printMainContent = false;
-        echo $hideCont;
-    }
-    if($_SESSION["status"] == "bo_approved"){
-        //$printMainContent = false;
-        //echo $hideCont;
-        $toggleBtn = "enabled: false";
-        $editable = "";
-        echo $disableAddProjFinalizeBtns;
-    }
-    break;
-default:
-}
 
-if($printMainContent){  
-for($i = 0; count($projectsTrimedNames) > $i; $i++){
-echo "
+    function contentType($printMainContent, $projectsTrimedNames, $projects, $activeYear, $toggleBtn, $modifiable, $editable)
+    {
+        if ($printMainContent) {
+            for ($i = 0; count($projectsTrimedNames) > $i; $i++) {
+                echo "
 <script type=\"text/javascript\" language=\"javascript\">
     $(document).ready(function() {
 
@@ -424,8 +427,8 @@ echo "
 </script>
 ";
 
-//<!-- Add Entry Prompt Modal -->
-echo "
+                //<!-- Add Entry Prompt Modal -->
+                echo "
 <div class=\"modal fade\" id=\"{$projectsTrimedNames[$i]}myModal\" tabindex=\"-1\" aria-labelledby=\"newAipEntry\" aria-hidden=\"true\">
     <div class=\"modal-dialog\">
         <div class=\"modal-content\">
@@ -529,8 +532,8 @@ echo "
 </div>
 ";
 
-//<!-- Update Project Name Modal -->
-echo "<div class=\"modal fade\" id=\"{$projectsTrimedNames[$i]}UpdateProjectNameModal\" >
+                //<!-- Update Project Name Modal -->
+                echo "<div class=\"modal fade\" id=\"{$projectsTrimedNames[$i]}UpdateProjectNameModal\" >
         <div class=\"modal-dialog\">
             <div class=\"modal-content\">
                 <div class=\"modal-header\">
@@ -562,66 +565,30 @@ echo "<div class=\"modal fade\" id=\"{$projectsTrimedNames[$i]}UpdateProjectName
             </div>
         </div>
     </div>";
+            }
+        }
+    }
+    if(isset($_GET['year'])){
+        contentType($printMainContent, $projectsTrimedNames, $projects, $_GET['year'], "enabled: false", "editButton: false,
+        deleteButton: false,
+        saveButton: false,", "");
 
-}}
-?>
-
-
-
-
-<script>
-$('table tr td:nth-child(4) input').each(function() {
-    $(this).datepicker({
-        format: 'dd/mm/yyyy',
-        endDate: '+0d',
-        todayHighlight: true,
-        autoclose: true
-    });
-});
-
-// validate input, project name
-$('.input_proj').bind('input', function() {
+    } else {
+        contentType($printMainContent, $projectsTrimedNames, $projects, $activeYear, $toggleBtn, $modifiable, $editable);
+        echo "<script>
+        // validate input, aiprefcode of table
+$('[name=\"aipRefCode\"]').bind(\"input\", function () {
   var c = this.selectionStart,
-      r = /[^a-z0-9 -]/gi,
-      v = $(this).val();
-  if(r.test(v)) {
-    $(this).val(v.replace(r, ''));
+    r = /[^0-9 -]|\s/gi,
+    v = $(this).val();
+  if (r.test(v)) {
+    $(this).val(v.replace(r, \"\"));
     c--;
   }
   this.setSelectionRange(c, c);
 });
-
-// validate input, aip ref code
-$('.input_aipRefCode').bind('input', function() {
-  var c = this.selectionStart,
-      r = /[^0-9 -]|\s/gi,
-      v = $(this).val();
-  if(r.test(v)) {
-    $(this).val(v.replace(r, ''));
-    c--;
-  }
-  this.setSelectionRange(c, c);
-});
-
-// validate input, username
-$('.input_username').bind('input', function() {
-  var c = this.selectionStart,
-      r = /[^a-z0-9 -]|\s/gi,
-      v = $(this).val();
-  if(r.test(v)) {
-    $(this).val(v.replace(r, ''));
-    c--;
-  }
-  this.setSelectionRange(c, c);
-});
-
-// function jq( myid ) {
- 
-//     return "#" + myid.replace( /(:|\.|\[|\]|,|=|@)/g, "\\$1" );
- 
-// }
-
-// $(document).ready(function () {
-//     $('#main-content button').prop('disabled', true);
-// })
-</script>
+  </script>";
+    }
+}
+    ?>
+    

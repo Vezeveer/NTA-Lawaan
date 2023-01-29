@@ -1,7 +1,9 @@
-<?php
-include_once 'php-components/header.php';
-$items = getItems($conn, "year_" . $activeYear);
+<?php 
+include_once 'php-components/header.php'; 
+$yearH = $_GET['year'];
+$items = getItems($conn, "year_" . $_GET['year']);
 if ($items == '') {
+
 } else {
     // get project names
     for ($i = 0; count($items) > $i; $i++) {
@@ -17,27 +19,21 @@ if ($items == '') {
 }
 echo "<!-- MAIN -->
 <div class=\"col p-4 overflow-auto\" id=\"main-content\">";
-if ($_SESSION["status"] == "bo_approved") {
-    echo "<h1 class=\"display-5\">Annual Budget Plan {$activeYear}</h1><div class=\"panel panel-default\">";
-} else {
-    echo "<h1 class=\"display-5\">Annual Investment Plan {$activeYear}</h1><div class=\"panel panel-default\">";
-}
-
-if ($_SESSION['enableContent'] or $_SESSION['userType'] == 'bdc') {
-    for ($j = 0; count($projects) > $j; $j++) {
-        if (isset($projects[$j])) {
-            echo "
-                    <a href=\"#\" class=\"";
-            echo $_SESSION['adminAccess'] ? ($_SESSION['status'] == "bo_approved" ? "btn disabled" : "") : ($_SESSION['status'] == 'bc_finalizing' ? "" : "btn disabled");
-            echo "\" data-target=\"#{$projectsTrimedNames[$j]}UpdateProjectNameModal\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\"><h5 class=\"panel-heading\">";
-            echo $projects[$j];
-            echo "</h5></a>
+echo "<h1 class=\"display-5\">Annual Budget Plan {$yearH}</h1><div class=\"panel panel-default\">";
+    
+    if (true) {
+        for ($j = 0; count($projects) > $j; $j++) {
+            if (isset($projects[$j])) {
+                echo "
+                    <a href=\"#\" class=\"btn disabled\" data-target=\"#{$projectsTrimedNames[$j]}UpdateProjectNameModal\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\"><h5 class=\"panel-heading\">";
+                echo $projects[$j];
+                echo "</h5></a>
                 <div class=\"panel-body\">
                     <div class=\"table-responsive\">
                         <table id=\"";
-            echo $projectsTrimedNames[$j];
-            echo "\"";
-            echo " class=\"table table-bordered table-striped display nowrap\" width=\"100%\">
+                echo $projectsTrimedNames[$j];
+                echo "\"";
+                echo " class=\"table table-bordered table-striped display nowrap\" width=\"100%\">
                             <thead>
                                 <tr>
                                     <th>ID</th>
@@ -57,7 +53,7 @@ if ($_SESSION['enableContent'] or $_SESSION['userType'] == 'bdc') {
                                 </tr>
                             </thead>
                             <tbody >";
-            echo "
+                echo "
                             </tbody>
                             <tfoot>
                                 <tr>
@@ -78,32 +74,38 @@ if ($_SESSION['enableContent'] or $_SESSION['userType'] == 'bdc') {
                     </div>
                 </div>
                 <br>";
+            }
         }
-    }
-    if ($_SESSION['userType'] == 'bo') {
+        echo "<button id=\"btnDeletePlan\" type=\"button\" class=\"btn btn-danger\" data-target=\"#DeletePlan\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\" ";
+        echo " >Delete Plan</button>";
+        echo "<br><br><br>";
     } else {
-        echo "<button id=\"btnAddProject\" type=\"button\" class=\"btn btn-primary\" data-target=\"#AddNewProject\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\" ";
-        echo $_SESSION['status'] == 'bo_approved' ? "disabled" : "";
-        echo " >Add Project</button>";
+        exit(header("location: dashboard.php"));
     }
-    echo "<button id=\"btnFinalizePlan\" type=\"button\" class=\"btn btn-success\" data-target=\"#FinalizeModalBack\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\" ";
-    echo $_SESSION['status'] == 'bo_approved' ? "disabled" : "";
-    echo ">Finalize Plan</button>";
+    
+    include 'php-components/footer.php'; ?>
 
-    if ($_SESSION['userType'] == 'bdc') {
-        echo "<button id=\"btnArchiveProject\" type=\"button\" class=\"btn btn-secondary\" data-target=\"#ArchiveProject\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\" ";
-        echo $_SESSION['status'] == 'bo_approved' ? "" : "disabled";
-        echo " >Archive</button>";
-    }
-
-    echo "
-        <br>
-        <br>
-        <br>
-        <br></div>";
-} else {
-    exit(header("location: dashboard.php"));
-}
-?>
-
-<?php include 'php-components/footer.php'; ?>
+<!-- DELETE PLAN PROMPT.modal -->
+<div class="modal fade" id="DeletePlan">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Are you sure you want to delete this plan?</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" <?php echo "action=\"/includes1/delete_plan.php?year={$_GET['year']}\"" ?>>
+                        <div class="form-group">
+                            
+                        </div>
+                        <button type="submit" class="btn btn-primary">Yes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </form>
+                </div>
+                <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="newProject()">Add</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button> 
+            </div> -->
+            </div>
+        </div>
+    </div>
