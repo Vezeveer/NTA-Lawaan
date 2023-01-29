@@ -1,6 +1,6 @@
 <?php
 
-include('includes1\databasehandler.inc.php');
+include('databasehandler.inc.php');
 
 $yr = "year_{$_GET['year']}";
 // MySQLi Procedural

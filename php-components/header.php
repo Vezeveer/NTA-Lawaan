@@ -91,6 +91,18 @@ $_SESSION['adminAccess'] = false;
                 $_SESSION["status"] = "bdc_initializing";
             }
         }
+        if(isset($_GET['userType'])){
+            if($_GET['userType'] == "bo"){
+                $_SESSION["activeYear"] = getActiveYear($conn);
+                $activeYear = $_SESSION["activeYear"];
+                $_SESSION["status"] = "bo_approved";
+            }
+            if($_GET['userType'] == "bdc"){
+                $_SESSION["activeYear"] = getActiveYear($conn);
+                $activeYear = $_SESSION["activeYear"];
+                $_SESSION["status"] = "no_active";
+            }
+        }
 
         $_SESSION["activeYear"] = getActiveYear($conn);
         $activeYear = $_SESSION["activeYear"];

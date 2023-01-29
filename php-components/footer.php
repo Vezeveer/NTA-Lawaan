@@ -10,7 +10,7 @@
                     <form method="post" <?php echo "action=\"/includes1/createProject.php?year=$activeYear\"" ?>>
                         <div class="form-group">
                             <input type="text" name="projectName" class="form-control input_proj" id="inputProjectName" placeholder="Project Name" required pattern="\S(.*\S)?" title="Make sure there are no spaces in front of text and at the end." maxlength="50">
-                            <input type="text" name="items" class="form-control input_aipRefCode" placeholder="AIP Reference Code" maxlength="50" required>
+                            <input type="text" name="aipRefCode" class="form-control input_aipRefCode" placeholder="AIP Reference Code" maxlength="50" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
@@ -77,7 +77,7 @@
                     <button type="button" class="close" data-dismiss="modal">×</button>
                 </div>
                 <div class="modal-body">
-                    <form method="post" <?php echo "action=\"/includes1/update_status_archived.php?year=$activeYear\"" ?>>
+                    <form method="post" <?php echo "action=\"/includes1/update_status_archived.php?year=$activeYear&userType={$_SESSION['userType']}\"" ?>>
                         <div class="form-group">
 
                         </div>

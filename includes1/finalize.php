@@ -18,7 +18,7 @@ function updateStatusOfCurrentYear($conn, $year, $userType){
     }
     
     if (mysqli_query($conn, $resultUpd)) {
-        header("location: ../dashboard.php");
+        header("location: ../dashboard.php?userType={$_GET['userType']}");
     } else {
     echo "Error updating record: " . mysqli_error($conn);
     }
