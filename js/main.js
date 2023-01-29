@@ -60,7 +60,7 @@ $(document).ready(function () {
     }
     this.setSelectionRange(c, c);
   });
-  
+
   // validate input, username
   $(".input_username").bind("input", function () {
     var c = this.selectionStart,

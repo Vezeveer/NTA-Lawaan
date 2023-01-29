@@ -37,7 +37,6 @@ echo "<h1 class=\"display-5\">Annual Budget Plan {$yearH}</h1><div class=\"panel
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Project</th>
                                     <th>AIP Reference Code</th>
                                     <th>Activity Description</th>
                                     <th>Implementing Office</th>
@@ -49,6 +48,7 @@ echo "<h1 class=\"display-5\">Annual Budget Plan {$yearH}</h1><div class=\"panel
                                     <th>Maintenance</th>
                                     <th>Capital Outlay</th>
                                     <th>Total</th>
+                                    <th>Project</th>
                                 </tr>
                             </thead>
                             <tbody >";
@@ -63,8 +63,8 @@ echo "<h1 class=\"display-5\">Annual Budget Plan {$yearH}</h1><div class=\"panel
                                     <th></th>
                                     <th></th>
                                     <th></th>
-                                    <th></th>
                                     <th colspan=\"4\" style=\"text-align:right\">Total:></th>
+                                    <th></th>
                                     <th></th>
                                 </tr>
                             </tfoot>
@@ -74,6 +74,8 @@ echo "<h1 class=\"display-5\">Annual Budget Plan {$yearH}</h1><div class=\"panel
                 <br>";
             }
         }
+        echo "<br>";
+        echo "<hr>";
         echo "<button id=\"btnDeletePlan\" type=\"button\" class=\"btn btn-danger\" data-target=\"#DeletePlan\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\" ";
         echo " >Delete Plan</button>";
         echo "<br><br><br>";

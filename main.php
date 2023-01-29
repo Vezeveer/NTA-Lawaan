@@ -26,6 +26,7 @@ if ($_SESSION["status"] == "bo_approved") {
 if ($_SESSION['enableContent'] or $_SESSION['userType'] == 'bdc') {
     for ($j = 0; count($projects) > $j; $j++) {
         if (isset($projects[$j])) {
+            echo "<hr>";
             echo "
                     <a href=\"#\" class=\"";
             echo $_SESSION['adminAccess'] ? ($_SESSION['status'] == "bo_approved" ? "btn disabled" : "") : ($_SESSION['status'] == 'bc_finalizing' ? "" : "btn disabled");
@@ -41,7 +42,6 @@ if ($_SESSION['enableContent'] or $_SESSION['userType'] == 'bdc') {
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Project</th>
                                     <th>AIP Reference Code</th>
                                     <th>Activity Description</th>
                                     <th>Implementing Office</th>
@@ -53,6 +53,7 @@ if ($_SESSION['enableContent'] or $_SESSION['userType'] == 'bdc') {
                                     <th>Maintenance</th>
                                     <th>Capital Outlay</th>
                                     <th>Total</th>
+                                    <th>Project</th>
                                 </tr>
                             </thead>
                             <tbody >";
@@ -67,8 +68,8 @@ if ($_SESSION['enableContent'] or $_SESSION['userType'] == 'bdc') {
                                     <th></th>
                                     <th></th>
                                     <th></th>
-                                    <th></th>
                                     <th colspan=\"4\" style=\"text-align:right\">Total:></th>
+                                    <th></th>
                                     <th></th>
                                 </tr>
                             </tfoot>
@@ -84,9 +85,12 @@ if ($_SESSION['enableContent'] or $_SESSION['userType'] == 'bdc') {
         echo $_SESSION['status'] == 'bo_approved' ? "disabled" : "";
         echo " >Add Project</button>";
     }
+    echo "<br>";
+    echo "<hr>";
     echo "<button id=\"btnFinalizePlan\" type=\"button\" class=\"btn btn-success\" data-target=\"#FinalizeModalBack\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\" ";
     echo $_SESSION['status'] == 'bo_approved' ? "disabled" : "";
-    echo ">Finalize Plan</button>";
+    echo $_SESSION['userType'] == 'bo' ? ">Approve Plan" : ">Finalize Plan";
+    echo "</button>";
 
     if ($_SESSION['userType'] == 'bdc') {
         echo "<button id=\"btnArchiveProject\" type=\"button\" class=\"btn btn-secondary\" data-target=\"#ArchiveProject\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\" ";

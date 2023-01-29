@@ -3,23 +3,6 @@
 include('databasehandler.inc.php');
 
 if (true){
-
-    // $stmt = $pdo->prepare("
-    // INSERT INTO year_2017 (project, aipRefCode, activityDesc, impOffice) 
-    // VALUES (:project, :aipRefCode, activityDesc, impOffice)
-    // ");
-    // $stmt->bindParam(':project', $project);
-    // $stmt->bindParam(':aipRefCode', $aipRefCode);
-    // $stmt->bindParam(':activityDesc', $activityDesc);
-    // $stmt->bindParam(':impOffice', $impOffice);
-
-    // $project = $_POST['project'];
-    // $aipRefCode = $_POST['aipRefCode'];
-    // $activityDesc = $_POST['activityDesc'];
-    // $impOffice = $_POST['impOffice'];
-
-    // $stmt->execute();
-
     // MySQLi Procedural
     $sql = "INSERT INTO `year_{$_GET['year']}` 
     (project, aipRefCode, activityDesc, 

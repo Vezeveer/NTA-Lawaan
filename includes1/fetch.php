@@ -3,7 +3,7 @@ include('database_connection.php');
 
 $projectName = $_GET['projectName'];
 $yr = "year_".$_GET['year'];
-$column = array("id", "project", "aipRefCode", "activityDesc", "impOffice", "startDate", "endDate", "expectedOutput", "fundingServices", "personalServices", "maint", "capitalOutlay", "total");
+$column = array("id", "aipRefCode", "activityDesc", "impOffice", "startDate", "endDate", "expectedOutput", "fundingServices", "personalServices", "maint", "capitalOutlay", "total", "project");
 $query = "SELECT * FROM {$yr} WHERE project = '{$projectName}' ";
 
 if (isset($_POST["search"]["value"])) {
@@ -48,7 +48,6 @@ $data = array();
 foreach ($result as $row) {
     $sub_array = array();
     $sub_array[] = $row['id'];
-    $sub_array[] = $row['project'];
     $sub_array[] = $row['aipRefCode'];
     $sub_array[] = $row['activityDesc'];
     $sub_array[] = $row['impOffice'];
@@ -60,6 +59,7 @@ foreach ($result as $row) {
     $sub_array[] = $row['maint'];
     $sub_array[] = $row['capitalOutlay'];
     $sub_array[] = $row['total'];
+    $sub_array[] = $row['project'];
     $data[] = $sub_array;
 }
 

@@ -201,12 +201,8 @@
     </div><!-- Main Col END -->
     </div><!-- body-row END -->
 
-    <script src="js/popup.js"></script>
     <script src="js/main.js"></script>
     <script src="js/pass_validation.js"></script>
-
-    <script src="js/editTable.js"></script>
-    <script src="js/tableResizeable.js"></script>
 
     </body>
 
@@ -217,17 +213,17 @@
     <?php
 
     $editable = "
-    [2, 'aipRefCode',],
-[3, 'activityDesc'],
-[4, 'impOffice'],
-[5, 'startDate'],
-[6, 'endDate'],
-[7, 'expectedOutput'],
-[8, 'fundingServices'],
-[9, 'personalServices'],
-[10, 'maint'],
-[11, 'capitalOutlay'],
-[12, 'total']";
+    [1, 'aipRefCode',],
+[2, 'activityDesc'],
+[3, 'impOffice'],
+[4, 'startDate'],
+[5, 'endDate'],
+[6, 'expectedOutput'],
+[7, 'fundingServices'],
+[8, 'personalServices'],
+[9, 'maint'],
+[10, 'capitalOutlay'],
+[11, 'total']";
     $modifiable = "editButton: false,
 deleteButton: false,
 saveButton: false,";
@@ -345,7 +341,7 @@ if(isset($_SESSION["usersname"])){
      
                 // Total over all pages
                 total = api
-                    .column(12)
+                    .column(11)
                     .data()
                     .reduce(function (a, b) {
                         return intVal(a) + intVal(b);
@@ -353,14 +349,14 @@ if(isset($_SESSION["usersname"])){
      
                 // Total over this page
                 pageTotal = api
-                    .column(12, { page: 'current' })
+                    .column(11, { page: 'current' })
                     .data()
                     .reduce(function (a, b) {
                         return intVal(a) + intVal(b);
                     }, 0);
      
                 // Update footer
-                $(api.column(12).footer()).html('₱' + pageTotal + ' ( ₱' + total + ' total)');
+                $(api.column(11).footer()).html('₱' + pageTotal + ' ( ₱' + total + ' total)');
             },
         });
 
@@ -385,8 +381,41 @@ if(isset($_SESSION["usersname"])){
                 },
                 onDraw: function() {
                     // Select all inputs of second column and apply datepicker each of them
-                    $('table tr td:nth-child(7) input').attr(\"type\", \"date\");
-                    $('table tr td:nth-child(8) input').attr(\"type\", \"date\");
+                    $('table tr td:nth-child(2) input').attr(\"maxlength\", \"50\");
+                    $('table tr td:nth-child(3) input').attr(\"maxlength\", \"50\");
+
+                    $('table tr td:nth-child(4) input').attr(\"maxlength\", \"50\");
+                    $('table tr td:nth-child(5) input').attr(\"type\", \"date\");
+                    $('table tr td:nth-child(6) input').attr(\"type\", \"date\");
+                    $('table tr td:nth-child(7) input').attr(\"maxlength\", \"50\");
+
+                    $('table tr td:nth-child(8) input').attr(\"maxlength\", \"10\");
+                    $('table tr td:nth-child(9) input').attr(\"maxlength\", \"10\");
+                    $('table tr td:nth-child(10) input').attr(\"maxlength\", \"10\");
+                    $('table tr td:nth-child(11) input').attr(\"maxlength\", \"10\");
+                    $('table tr td:nth-child(12) input').attr(\"maxlength\", \"10\");
+                    $('table tr td:nth-child(8) input').attr(\"type\", \"number\");
+                    $('table tr td:nth-child(9) input').attr(\"type\", \"number\");
+                    $('table tr td:nth-child(10) input').attr(\"type\", \"number\");
+                    $('table tr td:nth-child(11) input').attr(\"type\", \"number\");
+                    $('table tr td:nth-child(12) input').attr(\"type\", \"number\");
+                    $('table tr td:nth-child(8) input').attr(\"oninput\", \"this.value=this.value.slice(0,this.maxLength)\");
+                    $('table tr td:nth-child(9) input').attr(\"oninput\", \"this.value=this.value.slice(0,this.maxLength)\");
+                    $('table tr td:nth-child(10) input').attr(\"oninput\", \"this.value=this.value.slice(0,this.maxLength)\");
+                    $('table tr td:nth-child(11) input').attr(\"oninput\", \"this.value=this.value.slice(0,this.maxLength)\");
+                    $('table tr td:nth-child(12) input').attr(\"oninput\", \"this.value=this.value.slice(0,this.maxLength)\");
+
+                    // AipRefCode validation
+                    $('table tr td:nth-child(2) input').bind(\"input\", function () {
+                        var c = this.selectionStart,
+                          r = /[^0-9 -]|\s/gi,
+                          v = $(this).val();
+                        if (r.test(v)) {
+                          $(this).val(v.replace(r, \"\"));
+                          c--;
+                        }
+                        this.setSelectionRange(c, c);
+                      });
                   }
             });
         });
@@ -480,7 +509,7 @@ if(isset($_SESSION["usersname"])){
                             <div class=\"input-group-prepend\">
                                 <span class=\"input-group-text\">₱</span>
                             </div>
-                            <input type=\"number\" name=\"fundingServices\" class=\"form-control\" placeholder=\"Funding Services\" aria-label=\"Amount (to the nearest peso)\" maxlength=\"11\" oninput=\"this.value=this.value.slice(0,this.maxLength)\" required>
+                            <input type=\"number\" name=\"fundingServices\" class=\"form-control\" placeholder=\"Funding Services\" aria-label=\"Amount (to the nearest peso)\" maxlength=\"10\" oninput=\"this.value=this.value.slice(0,this.maxLength)\" required>
                             <div class=\"input-group-append\">
                                 <span class=\"input-group-text\">.00</span>
                             </div>
@@ -489,7 +518,7 @@ if(isset($_SESSION["usersname"])){
                             <div class=\"input-group-prepend\">
                                 <span class=\"input-group-text\">₱</span>
                             </div>
-                            <input type=\"number\" name=\"personalServices\" class=\"form-control\" placeholder=\"Personal Services\" aria-label=\"Amount (to the nearest peso)\" maxlength=\"11\" oninput=\"this.value=this.value.slice(0,this.maxLength)\" required>
+                            <input type=\"number\" name=\"personalServices\" class=\"form-control\" placeholder=\"Personal Services\" aria-label=\"Amount (to the nearest peso)\" maxlength=\"10\" oninput=\"this.value=this.value.slice(0,this.maxLength)\" required>
                             <div class=\"input-group-append\">
                                 <span class=\"input-group-text\">.00</span>
                             </div>
@@ -498,7 +527,7 @@ if(isset($_SESSION["usersname"])){
                             <div class=\"input-group-prepend\">
                                 <span class=\"input-group-text\">₱</span>
                             </div>
-                            <input type=\"number\" name=\"maint\" class=\"form-control\" placeholder=\"Maintenance\" aria-label=\"Amount (to the nearest peso)\" maxlength=\"11\" oninput=\"this.value=this.value.slice(0,this.maxLength)\" required>
+                            <input type=\"number\" name=\"maint\" class=\"form-control\" placeholder=\"Maintenance\" aria-label=\"Amount (to the nearest peso)\" maxlength=\"10\" oninput=\"this.value=this.value.slice(0,this.maxLength)\" required>
                             <div class=\"input-group-append\">
                                 <span class=\"input-group-text\">.00</span>
                             </div>
@@ -507,7 +536,7 @@ if(isset($_SESSION["usersname"])){
                             <div class=\"input-group-prepend\">
                                 <span class=\"input-group-text\">₱</span>
                             </div>
-                            <input type=\"number\" name=\"capitalOutlay\" class=\"form-control\" placeholder=\"Capital Outlay\" aria-label=\"Amount (to the nearest peso)\" maxlength=\"11\" oninput=\"this.value=this.value.slice(0,this.maxLength)\" required>
+                            <input type=\"number\" name=\"capitalOutlay\" class=\"form-control\" placeholder=\"Capital Outlay\" aria-label=\"Amount (to the nearest peso)\" maxlength=\"10\" oninput=\"this.value=this.value.slice(0,this.maxLength)\" required>
                             <div class=\"input-group-append\">
                                 <span class=\"input-group-text\">.00</span>
                             </div>
@@ -516,7 +545,7 @@ if(isset($_SESSION["usersname"])){
                             <div class=\"input-group-prepend\">
                                 <span class=\"input-group-text\">₱</span>
                             </div>
-                            <input type=\"number\" name=\"total\" class=\"form-control\" placeholder=\"Total\" aria-label=\"Amount (to the nearest peso)\" maxlength=\"11\" oninput=\"this.value=this.value.slice(0,this.maxLength)\" required>
+                            <input type=\"number\" name=\"total\" class=\"form-control\" placeholder=\"Total\" aria-label=\"Amount (to the nearest peso)\" maxlength=\"10\" oninput=\"this.value=this.value.slice(0,this.maxLength)\" required>
                             <div class=\"input-group-append\">
                                 <span class=\"input-group-text\">.00</span>
                             </div>
@@ -575,19 +604,6 @@ if(isset($_SESSION["usersname"])){
 
     } else {
         contentType($printMainContent, $projectsTrimedNames, $projects, $activeYear, $toggleBtn, $modifiable, $editable);
-        echo "<script>
-        // validate input, aiprefcode of table
-$('[name=\"aipRefCode\"]').bind(\"input\", function () {
-  var c = this.selectionStart,
-    r = /[^0-9 -]|\s/gi,
-    v = $(this).val();
-  if (r.test(v)) {
-    $(this).val(v.replace(r, \"\"));
-    c--;
-  }
-  this.setSelectionRange(c, c);
-});
-  </script>";
     }
 }
     ?>
