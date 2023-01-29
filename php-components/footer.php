@@ -216,18 +216,18 @@
     </script>
     <?php
 
-    $editable = "[2, 'approved', '{\"Pending\": \"Pending\", \"True\": \"True\", \"False\": \"False\"}'],
-[3, 'aipRefCode',],
-[4, 'activityDesc'],
-[5, 'impOffice'],
-[6, 'startDate'],
-[7, 'endDate'],
-[8, 'expectedOutput'],
-[9, 'fundingServices'],
-[10, 'personalServices'],
-[11, 'maint'],
-[12, 'capitalOutlay'],
-[13, 'total']";
+    $editable = "
+    [2, 'aipRefCode',],
+[3, 'activityDesc'],
+[4, 'impOffice'],
+[5, 'startDate'],
+[6, 'endDate'],
+[7, 'expectedOutput'],
+[8, 'fundingServices'],
+[9, 'personalServices'],
+[10, 'maint'],
+[11, 'capitalOutlay'],
+[12, 'total']";
     $modifiable = "editButton: false,
 deleteButton: false,
 saveButton: false,";
@@ -345,7 +345,7 @@ if(isset($_SESSION["usersname"])){
      
                 // Total over all pages
                 total = api
-                    .column(13)
+                    .column(12)
                     .data()
                     .reduce(function (a, b) {
                         return intVal(a) + intVal(b);
@@ -353,14 +353,14 @@ if(isset($_SESSION["usersname"])){
      
                 // Total over this page
                 pageTotal = api
-                    .column(13, { page: 'current' })
+                    .column(12, { page: 'current' })
                     .data()
                     .reduce(function (a, b) {
                         return intVal(a) + intVal(b);
                     }, 0);
      
                 // Update footer
-                $(api.column(13).footer()).html('₱' + pageTotal + ' ( ₱' + total + ' total)');
+                $(api.column(12).footer()).html('₱' + pageTotal + ' ( ₱' + total + ' total)');
             },
         });
 

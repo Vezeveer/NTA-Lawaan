@@ -7,7 +7,6 @@ $yr = "year_".$_GET['year'];
 
 if ($_POST['action'] == 'edit') {
     $data = array(
-        ':approved'  => $_POST['approved'],
         ':aipRefCode'   => $_POST['aipRefCode'],
         ':id'    => $_POST['id'],
         ':activityDesc' => $_POST['activityDesc'],
@@ -23,8 +22,7 @@ if ($_POST['action'] == 'edit') {
     );
 
     $query = "
-        UPDATE {$yr} SET 
-        approved = :approved, 
+        UPDATE {$yr} SET
         aipRefCode = :aipRefCode,
         activityDesc = :activityDesc, 
         impOffice = :impOffice, 

@@ -38,7 +38,6 @@ echo "<h1 class=\"display-5\">Annual Budget Plan {$yearH}</h1><div class=\"panel
                                 <tr>
                                     <th>ID</th>
                                     <th>Project</th>
-                                    <th>Approved</th>
                                     <th>AIP Reference Code</th>
                                     <th>Activity Description</th>
                                     <th>Implementing Office</th>
@@ -57,7 +56,6 @@ echo "<h1 class=\"display-5\">Annual Budget Plan {$yearH}</h1><div class=\"panel
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th></th>
                                     <th></th>
                                     <th></th>
                                     <th></th>

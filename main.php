@@ -42,7 +42,6 @@ if ($_SESSION['enableContent'] or $_SESSION['userType'] == 'bdc') {
                                 <tr>
                                     <th>ID</th>
                                     <th>Project</th>
-                                    <th>Approved</th>
                                     <th>AIP Reference Code</th>
                                     <th>Activity Description</th>
                                     <th>Implementing Office</th>
@@ -61,7 +60,6 @@ if ($_SESSION['enableContent'] or $_SESSION['userType'] == 'bdc') {
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th></th>
                                     <th></th>
                                     <th></th>
                                     <th></th>
