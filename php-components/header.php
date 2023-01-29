@@ -77,8 +77,24 @@ $_SESSION['adminAccess'] = false;
 
     if (isset($_SESSION["usersname"])) {
         $items;
+        if(isset($_GET['lastpage'])){
+            if ($_GET['lastpage'] == 'current'){
+                $_SESSION["activeYear"] = "noActive";
+                $_SESSION["status"] = "no_active";
+                $activeYear = $_SESSION["activeYear"];
+            }
+        }
+        if(isset($_GET['newplan'])){
+            if($_GET['newplan'] == 'yes'){
+                $_SESSION["activeYear"] = getActiveYear($conn);
+                $activeYear = $_SESSION["activeYear"];
+                $_SESSION["status"] = "bdc_initializing";
+            }
+        }
+
         $_SESSION["activeYear"] = getActiveYear($conn);
         $activeYear = $_SESSION["activeYear"];
+        
         echo "<script>console.log('Active year: {$activeYear}')</script>";
         $inactiveYears = getInactiveYears($conn, $activeYear);
 

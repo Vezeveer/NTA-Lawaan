@@ -9,7 +9,7 @@ if ($items == '') {
     }
 
     $projects = array_values(array_unique($projects));
-    echo "<script>console.log('{$projects[0]}')</script>";
+    //echo "<script>console.log('{$projects[0]}')</script>";
     // get trimmed project names for ID html placement
     for ($i = 0; count($projects) > $i; $i++) {
         array_push($projectsTrimedNames, str_replace(' ', '', $projects[$i]));
@@ -114,6 +114,12 @@ if ($_SESSION['enableContent'] or $_SESSION['userType'] == 'bdc') {
         echo "<button id=\"btnArchiveProject\" type=\"button\" class=\"btn btn-secondary\" data-target=\"#ArchiveProject\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\" ";
         echo $_SESSION['status'] == 'bo_approved' ? "" : "disabled";
         echo " >Archive</button>";
+
+        echo "<button id=\"btnDeletePlan\" type=\"button\" class=\"btn btn-danger\" 
+            data-target=\"#DeletePlan\" data-toggle=\"modal\" data-backdrop=\"static\" 
+            data-keyboard=\"false\" ";
+        echo $_SESSION['status'] == 'bc_finalizing' ? "disabled" : ($_SESSION['status'] == 'pending_bo_approval' ? "disabled" : ($_SESSION['status'] == 'bo_approved' ? "disabled" : ""));
+        echo " >Delete Plan</button>";
     }
 
     echo "
@@ -125,5 +131,28 @@ if ($_SESSION['enableContent'] or $_SESSION['userType'] == 'bdc') {
     exit(header("location: dashboard.php"));
 }
 ?>
+<!-- DELETE PLAN PROMPT.modal -->
+<div class="modal fade" id="DeletePlan">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Are you sure you want to delete this plan?</h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body">
+                <form method="post" <?php echo "action=\"/includes1/delete_plan.php?year={$_SESSION['activeYear']}&lastpage=current\"" ?>>
+                    <div class="form-group">
 
+                    </div>
+                    <button type="submit" class="btn btn-primary">Yes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </form>
+            </div>
+            <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="newProject()">Add</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button> 
+            </div> -->
+        </div>
+    </div>
+</div>
 <?php include 'php-components/footer.php'; ?>
