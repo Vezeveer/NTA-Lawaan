@@ -133,8 +133,8 @@ function getActiveYear($conn){
         }
         mysqli_close($conn);
     } else {
-        mysqli_close($conn);
         return "noActive";
+        mysqli_close($conn);
     }
 }
 
@@ -158,7 +158,7 @@ function getInactiveYears($conn, $year){
     mysqli_close($conn);
 }
 
-function getItems($conn, $year){
+function getCurrentPlan($conn, $year){
     if(getActiveYear($conn) == 'noActive'){
         $_SESSION['status'] = 'no_active';
         return;
@@ -179,6 +179,24 @@ function getItems($conn, $year){
         
     }
 
+    mysqli_close($conn);
+    return $array1;
+}
+
+function getOldPlan($conn, $year_table){
+    $sql = "SELECT * FROM $year_table";
+    $result = mysqli_query($conn, $sql);
+
+    $array1 = array();
+
+    if (mysqli_num_rows($result) > 0) {
+        // output data of each row
+        while($row = mysqli_fetch_assoc($result)) {
+            array_push($array1, $row);
+        }
+    } else {
+        
+    }
     mysqli_close($conn);
     return $array1;
 }

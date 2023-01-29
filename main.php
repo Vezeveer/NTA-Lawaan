@@ -1,6 +1,6 @@
 <?php
 include_once 'php-components/header.php';
-$items = getItems($conn, "year_" . $activeYear);
+$items = getCurrentPlan($conn, "year_" . $activeYear);
 if ($items == '') {
 } else {
     // get project names

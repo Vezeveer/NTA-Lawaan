@@ -1,9 +1,9 @@
-<?php 
-include_once 'php-components/header.php'; 
+<?php
+include_once 'php-components/header.php';
 $yearH = $_GET['year'];
-$items = getItems($conn, "year_" . $_GET['year']);
+$items = getOldPlan($conn, "year_" . $_GET['year']);
 if ($items == '') {
-
+    echo "<script>console.log('items are empty in history:')</script>";
 } else {
     // get project names
     for ($i = 0; count($items) > $i; $i++) {
@@ -19,12 +19,13 @@ if ($items == '') {
 }
 echo "<!-- MAIN -->
 <div class=\"col p-4 overflow-auto\" id=\"main-content\">";
-echo "<h1 class=\"display-5\">Annual Budget Plan {$yearH}</h1><div class=\"panel panel-default\">";
-    
-    
-        for ($j = 0; count($projects) > $j; $j++) {
-            if (isset($projects[$j])) {
-                echo "
+echo "<h1 class=\"display-5\">Annual Budget Plan {$yearH}</h1>
+<div class=\"panel panel-default\">";
+
+
+for ($j = 0; count($projects) > $j; $j++) {
+    if (isset($projects[$j])) {
+        echo "
                 <div class=\"card text-center\">
                     <div class=\"card-header\">
                         <ul class=\"nav nav-tabs card-header-tabs\">
@@ -40,19 +41,26 @@ echo "<h1 class=\"display-5\">Annual Budget Plan {$yearH}</h1><div class=\"panel
                         </ul>
                     </div>
                     <div class=\"card-body\">";
-                    // Table Title Starts
-                    echo "<a href=\"#\" class=\"card-title ";
-                    echo $_SESSION['adminAccess'] ? ($_SESSION['status'] == "bo_approved" ? "btn disabled" : ($_SESSION['status'] == "pending_bo_approval" ? "btn disabled" : "")) : ($_SESSION['status'] == 'bc_finalizing' ? "" : "btn disabled");
-                    echo "\" data-target=\"#{$projectsTrimedNames[$j]}UpdateProjectNameModal\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\"><h5 class=\"panel-heading\">";
-                    echo "$projects[$j]</h5></a>";
-                    // Table Title Ends
-                    echo "
+        // Table Title Starts
+        echo "<a href=\"#\" class=\"card-title ";
+        
+        echo $_SESSION['adminAccess'] ? 
+            ($_SESSION['status'] == "bo_approved" ? "btn disabled" : 
+            ($_SESSION['status'] == "pending_bo_approval" ? "btn disabled" : 
+            ($_SESSION['status'] == 'no_active' ? "btn disabled" : ""))) : 
+            ($_SESSION['status'] == 'bc_finalizing' ? "" : "btn disabled");
+        echo "\" data-target=\"#{$projectsTrimedNames[$j]}UpdateProjectNameModal\" 
+            data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\">
+            <h5 class=\"panel-heading\">";
+        echo "$projects[$j]</h5></a>";
+        // Table Title Ends
+        echo "
                     <div class=\"panel-body card-text\">
                         <div class=\"table-responsive\">
                             <table id=\"";
-                echo $projectsTrimedNames[$j];
-                echo "\"";
-                echo " class=\"table table-bordered table-striped display nowrap\" width=\"100%\">
+        echo $projectsTrimedNames[$j];
+        echo "\"";
+        echo " class=\"table table-bordered table-striped display nowrap\" width=\"100%\">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
@@ -71,7 +79,7 @@ echo "<h1 class=\"display-5\">Annual Budget Plan {$yearH}</h1><div class=\"panel
                                     </tr>
                                 </thead>
                                 <tbody >";
-                echo "
+        echo "
                                 </tbody>
                                 <tfoot>
                                     <tr>
@@ -91,40 +99,42 @@ echo "<h1 class=\"display-5\">Annual Budget Plan {$yearH}</h1><div class=\"panel
                         </div>
                     </div>
                     ";
-                    echo "</div>
+        echo "</div>
                 </div>
                 <br>";
-            }
-        }
-        echo "<br>";
-        echo "<hr>";
-        echo "<button id=\"btnDeletePlan\" type=\"button\" class=\"btn btn-danger\" data-target=\"#DeletePlan\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\" ";
-        echo " >Delete Plan</button>";
-        echo "<br><br><br>";
-    
-    include 'php-components/footer.php'; ?>
+    }
+}
+echo "<br>";
+echo "<hr>";
+echo "<button id=\"btnDeletePlan\" type=\"button\" class=\"btn btn-danger\" 
+    data-target=\"#DeletePlan\" data-toggle=\"modal\" data-backdrop=\"static\" 
+    data-keyboard=\"false\" ";
+echo " >Delete Plan</button>";
+echo "<br><br><br>";
+
+include 'php-components/footer.php'; ?>
 
 <!-- DELETE PLAN PROMPT.modal -->
 <div class="modal fade" id="DeletePlan">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Are you sure you want to delete this plan?</h4>
-                    <button type="button" class="close" data-dismiss="modal">×</button>
-                </div>
-                <div class="modal-body">
-                    <form method="post" <?php echo "action=\"/includes1/delete_plan.php?year={$_GET['year']}\"" ?>>
-                        <div class="form-group">
-                            
-                        </div>
-                        <button type="submit" class="btn btn-primary">Yes</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    </form>
-                </div>
-                <!-- <div class="modal-footer">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Are you sure you want to delete this plan?</h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body">
+                <form method="post" <?php echo "action=\"/includes1/delete_plan.php?year={$_GET['year']}\"" ?>>
+                    <div class="form-group">
+
+                    </div>
+                    <button type="submit" class="btn btn-primary">Yes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </form>
+            </div>
+            <!-- <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" onclick="newProject()">Add</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button> 
             </div> -->
-            </div>
         </div>
     </div>
+</div>
