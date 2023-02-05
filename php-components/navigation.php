@@ -151,6 +151,37 @@
             <!-- /END Separator -->
             <?php
             if($_SESSION['adminAccess']){
+                echo "<a href=\"#submenu3\" data-toggle=\"collapse\" aria-expanded=\"false\" class=\""; echo ($activePage == 'mngUsers') ? 'active_page ':''; echo " bg-dark list-group-item list-group-item-action flex-column align-items-start\">
+                        <div class=\"d-flex w-100 justify-content-start align-items-center\">
+                            <span class=\"fas fa-user-cog fa-fw mr-3\"></span>
+                            <span class=\"menu-collapsed\">Manage Users</span>
+                            <span class=\"fa fa-caret-down ml-auto menu-collapsed\"></span>
+                        </div>
+                    </a>
+                    <!-- Submenu content -->
+                    <div id='submenu3' class=\"collapse sidebar-submenu\">";
+                    echo "<a href=\"#\" class=\"bg-dark list-group-item list-group-item-action\" data-target=\"#UserModalBack\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\">
+                            <div class=\"d-flex w-100 justify-content-start align-items-center\">
+                                <span class=\"fas fa-user-plus fa-fw mr-3\"></span>
+                                <span class=\"menu-collapsed\">Create User</span>
+                            </div>
+                        </a>";
+                        echo "<a href=\"#\" class=\"bg-dark list-group-item list-group-item-action\">
+                            <div class=\"d-flex w-100 justify-content-start align-items-center\">
+                                <span class=\"fas fa-user-edit fa-fw mr-3\"></span>
+                                <span class=\"menu-collapsed\">Update User</span>
+                            </div>
+                        </a>";
+                    echo "<a href=\"#\" class=\"bg-dark list-group-item list-group-item-action\">
+                            <div class=\"d-flex w-100 justify-content-start align-items-center\">
+                                <span class=\"fas fa-user-slash fa-fw mr-3\"></span>
+                                <span class=\"menu-collapsed\">Delete User</span>
+                            </div>
+                        </a>";
+                
+                echo "</div>";
+            }
+            if($_SESSION['adminAccess']){
                 echo "<a href=\"#\" class=\"bg-dark list-group-item list-group-item-action\">
                 <div class=\"d-flex w-100 justify-content-start align-items-center\">
                     <span class=\"fa fa-calendar fa-fw mr-3\"></span>
@@ -166,12 +197,7 @@
             <!-- Separator without title -->
             <!-- <li class=\"list-group-item sidebar-separator menu-collapsed\"></li> -->
             <!-- /END Separator -->
-            <a href=\"#\" class=\"bg-dark list-group-item list-group-item-action\" data-target=\"#UserModalBack\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\">
-                <div class=\"d-flex w-100 justify-content-start align-items-center\">
-                    <span class=\"fas fa-user-plus fa-fw mr-3\"></span>
-                    <span class=\"menu-collapsed\">Create User</span>
-                </div>
-            </a>
+            
             <a href=\"#\" class=\"bg-dark list-group-item list-group-item-action\">
                 <div class=\"d-flex w-100 justify-content-start align-items-center\">
                     <i class=\"fas fa-cog fa-fw mr-3\"></i>

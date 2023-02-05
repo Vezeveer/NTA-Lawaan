@@ -34,7 +34,11 @@ echo "<!-- MAIN -->
         echo $no_active;
     }
     if($_SESSION["status"] == "no_active"){
-        echo "<button id=\"NewProject\" type=\"button\" class=\"btn btn-primary dashboard_btn\" style=\"color: #EDF5E1 !important;\" data-target=\"#NewPlan\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\">Create New Plan</a>";
+        if($_SESSION['userType'] == 'bc' or $_SESSION['userType'] == 'bo'){
+
+        } else {
+            echo "<button id=\"NewProject\" type=\"button\" class=\"btn btn-primary dashboard_btn\" style=\"color: #EDF5E1 !important;\" data-target=\"#NewPlan\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\">Create New Plan</a>";
+        }
     } else {
         echo "<a href=\"main.php\" class=\"btn btn-primary dashboard_btn {$hide}\" style=\"color: #EDF5E1 !important;\" disable>Go To Plan</a>";
     }
