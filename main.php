@@ -43,8 +43,8 @@ if ($_SESSION['enableContent'] or $_SESSION['userType'] == 'bdc') {
                 </div>
                 <div class=\"card-body\">";
                 // Table Title Starts
-                echo "<a href=\"#\" class=\"card-title ";
-                echo $_SESSION['adminAccess'] ? ($_SESSION['status'] == "bo_approved" ? "btn disabled" : ($_SESSION['status'] == "pending_bo_approval" ? "btn disabled" : "")) : ($_SESSION['status'] == 'bc_finalizing' ? "" : "btn disabled");
+                echo "<a href=\"#\" class=\"card-title btn ";
+                echo $pTitleEditable ? "" : "disabled";
                 echo "\" data-target=\"#{$projectsTrimedNames[$j]}UpdateProjectNameModal\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\"><h5 class=\"panel-heading\">";
                 echo "$projects[$j]</h5></a>";
                 // Table Title Ends
@@ -102,11 +102,11 @@ if ($_SESSION['enableContent'] or $_SESSION['userType'] == 'bdc') {
     if ($_SESSION['userType'] == 'bo') {
     } else {
         echo "<button id=\"btnAddProject\" type=\"button\" class=\"btn btn-primary\" data-target=\"#AddNewProject\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\" ";
-        echo $_SESSION['status'] == 'bo_approved' ? "disabled" : "";
+        echo $EnableAddProj ? "" : "disabled";
         echo " >Add Project</button>";
     }
     echo "<button id=\"btnFinalizePlan\" type=\"button\" class=\"btn btn-success\" data-target=\"#FinalizeModalBack\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\" ";
-    echo $_SESSION['status'] == 'bo_approved' ? "disabled" : "";
+    echo $EnableFinalzPlan ? "" : "disabled";
     echo $_SESSION['userType'] == 'bo' ? ">Approve Plan" : ">Finalize Plan";
     echo "</button>";
 
@@ -128,7 +128,7 @@ if ($_SESSION['enableContent'] or $_SESSION['userType'] == 'bdc') {
         <br>
         <br></div>";
 } else {
-    exit(header("location: dashboard.php"));
+    header("location: dashboard.php");
 }
 ?>
 <!-- DELETE PLAN PROMPT.modal -->

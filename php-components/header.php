@@ -77,6 +77,8 @@ $_SESSION['adminAccess'] = false;
 
     if (isset($_SESSION["usersname"])) {
         $items;
+
+        // After action, update for next page
         if(isset($_GET['lastpage'])){
             if ($_GET['lastpage'] == 'current'){
                 $_SESSION["activeYear"] = "noActive";
@@ -98,9 +100,20 @@ $_SESSION['adminAccess'] = false;
                 $_SESSION["status"] = "bo_approved";
             }
             if($_GET['userType'] == "bdc"){
+                if(isset($_GET['isArchived'])){
+                    $_SESSION["activeYear"] = getActiveYear($conn);
+                    $activeYear = $_SESSION["activeYear"];
+                    $_SESSION["status"] = "no_active";
+                } else {
+                    $_SESSION["activeYear"] = getActiveYear($conn);
+                    $activeYear = $_SESSION["activeYear"];
+                    $_SESSION["status"] = "bc_finalizing";
+                }
+            }
+            if($_GET['userType'] == "bc"){
                 $_SESSION["activeYear"] = getActiveYear($conn);
                 $activeYear = $_SESSION["activeYear"];
-                $_SESSION["status"] = "no_active";
+                $_SESSION["status"] = "pending_bo_approval";
             }
         }
 
@@ -120,8 +133,10 @@ $_SESSION['adminAccess'] = false;
         // allow viewing of content
         if ($_SESSION['userType'] == 'bdc' && $_SESSION['status'] == 'bdc_initializing') {
             $_SESSION['enableContent'] = true;
-        } else if ($_SESSION['userType'] == 'bc' && $_SESSION['status'] == 'bc_finalizing') {
-            $_SESSION['enableContent'] = true;
+        } else if ($_SESSION['userType'] == 'bc') {
+            if($_SESSION['status'] != 'bdc_initializing'){
+                $_SESSION['enableContent'] = true;
+            }
         } else if ($_SESSION['userType'] == 'bo' && $_SESSION['status'] == 'pending_bo_approval') {
             $_SESSION['enableContent'] = true;
         } else if ($_SESSION['status'] == 'bo_approved') {
@@ -130,6 +145,67 @@ $_SESSION['adminAccess'] = false;
 
         if ($_SESSION['userType'] == 'bdc'){
             $_SESSION['adminAccess'] = true;
+        }
+
+        $pTitleEditable = false;
+        $showGo2plan = false;
+        $EnableAddProj = false;
+        $EnableFinalzPlan = false;
+        $EnableMobiCurrPlanBtn = false;
+        switch($_SESSION['status']){
+            case 'bdc_initializing':
+                switch($_SESSION['userType']){
+                    case 'bdc':
+                        $pTitleEditable = true;
+                        $showGo2plan = true;
+                        $EnableAddProj = true;
+                        $EnableFinalzPlan = true;
+                        $EnableMobiCurrPlanBtn = true;
+                        break;
+                    case 'bc':
+                        break;
+                    case 'bo':
+                        break;
+                    default:
+                }
+                break;
+            case 'bc_finalizing':
+                switch($_SESSION['userType']){
+                    case 'bdc':
+                        $showGo2plan = true;
+                        $EnableMobiCurrPlanBtn = true;
+                        break;
+                    case 'bc':
+                        $pTitleEditable = true;
+                        $showGo2plan = true;
+                        $EnableAddProj = true;
+                        $EnableFinalzPlan = true;
+                        $EnableMobiCurrPlanBtn = true;
+                        break;
+                    case 'bo':
+                        break;
+                    default:
+                }
+                break;
+            case 'pending_bo_approval':
+                switch($_SESSION['userType']){
+                    case 'bdc':
+                        $showGo2plan = true;
+                        $EnableMobiCurrPlanBtn = true;
+                        break;
+                    case 'bc':
+                        $showGo2plan = true;
+                        $EnableMobiCurrPlanBtn = true;
+                        break;
+                    case 'bo':
+                        $showGo2plan = true;
+                        $EnableFinalzPlan = true;
+                        $EnableMobiCurrPlanBtn = true;
+                        break;
+                    default:
+                }
+                break;
+            default:
         }
 
         include_once 'navigation.php';
