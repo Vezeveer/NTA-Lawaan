@@ -73,6 +73,40 @@ switch($imgType){
     default:
 }
 
+$enableUploadBtn = "disabled";
+$enableDeleteBtn = "disabled";
+switch($_SESSION['status']){
+    case 'bdc_initializing':
+        switch($_SESSION['userType']){
+            case 'bdc':
+                if($activeYear != $_GET['year']){
+
+                } else {
+                    $enableUploadBtn = "";
+                    $enableDeleteBtn = "";
+                }
+                break;
+        }
+        break;
+    case 'bc_finalizing':
+        switch($_SESSION['userType']){
+            case 'bc':
+                if($activeYear != $_GET['year']){
+
+                } else {
+                    $enableUploadBtn = "";
+                    $enableDeleteBtn = "";
+                }
+                break;
+        }
+        break;
+    case 'pending_bo_approval':
+        break;
+    case 'bo_approved':
+        break;
+    default:
+}
+
 ?>
 
 <form name="user_create" method="post" <?php echo "action=\"../docs.php?year={$_GET['year']}&imgType={$imgType}\"" ?>>
@@ -89,7 +123,9 @@ switch($imgType){
                 </div>
                 <div class="col-sm-4">
                     <button type="submit" class="btn btn-primary">View</button>
-                    <button type="button" class="btn btn-secondary" data-target="#AddDocs" data-toggle="modal" data-backdrop="static" data-keyboard="false">Upload</button>
+                    <?php
+                        echo '<button type="button" class="btn btn-secondary" data-target="#AddDocs" data-toggle="modal" data-backdrop="static" data-keyboard="false" '.$enableUploadBtn.'>Upload</button>';
+                    ?>
                 </div>
             </div>
         </div>
@@ -97,8 +133,7 @@ switch($imgType){
 </form>
 
 <?php
-if(isset($_POST['imgType'])){
-    $sql = "SELECT * FROM docs WHERE img_year={$_GET['year']} AND img_type='{$_POST['imgType']}'";
+$sql = "SELECT * FROM docs WHERE img_year={$_GET['year']} AND img_type='{$imgType}'";
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) == 0) { 
         //results are empty, do something here 
@@ -109,17 +144,13 @@ if(isset($_POST['imgType'])){
             echo "<div class=\"card\" >";
             echo '<img class="card-img-top" src="data:image/png;base64,'.base64_encode($row['img_data']).'"/>';
             echo "<div class=\"card-body\">";
-              if($activeYear != $_GET['year']){
-
-            } else {
-              echo "<button id=\"btnDeleteDoc\" type=\"button\" class=\"btn btn-danger\" 
-              data-target=\"#DeleteDoc\" data-toggle=\"modal\" data-backdrop=\"static\" 
-              data-keyboard=\"false\" ";
-              echo $_SESSION['status'] == 'bc_finalizing' ? "disabled" : ($_SESSION['status'] == 'pending_bo_approval' ? "disabled" : ($_SESSION['status'] == 'bo_approved' ? "disabled" : ""));
-              echo " >Delete Doc</button>";
-                echo '<button class="btn btn-secondary dl-btn" ><a style="text-decoration: none !important; color: white !important;" href="data:image/png;base64,'.base64_encode($row['img_data']).'" download="'.$row['img_name'].'">Download</a></button>';
-                echo "<button class=\"btn btn-primary\" onclick=\"printImg('data:image/png;base64,"; echo base64_encode($row['img_data']); echo "')\">Print</button>";
-            }
+            echo "<button id=\"btnDeleteDoc\" type=\"button\" class=\"btn btn-danger\" 
+            data-target=\"#DeleteDoc\" data-toggle=\"modal\" data-backdrop=\"static\" 
+            data-keyboard=\"false\" ";
+            echo $_SESSION['status'] == 'bc_finalizing' ? "" : ($_SESSION['status'] == 'pending_bo_approval' ? "disabled" : ($_SESSION['status'] == 'bo_approved' ? "disabled" : ""));
+            echo " ".$enableDeleteBtn.">Delete Doc</button>";
+            echo '<button class="btn btn-secondary dl-btn" ><a style="text-decoration: none !important; color: white !important;" href="data:image/png;base64,'.base64_encode($row['img_data']).'" download="'.$row['img_name'].'">Download</a></button>';
+            echo "<button class=\"btn btn-primary\" onclick=\"printImg('data:image/png;base64,"; echo base64_encode($row['img_data']); echo "')\">Print</button>";
             echo "</div>
           </div>";
             // echo '<img src="data:image/png;base64,'.base64_encode($row['img_data']).'"/>';
@@ -127,30 +158,6 @@ if(isset($_POST['imgType'])){
               echo "<br>";
           }
      } 
-} else {
-    $sql = "SELECT * FROM docs WHERE img_year={$_GET['year']} AND img_type='{$_GET['imgType']}'";
-    $result = mysqli_query($conn, $sql);
-    if (mysqli_num_rows($result) == 0) { 
-        //results are empty, do something here 
-        echo "<hr>";
-        echo "<p>There are no documents to show.</p>";
-     } else { 
-        while ($row = mysqli_fetch_assoc($result)) {
-            echo '<img src="data:image/png;base64,'.base64_encode($row['img_data']).'"/>';
-              $docType = $row['img_type'];
-              echo "<hr>";
-              if($activeYear != $_GET['year']){
-
-              } else {
-                echo "<button id=\"btnDeleteDoc\" type=\"button\" class=\"btn btn-danger\" 
-                data-target=\"#DeleteDoc\" data-toggle=\"modal\" data-backdrop=\"static\" 
-                data-keyboard=\"false\" ";
-                echo $_SESSION['status'] == 'bc_finalizing' ? "disabled" : ($_SESSION['status'] == 'pending_bo_approval' ? "disabled" : ($_SESSION['status'] == 'bo_approved' ? "disabled" : ""));
-                echo " >Delete Doc</button>";
-              }
-          }
-     } 
-}
 
 echo "<br>";
 echo "<br>";

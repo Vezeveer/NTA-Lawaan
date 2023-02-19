@@ -73,13 +73,13 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Are you sure you want to archive this project?</h4>
+                    <h4 class="modal-title">ARCHIVE</h4>
                     <button type="button" class="close" data-dismiss="modal">×</button>
                 </div>
                 <div class="modal-body">
                     <form method="post" <?php echo "action=\"/includes1/update_status_archived.php?year=$activeYear&userType={$_SESSION['userType']}\"" ?>>
                         <div class="form-group">
-
+                            <p>Are you sure you want to archive this project?</p>
                         </div>
                         <button type="submit" class="btn btn-primary">Yes</button>
                     </form>
@@ -203,29 +203,6 @@
         </div>
     </div>
 
-    <!--Supporting Docs PROMPT.modal -->
-    <div class="modal fade" id="SupDocs">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Supporting Documents</h4>
-                    <button type="button" class="close" data-dismiss="modal">×</button>
-                </div>
-                <div class="modal-body">
-                    <form name="user_create" method="post" <?php echo "action=\"/includes1/new_user.php\"" ?>>
-                        
-                        <div class="form-group row">
-                            <div class=" m-auto">
-                                <button id="btnAddDocs" type="button" class="btn btn-secondary" data-target="#AddDocs" data-toggle="modal" data-backdrop="static" data-keyboard="false">Upload</button>
-                                <button id="btnViewDocs" type="button" class="btn btn-primary" data-target="#ViewDocs" data-toggle="modal" data-backdrop="static" data-keyboard="false">View</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!--Add Docs PROMPT.modal -->
     <div class="modal fade" id="AddDocs">
         <div class="modal-dialog">
@@ -278,15 +255,15 @@
                 <div class="modal-body">
                     <form name="user_create" method="post" <?php echo "action=\"../docs.php?year={$activeYear}\"" ?>>
                         
-                        <div class="form-group row">
+                        <div class="form-group">
                             <select name="imgType" class="custom-select" id="inputGroupSelect01" required>
                                 <option selected value="tl" selected>Transmittal Letter</option>
                                 <option value="robdp">Resolution of Barangay Development Plan</option>
                                 <option value="rataip">Resolution Approving the Annual Investment Plan</option>
                             </select>
-                            <div class="m-auto">
+                        </div>
+                        <div class="form-group m-auto">
                                 <button type="submit" class="btn btn-primary">View</button>
-                            </div>
                         </div>
                     </form>
                 </div>
@@ -410,6 +387,7 @@ $(document).ready(function () {
 })
 </script>
 ";
+$showUploadBtn = "disabled";
 
 if(isset($_SESSION["usersname"])){
     switch ($_SESSION["userType"]) {
@@ -417,6 +395,7 @@ if(isset($_SESSION["usersname"])){
             if ($_SESSION["status"] == "bdc_initializing") {
                 $toggleBtn = "enabled: true";
                 $modifiable = "";
+                $showUploadBtn = "";
             } else {
                 $toggleBtn = "enabled: false";
                 $editable = "";
@@ -427,6 +406,7 @@ if(isset($_SESSION["usersname"])){
             if ($_SESSION["status"] == "bc_finalizing") {
                 $toggleBtn = "enabled: true";
                 $modifiable = "";
+                $showUploadBtn = "";
             } else {
                 $toggleBtn = "enabled: false";
                 $editable = "";
@@ -462,6 +442,8 @@ if(isset($_SESSION["usersname"])){
             break;
         default:
     }
+
+
 
     function contentType($printMainContent, $projectsTrimedNames, $projects, $activeYear, $toggleBtn, $modifiable, $editable)
     {
@@ -779,5 +761,26 @@ if(isset($_SESSION["usersname"])){
     }
 }
     ?>
-    
+    <!--Supporting Docs PROMPT.modal -->
+    <div class="modal fade" id="SupDocs">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Supporting Documents</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body">
+                    <form name="user_create" method="post" <?php echo "action=\"/includes1/new_user.php\"" ?>>
+                        
+                        <div class="form-group row">
+                            <div class=" m-auto">
+                                <button id="btnAddDocs" type="button" class="btn btn-secondary" data-target="#AddDocs" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-dismiss="modal" <?php echo $showUploadBtn; ?>>Upload</button>
+                                <button id="btnViewDocs" type="button" class="btn btn-primary" data-target="#ViewDocs" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-dismiss="modal">View</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="js\filesubmit.js"></script>
