@@ -1,6 +1,5 @@
 # Priority
-View History not implemented.
-When BC hits send button, you go to the current page and see an error.
+Add shadows under table
 Add button for BC to send back to BDC.
 
 # Secondary
@@ -25,3 +24,6 @@ Include security features such as:
 On new user input, the focused input has a blue halo. Change it to the theme.
 Loading of tables, loading animation needs to change.
 Colors on password validation are not showing. (red, green, blue)
+
+# Extra
+Implement digital signature

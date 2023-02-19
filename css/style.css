@@ -214,6 +214,10 @@ body{
 	background-position: right;
 } */
 
+button{
+	border-radius: 2px !important;
+}
+
 tfoot > tr > td  {    
 	display:none !important;
   }

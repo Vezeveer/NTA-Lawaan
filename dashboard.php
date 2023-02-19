@@ -6,6 +6,7 @@ if (!isset($_SESSION['usersname']))
 }
 echo "<!-- MAIN -->
 <div class=\"col p-4 overflow-auto\" id=\"main-content\">";
+
 ?>
 
 <div class="card bg-light mb-3" style="width: 18rem;">

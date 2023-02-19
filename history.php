@@ -11,7 +11,10 @@ if ($items == '') {
     }
 
     $projects = array_values(array_unique($projects));
-    echo "<script>console.log('{$projects[0]}')</script>";
+    if(isset($projects[0])){
+        echo "<script>console.log('{$projects[0]}')</script>";
+    } 
+    
     // get trimmed project names for ID html placement
     for ($i = 0; count($projects) > $i; $i++) {
         array_push($projectsTrimedNames, str_replace(' ', '', $projects[$i]));
@@ -22,6 +25,26 @@ echo "<!-- MAIN -->
 echo "<h1 class=\"display-5\">Annual Budget Plan {$yearH}</h1>
 <div class=\"panel panel-default\">";
 
+$pNameEditDisable = "disabled";
+switch($_SESSION['status']){
+    case "bo_approved":
+        break;
+    case "pending_bo_approval":
+        break;
+    case "no_active":
+        break;
+    case "bc_finalizing":
+        $pNameEditDisable = "";
+        break;
+    case "bdc_initializing":
+        if($activeYear != $_GET['year']){
+
+        } else {
+            $pNameEditDisable = "";
+        }
+        break;
+    default:
+}
 
 for ($j = 0; count($projects) > $j; $j++) {
     if (isset($projects[$j])) {
@@ -42,14 +65,7 @@ for ($j = 0; count($projects) > $j; $j++) {
                     </div>
                     <div class=\"card-body\">";
         // Table Title Starts
-        echo "<a href=\"#\" class=\"card-title ";
-        
-        echo $_SESSION['adminAccess'] ? 
-            ($_SESSION['status'] == "bo_approved" ? "btn disabled" : 
-            ($_SESSION['status'] == "pending_bo_approval" ? "btn disabled" : 
-            ($_SESSION['status'] == 'no_active' ? "btn disabled" : ""))) : 
-            ($_SESSION['status'] == 'bc_finalizing' ? "" : "btn disabled");
-        echo "\" data-target=\"#{$projectsTrimedNames[$j]}UpdateProjectNameModal\" 
+        echo "<a href=\"#\" class=\"card-title btn {$pNameEditDisable}\" data-target=\"#{$projectsTrimedNames[$j]}UpdateProjectNameModal\" 
             data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\">
             <h5 class=\"panel-heading\">";
         echo "$projects[$j]</h5></a>";
@@ -110,6 +126,10 @@ echo "<button id=\"btnDeletePlan\" type=\"button\" class=\"btn btn-danger\"
     data-target=\"#DeletePlan\" data-toggle=\"modal\" data-backdrop=\"static\" 
     data-keyboard=\"false\" ";
 echo " >Delete Plan</button>";
+
+echo "<button id=\"btnSupDocs\" type=\"button\" class=\"btn btn-secondary\" data-target=\"#ViewDocsOld\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\" ";
+echo " >Supporting Documents</button>";
+
 echo "<br><br><br>";
 
 include 'php-components/footer.php'; ?>
@@ -119,13 +139,13 @@ include 'php-components/footer.php'; ?>
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Are you sure you want to delete this plan?</h4>
+                <h4 class="modal-title">DELETE</h4>
                 <button type="button" class="close" data-dismiss="modal">×</button>
             </div>
             <div class="modal-body">
                 <form method="post" <?php echo "action=\"/includes1/delete_plan.php?year={$_GET['year']}\"" ?>>
                     <div class="form-group">
-
+                        <p>Are you sure you want to delete this plan?</p>
                     </div>
                     <button type="submit" class="btn btn-primary">Yes</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>

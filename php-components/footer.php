@@ -97,7 +97,12 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Are you sure you want to
+                    <h4 class="modal-title">Finalize</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                    Are you sure you want to
                         <?php
                         if ($_SESSION["userType"] == "bo") {
                             echo "approve this plan as the Annual Budget Plan?";
@@ -106,10 +111,8 @@
                         } else if ($_SESSION["userType"] == "bc") {
                             echo "send this plan to the Budget Office for approval?";
                         }
-                        ?></h4>
-                    <button type="button" class="close" data-dismiss="modal">×</button>
-                </div>
-                <div class="modal-body">
+                        ?>
+                    </p>
                     <form method="post" <?php echo "action=\"/includes1/finalize.php?year={$activeYear}&userType={$_SESSION['userType']}\"" ?>>
                         <div class="form-group">
                         </div>
@@ -199,6 +202,174 @@
             </div>
         </div>
     </div>
+
+    <!--Supporting Docs PROMPT.modal -->
+    <div class="modal fade" id="SupDocs">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Supporting Documents</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body">
+                    <form name="user_create" method="post" <?php echo "action=\"/includes1/new_user.php\"" ?>>
+                        
+                        <div class="form-group row">
+                            <div class=" m-auto">
+                                <button id="btnAddDocs" type="button" class="btn btn-secondary" data-target="#AddDocs" data-toggle="modal" data-backdrop="static" data-keyboard="false">Upload</button>
+                                <button id="btnViewDocs" type="button" class="btn btn-primary" data-target="#ViewDocs" data-toggle="modal" data-backdrop="static" data-keyboard="false">View</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Add Docs PROMPT.modal -->
+    <div class="modal fade" id="AddDocs">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Documents</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body">
+                    <form name="user_create" enctype="multipart/form-data" method="post" <?php echo "action=\"/includes1/upload.php?year={$activeYear}\"" ?>>
+                        <div class="form-group">
+                            <input id="file-input" class="form-control-file" type="file" name="file" accept=".png,.gif,.jpg" required />
+                        </div>
+                        <fieldset class="form-group">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">Type</label>
+                                </div>
+                                <select name="docType" class="custom-select" id="inputGroupSelect01" required>
+                                    <option selected value="tl" selected>Transmittal Letter</option>
+                                    <option value="robdp">Resolution of Barangay Development Plan</option>
+                                    <option value="rataip">Resolution Approving the Annual Investment Plan</option>
+                                </select>
+                            </div>
+                        </fieldset>
+                        <div class="form-group row">
+                            <div class="m-auto">
+                                <button id="file-submit" type="submit" value="Upload" class="btn btn-secondary">Submit</button>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div id="file-result" class="m-auto">
+                                
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--View Docs PROMPT.modal -->
+    <div class="modal fade" id="ViewDocs">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">View Documents</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body">
+                    <form name="user_create" method="post" <?php echo "action=\"../docs.php?year={$activeYear}\"" ?>>
+                        
+                        <div class="form-group row">
+                            <select name="imgType" class="custom-select" id="inputGroupSelect01" required>
+                                <option selected value="tl" selected>Transmittal Letter</option>
+                                <option value="robdp">Resolution of Barangay Development Plan</option>
+                                <option value="rataip">Resolution Approving the Annual Investment Plan</option>
+                            </select>
+                            <div class="m-auto">
+                                <button type="submit" class="btn btn-primary">View</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+<!--Supporting Docs PROMPT OLD.modal -->
+<!-- <div class="modal fade" id="SupDocsOld">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Supporting Documents</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body">
+                    <form name="docs_pr" method="post">
+                        
+                        <div class="form-group row">
+                            <div class=" m-auto">
+                                <button id="btnViewDocs" type="button" class="btn btn-primary" data-target="#ViewDocsOld" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-dismiss="modal">View</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+
+    <!--View Docs PROMPT OLD.modal -->
+    <div class="modal fade" id="ViewDocsOld">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">View Documents</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body">
+                    <form name="user_create" method="post" <?php echo "action=\"../docs.php?year={$_GET['year']}\"" ?>>
+                        
+                        <div class="form-group">
+                            <select name="imgType" class="custom-select" id="inputGroupSelect01" required>
+                                <option selected value="tl" selected>Transmittal Letter</option>
+                                <option value="robdp">Resolution of Barangay Development Plan</option>
+                                <option value="rataip">Resolution Approving the Annual Investment Plan</option>
+                            </select>
+                        </div>
+                        <div class="form-group m-auto">
+                                <button type="submit" class="btn btn-primary">View</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- DELETE DOCUMENT PROMPT OLD.modal -->
+<div class="modal fade" id="DeleteDocOld">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">DELETE</h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body">
+                <form method="post" <?php echo "action=\"/includes1/delete_doc.php?year={$_GET['year']}&docType={$docType}\"" ?>>
+                    <div class="form-group">
+                        <p>Are you sure you want to delete this document?</p>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Yes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </form>
+            </div>
+            <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="newProject()">Add</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button> 
+            </div> -->
+        </div>
+    </div>
+</div>
+
     </div><!-- Main Col END -->
     </div><!-- body-row END -->
 
@@ -551,11 +722,11 @@ if(isset($_SESSION["usersname"])){
                                 <span class=\"input-group-text\">.00</span>
                             </div>
                         </div>
-                    <button type=\"submit\" class=\"btn btn-primary\">Submit</button>
+                    <div class=\"modal-footer\">
+                        <button type=\"submit\" class=\"btn btn-primary\">Submit</button>
+                        <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>
+                    </div>
                 </form>
-            </div>
-            <div class=\"modal-footer\">
-                <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>
             </div>
         </div>
     </div>
@@ -609,3 +780,4 @@ if(isset($_SESSION["usersname"])){
 }
     ?>
     
+    <script src="js\filesubmit.js"></script>

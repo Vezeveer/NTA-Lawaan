@@ -100,6 +100,8 @@ if ($_SESSION['enableContent'] or $_SESSION['userType'] == 'bdc') {
     }
     echo "<hr>";
     if ($_SESSION['userType'] == 'bo') {
+        echo "<button id=\"btnSupDocs\" type=\"button\" class=\"btn btn-secondary\" data-target=\"#SupDocs\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\" ";
+        echo " >Supporting Documents</button>";
     } else {
         echo "<button id=\"btnAddProject\" type=\"button\" class=\"btn btn-primary\" data-target=\"#AddNewProject\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\" ";
         echo $EnableAddProj ? "" : "disabled";
@@ -115,11 +117,17 @@ if ($_SESSION['enableContent'] or $_SESSION['userType'] == 'bdc') {
         echo $_SESSION['status'] == 'bo_approved' ? "" : "disabled";
         echo " >Archive</button>";
 
+        echo "<button id=\"btnSupDocs\" type=\"button\" class=\"btn btn-secondary\" data-target=\"#SupDocs\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\" ";
+        echo " >Supporting Documents</button>";
+
         echo "<button id=\"btnDeletePlan\" type=\"button\" class=\"btn btn-danger\" 
             data-target=\"#DeletePlan\" data-toggle=\"modal\" data-backdrop=\"static\" 
             data-keyboard=\"false\" ";
         echo $_SESSION['status'] == 'bc_finalizing' ? "disabled" : ($_SESSION['status'] == 'pending_bo_approval' ? "disabled" : ($_SESSION['status'] == 'bo_approved' ? "disabled" : ""));
         echo " >Delete Plan</button>";
+    } else if($_SESSION['userType'] == 'bc'){
+        echo "<button id=\"btnSupDocs\" type=\"button\" class=\"btn btn-secondary\" data-target=\"#SupDocs\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\" ";
+        echo " >Supporting Documents</button>";
     }
 
     echo "
@@ -136,13 +144,13 @@ if ($_SESSION['enableContent'] or $_SESSION['userType'] == 'bdc') {
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Are you sure you want to delete this plan?</h4>
+                <h4 class="modal-title">DELETE</h4>
                 <button type="button" class="close" data-dismiss="modal">×</button>
             </div>
             <div class="modal-body">
                 <form method="post" <?php echo "action=\"/includes1/delete_plan.php?year={$_SESSION['activeYear']}&lastpage=current\"" ?>>
                     <div class="form-group">
-
+                        <p>Are you sure you want to delete this plan?</p>
                     </div>
                     <button type="submit" class="btn btn-primary">Yes</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
