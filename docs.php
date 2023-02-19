@@ -141,8 +141,26 @@ $sql = "SELECT * FROM docs WHERE img_year={$_GET['year']} AND img_type='{$imgTyp
         echo "<p>There are no documents to show.</p>";
      } else { 
         while ($row = mysqli_fetch_assoc($result)) {
+            echo '<script type="text/javascript">
+            onload = function()
+            {
+              // Create an image object. This serves as a pre-loader
+              var newImg = new Image();
+        
+              // When the image is given a new source, apply it to a DOM image
+              // after it has loaded
+              newImg.onload = function()
+              {
+                document.getElementById(\'imgDoc\').src = newImg.src; 
+              }
+        
+              // Set the source to a really big image
+              newImg.src = "data:image/png;base64,'.base64_encode($row['img_data']).'";       
+            }
+          </script>';
+
             echo "<div class=\"card\" >";
-            echo '<img class="card-img-top" src="data:image/png;base64,'.base64_encode($row['img_data']).'"/>';
+            echo '<img id="imgDoc" class="card-img-top" src="img/loading.gif"/>';
             echo "<div class=\"card-body\">";
             echo "<button id=\"btnDeleteDoc\" type=\"button\" class=\"btn btn-danger\" 
             data-target=\"#DeleteDoc\" data-toggle=\"modal\" data-backdrop=\"static\" 
