@@ -218,6 +218,10 @@ button{
 	border-radius: 2px !important;
 }
 
+.loading {
+	background: transparent url('../img/loading.gif') center no-repeat;
+  }
+
 tfoot > tr > td  {    
 	display:none !important;
   }

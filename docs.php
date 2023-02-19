@@ -133,6 +133,7 @@ switch($_SESSION['status']){
 </form>
 
 <?php
+$disablePrint = "disabled";
 $sql = "SELECT * FROM docs WHERE img_year={$_GET['year']} AND img_type='{$imgType}'";
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) == 0) { 
@@ -140,35 +141,28 @@ $sql = "SELECT * FROM docs WHERE img_year={$_GET['year']} AND img_type='{$imgTyp
         echo "<hr>";
         echo "<p>There are no documents to show.</p>";
      } else { 
+        $count = 0;
         while ($row = mysqli_fetch_assoc($result)) {
-            echo '<script type="text/javascript">
-            onload = function()
-            {
-              // Create an image object. This serves as a pre-loader
-              var newImg = new Image();
-        
-              // When the image is given a new source, apply it to a DOM image
-              // after it has loaded
-              newImg.onload = function()
-              {
-                document.getElementById(\'imgDoc\').src = newImg.src; 
-              }
-        
-              // Set the source to a really big image
-              newImg.src = "data:image/png;base64,'.base64_encode($row['img_data']).'";       
-            }
-          </script>';
+            $count++;
+            $img_ext = substr($row['img_name'], -3);
+            
 
             echo "<div class=\"card\" >";
-            echo '<img id="imgDoc" class="card-img-top" src="img/loading.gif"/>';
+            if($img_ext == "jpg" || $img_ext == "png" || $img_ext == "gif"){
+                $disablePrint = "";
+                echo '<img id="imgDoc'.$count.'" class="loading card-img-top" src="data:image/png;base64,'.base64_encode($row['img_data']).'"/>';
+            } else {
+                echo '<i style="width:100%;padding:5px;" class="fas fa-file-alt fa-10x"></i>';
+            }
             echo "<div class=\"card-body\">";
+            echo '<p class="card-text">File Name: '.$row['img_name'].'</p>';
             echo "<button id=\"btnDeleteDoc\" type=\"button\" class=\"btn btn-danger\" 
             data-target=\"#DeleteDoc\" data-toggle=\"modal\" data-backdrop=\"static\" 
             data-keyboard=\"false\" ";
             echo $_SESSION['status'] == 'bc_finalizing' ? "" : ($_SESSION['status'] == 'pending_bo_approval' ? "disabled" : ($_SESSION['status'] == 'bo_approved' ? "disabled" : ""));
             echo " ".$enableDeleteBtn.">Delete Doc</button>";
             echo '<button class="btn btn-secondary dl-btn" ><a style="text-decoration: none !important; color: white !important;" href="data:image/png;base64,'.base64_encode($row['img_data']).'" download="'.$row['img_name'].'">Download</a></button>';
-            echo "<button class=\"btn btn-primary\" onclick=\"printImg('data:image/png;base64,"; echo base64_encode($row['img_data']); echo "')\">Print</button>";
+            echo "<button class=\"btn btn-primary\" onclick=\"printImg('data:image/png;base64,"; echo base64_encode($row['img_data']); echo "')\" $disablePrint>Print</button>";
             echo "</div>
           </div>";
             // echo '<img src="data:image/png;base64,'.base64_encode($row['img_data']).'"/>';

@@ -9,9 +9,9 @@ if ($_FILES['file']['error'] == UPLOAD_ERR_OK) {
   //move_uploaded_file($_FILES['file']['tmp_name'], '../uploads/' . $filename);
 
   // Insert file information into database
-  $sql = "INSERT INTO docs (img_name, img_data, img_year, img_type) VALUES (?, ?, ?, ?)";
+  $sql = "INSERT INTO docs (img_name, img_data, img_year, img_type, img_ext) VALUES (?, ?, ?, ?, ?)";
   $stmt = mysqli_prepare($conn, $sql);
-  mysqli_stmt_bind_param($stmt, "ssss", $filename, file_get_contents($_FILES['file']['tmp_name']), $_GET['year'], $_POST['docType']);
+  mysqli_stmt_bind_param($stmt, "sssss", $filename, file_get_contents($_FILES['file']['tmp_name']), $_GET['year'], $_POST['docType'], $_FILES['file']['type']);
   mysqli_stmt_execute($stmt);
   mysqli_stmt_close($stmt);
 
