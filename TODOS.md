@@ -1,6 +1,7 @@
 # Priority
-Add shadows under table
-Add button for BC to send back to BDC.
+-Deleting any transmittal letter will delete all letters.
+-Add shadows under table
+-Add button for BC to send back to BDC.
 
 # Secondary
 Prevent anyone not signed in from visiting php pages
